@@ -9,14 +9,14 @@ const InifinteScroll = (pageNumber) => {
 
     useEffect(() => {
         setLoading(true)
-        axios.get(`https://dummyapi.io/data/v1/post?page=${pageNumber}&limit=10`,{
+        axios.get(`https://dummyapi.io/data/v1/post?page=${pageNumber}&limit=20`,{
           headers:{
             "app-id":"65d08a4661de33117cf6503f"
           }
         })
         .then(response => {
             setData(prevData=>{
-                return[...prevData, ...response.data.data]
+                return [...new Set([...prevData, ...response.data.data])]
             })
             setHasMore(response.data.data.length > 0)
             setLoading(false)
