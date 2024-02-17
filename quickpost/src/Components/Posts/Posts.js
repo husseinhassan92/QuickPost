@@ -30,7 +30,11 @@ const Posts = () => {
             return <div key={post.id}>{post.text}</div>
           }
         })}
-        <div>{loading && 'Loading...'}</div>
+        {loading && <div className="d-flex justify-content-center">
+          <div className="spinner-grow text-secondary text-center" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>}
       </div>
     </>
   )
