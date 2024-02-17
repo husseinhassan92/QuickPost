@@ -1,9 +1,10 @@
 import './App.css';
-import ListPosts from './Components/ListPosts/ListPosts';
+import Post from './Components/Post/Post';
 
 function App() {
   return (
-    <ListPosts/>
+    <Post/>
+    
   );
 }
 
