@@ -24,8 +24,7 @@ const InifinteScroll = (pageNumber) => {
         })
         .catch(err => console.log('Error:', err))
       },[pageNumber])
-  
-    return { loading,data, hasMore }
+    return { loading, data, hasMore }
   
 }
 
