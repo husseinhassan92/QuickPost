@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from 'react'
 import InifinteScroll from './InifinteScroll'
 import Leftbar from '../LeftSide/LeftSide'
 import Rightbar from "../RightSide/RightSide"
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 const Posts = () => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -44,7 +45,9 @@ const Posts = () => {
                                 <div className='ms-auto text-light '>{new Date(post.publishDate).toLocaleString()}</div>
                               </div>
                               <div>
-                                <img src={post.image} alt="Post" className='img-fluid rounded mb-3 ps-1 w-100' />
+                                <Link to={`/post/${post.id}`}>
+                                <img src={post.image} alt="Post" className='img-fluid rounded mb-3 ps-1 w-100'/>
+                                </Link>
                                 <h5 className='card-title text-light mt-3'>{post.title}</h5>
                                 <p className='card-text text-light'>{post.text}</p>
                               </div>
@@ -72,7 +75,9 @@ const Posts = () => {
                                 <div className='ms-auto text-light '>{new Date(post.publishDate).toLocaleString()}</div>
                               </div>
                               <div>
-                                <img src={post.image} alt="Post" className='img-fluid rounded mb-3 ps-1 w-' />
+                              <Link to={`/post/${post.id}`}>
+                                <img src={post.image} alt="Post" className='img-fluid rounded mb-3 ps-1 w-100'/>
+                                </Link>
                                 <h5 className='card-title text-light mt-3'>{post.title}</h5>
                                 <p className='card-text text-light'>{post.text}</p>
                               </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar.js';
 import Posts from './Components/Posts/Posts';
+import Post from './Components/Post/Post';
 import SearchPage from './Pages/SearchPage/SearchPage';
 import Messages from './Messages';
 import { Provider } from "react-redux";
@@ -27,6 +28,7 @@ const App = () => {
           <Route path='/Sginup' component={Sginup} />
           <Route path="/Posts" component={Posts} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
+          <Route path="/post/:id" component={Post} />
           <Route path="/Messages" component={Messages} />
         </Switch>
       </Router>
