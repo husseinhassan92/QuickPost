@@ -16,7 +16,7 @@ const Welcom = () => {
 
         <div className=" col-lg-6 col-md-12 col-sm-12  mt-5 pt-5 ps-5 text-lg-start text-md-center  ">
           <h1 className="col-md-12 col-sm-12 ">HELLO, FRIENDS.</h1>
-          <h5 className=" col-lg-5 col-md-12 w-md-50 w-sm-100 mb-4 mt-2 ">We are happy to have you with us and wish you happy times in our Smart System.</h5>
+          <h5 className=" col-lg-5 col-md-12 w-md-50 w-sm-100 mb-4 mt-2 ">We are happy to have you with us and wish you happy time in Quick Post.</h5>
           <h6>Don't have an account ?</h6>
 
           <Link to="/Sginup"> 
