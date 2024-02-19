@@ -41,7 +41,7 @@ const Navbar = () => { // Remove 'history' from props
               <BootstrapNavbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-5">
                   <Link to="/" className="nav-link"><i className="fas fa-home"></i> Home</Link>
-                  <Link to="/Post" className="nav-link"><i className="fas fa-user"></i>Post</Link>
+                  <Link to="/Posts" className="nav-link"><i className="fas fa-user"></i>Posts</Link>
                   <Link to="/messages" className="nav-link"><i className="fas fa-comments"></i> Messages</Link>
                   {/* Add more links as needed */}
                 </Nav>
@@ -66,7 +66,7 @@ const Navbar = () => { // Remove 'history' from props
                       <Dropdown.Menu className='mt-2 txt-center'>
                         <Link to="/action-1" className="dropdown-item ">Action</Link>
                         <Link to="/action-2" className="dropdown-item">Another action</Link>
-                        <Link to="/logout" className="dropdown-item">Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
+                        <Link to="/" className="dropdown-item">Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
                       </Dropdown.Menu>
                     </Dropdown>
                   )}
