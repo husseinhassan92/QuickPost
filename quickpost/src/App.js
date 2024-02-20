@@ -21,7 +21,11 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Navbar />
+      <Route
+            render={({ location }) => {
+              if (location.pathname !== "/" && location.pathname !== "/Sginup" && location.pathname !== "/Login") return <Navbar />;
+            }}
+          />
         <Switch>
           <Route exact path='/' component={Welcom} />
           <Route path='/Login' component={Login} />
