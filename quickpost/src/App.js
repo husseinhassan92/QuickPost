@@ -15,6 +15,7 @@ import Login from './Pages/Login/Login';
 import Sginup from './Pages/SginUp/SginUp';
 import Welcom from './Pages/WelcomePage/Welcom';
 //import HomePage from './Pages/HomePage/HomePage.js';
+import Friends from './Pages/FriendsPage/Friends';
 
 
 const App = () => {
@@ -30,6 +31,9 @@ const App = () => {
           <Route exact path='/' component={Welcom} />
           <Route path='/Login' component={Login} />
           <Route path='/Sginup' component={Sginup} />
+          <Route path='/Sginup' component={Sginup} />
+          <Route path='/Friends' component={Friends} />
+
           <Route path="/Posts" component={Posts} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
           <Route path="/post/:id" component={Post} />
