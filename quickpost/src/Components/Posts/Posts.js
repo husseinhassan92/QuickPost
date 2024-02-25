@@ -3,6 +3,7 @@ import InifinteScroll from './InifinteScroll'
 import Leftbar from '../LeftSide/LeftSide'
 import Rightbar from "../RightSide/RightSide"
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import CreatePost from '../CreatePost/CreatePost'
 
 const Posts = () => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -31,6 +32,9 @@ const Posts = () => {
           </div>
           <div className="col-6 ">
             <div>
+              <div >
+                <CreatePost />
+              </div>
               {data.map((post, index) => {
                 if (data.length === index + 1) {
                   return (
