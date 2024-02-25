@@ -1,22 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from 'axios';
 
 const initialState = {
     searchResults: [],
     searchStatus: 'idle'
 }
 
-export const fetchAsyncSearch = createAsyncThunk('search/fetch', async ({ query, pageNumber}) => {
+// Update the fetchAsyncSearch action creator to use the new API endpoint
+export const fetchAsyncSearch = createAsyncThunk('search/fetch', async ({ keyword }) => {
     try {
-        const response = await fetch(`https://dummyapi.io/data/v1/search?query=${query}&page=${pageNumber}&limit=20`, {
-            headers: {
-                'app-id': '65d08a4661de33117cf6503f'
+        const response = await axios.get('https://retoolapi.dev/p2SxxC/data', {
+            params: {
+                searchTerm: keyword
             }
         });
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data.data;
+        return response.data;
     } catch (error) {
         throw error;
     }
@@ -43,7 +41,7 @@ const searchSlice = createSlice({
                 state.searchStatus = 'failed';
             })
     }
-})
+});
 
 export const { clearSearch } = searchSlice.actions;
 export const getSearchResults = (state) => state.search.searchResults;

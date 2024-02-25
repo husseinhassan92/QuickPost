@@ -6,14 +6,15 @@ import Posts from '../../Components/Posts/Posts'; // Import the Posts component
 
 const SearchPage = () => {
   const dispatch = useDispatch();
-  const { searchTerm } = useParams();
-  const searchResults = useSelector(getSearchResults); // Changed from getSearchProducts
-  const searchStatus = useSelector(getSearchStatus); // Changed from getSearchProductsStatus
+  const { term: searchTerm } = useParams(); // Make sure to use the correct parameter name from the route
+  const searchResults = useSelector(getSearchResults);
+  const searchStatus = useSelector(getSearchStatus);
 
   useEffect(() => {
     dispatch(clearSearch());
     if (searchTerm) {
-      dispatch(fetchAsyncSearch(searchTerm)); // Changed from fetchAsyncSearchProduct
+      // Update the fetchAsyncSearch action to use the new API endpoint and parameters
+      dispatch(fetchAsyncSearch({ keyword: searchTerm }));
     }
   }, [searchTerm, dispatch]);
 
@@ -35,7 +36,19 @@ const SearchPage = () => {
                 </div>
               </div>
             ) : (
-              <Posts posts={searchResults} isLoading={searchStatus === 'loading'} />
+              <div>
+                {/* Render search elements based on searchResults */}
+                {searchResults.map((result, index) => (
+                  <div key={index}>
+                    {/* Render each search element */}
+                    <p>{result.Column1}</p>
+                    <p>{result.Column2}</p>
+                    <p>{result.Column3}</p>
+
+                    {/* Add more elements as needed */}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         </div>

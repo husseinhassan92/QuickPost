@@ -1,0 +1,27 @@
+.friend-card {
+    margin-bottom: 20px;
+  }
+  
+  .friend-card img {
+    height: 200px; /* Adjust the height of the image */
+    object-fit: cover;
+  }
+  
+  .friend-card .card-body {
+    text-align: center;
+  }
+  
+  .friend-card .card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .friend-card .card-text {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  
+  .friend-card .btn {
+    margin-top: 10px;
+  }
+  
