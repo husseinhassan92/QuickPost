@@ -32,9 +32,7 @@ const Posts = () => {
           </div>
           <div className="col-6 ">
             <div>
-              <div >
                 <CreatePost />
-              </div>
               {data.map((post, index) => {
                 if (data.length === index + 1) {
                   return (
