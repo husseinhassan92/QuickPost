@@ -64,7 +64,7 @@ const Posts = () => {
                   )
                 } else {
                   return (
-                    <div className='container pt-4 ' key={post.id}  >
+                    <div className='container-fluid pt-4 ' key={post.id}  >
                       <div className='row '>
                         <div className='col'>
                           <div className='card text-light bg-dark'>

@@ -4,6 +4,8 @@ import "./RightSide.css";
 const Rightbar = () => {
   const HomeRightbar = () => {
     return (
+      <div className='container-fluid '> 
+      <div className='row'>
         <div className="bg-light border-right" id="left-panel">
         <div className="list-group list-group-flush">
           <a href="#" className="list-group-item list-group-item-action bg-light">
@@ -70,6 +72,8 @@ const Rightbar = () => {
             <i className="fas fa-comment"></i> Messages
           </a>
         </div>
+      </div>
+      </div>
       </div>
     );
   };
