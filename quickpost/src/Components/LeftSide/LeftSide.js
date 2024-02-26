@@ -43,5 +43,3 @@ const Leftbar = ({ isHomePage }) => {
     </div>
   );
 };
-
-export default Leftbar;
