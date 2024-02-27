@@ -72,7 +72,7 @@ const Navbar = () => {
                   {showDropdown && (
                     <Dropdown align="end" className="mt-0 ms-2" show={showDropdown} onClose={() => setShowDropdown(false)}>
                       <Dropdown.Menu className='mt-2 txt-center'>
-                        <Link to="/action-1" className="dropdown-item ">Action</Link>
+                        <Link to="/profile" className="dropdown-item ">Profile</Link>
                         <Link to="/friends" className="dropdown-item">Friends</Link>
                         <Link to="/" className="dropdown-item">Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
                       </Dropdown.Menu>
