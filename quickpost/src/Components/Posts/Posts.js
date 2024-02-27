@@ -3,6 +3,7 @@ import InifinteScroll from './InifinteScroll'
 import Leftbar from '../LeftSide/LeftSide'
 import Rightbar from "../RightSide/RightSide"
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import CreatePost from '../CreatePost/CreatePost'
 
 const Posts = () => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -27,10 +28,11 @@ const Posts = () => {
       < div className="container-fluid" >
         <div className="row p-0">
           <div className="col-3 p-0 ">
-          <Leftbar isHomePage={true} />
+            <Leftbar isHomePage={true}/>
           </div>
           <div className="col-6 ">
             <div>
+                <CreatePost />
               {data.map((post, index) => {
                 if (data.length === index + 1) {
                   return (
@@ -64,7 +66,7 @@ const Posts = () => {
                   )
                 } else {
                   return (
-                    <div className='container-fluid pt-4 ' key={post.id}  >
+                    <div className='container pt-4 ' key={post.id}  >
                       <div className='row '>
                         <div className='col'>
                           <div className='card text-light bg-dark'>
