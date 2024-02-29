@@ -6,13 +6,13 @@ import "./Friends.css";
 import Leftbar from '../../Components/LeftSide/LeftSide';
 
 const Friend = ({ friend }) => {
+  
   return (
     <Col xs={12} sm={6} md={3} className='mb-5'>
       <Card className="friend-card h-100 " >
-        <Card.Img variant="top" src={friend.Images} alt={friend.Name} />
+        <Card.Img variant="top" src={friend.picture} alt={friend.Name} />
         <Card.Body>
-          <Card.Title>{friend.Name}</Card.Title>
-          <Card.Text>{friend.email}</Card.Text>
+          <Card.Title>{friend.firstName}</Card.Title>
           <Button  variant="danger">
           <i className="fa-solid fa-heart-broken"></i> unfriend
           </Button>        </Card.Body>
@@ -33,9 +33,9 @@ const FriendListPage = () => {
   return (
     <Container fluid>
       <Row>
-        <Col sm={3} className="px-0">
-          <Leftbar />
-        </Col>
+      <Col sm={3} className="px-0 bg-light" style={{ height: "100rem" }}>
+        <Leftbar isHomePage={false} />
+                </Col>
         <Col sm={9}>
         <h1 className="text-center my-4">Friends List</h1>
 
