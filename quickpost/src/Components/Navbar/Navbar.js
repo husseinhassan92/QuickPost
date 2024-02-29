@@ -1,20 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Navbar as BootstrapNavbar, Nav, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { fetchAsyncSearch } from '../../Store/searchSlice';
-import './Navbar.css';
-import image from "../../images/image1.jpg";
 import axios from 'axios';
 
 const Navbar = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
+  };
+
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get('https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109f4', {
+        headers: {
+          'app-id': "65dc82396559d35e36b90287",
+          'Content-Type': 'application/json'
+        }
+      });
+      setProfileImage(response.data.picture);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   };
 
   const handleSearch = async () => {
@@ -26,8 +40,6 @@ const Navbar = () => {
       });
 
       console.log(response.data); // Log entire response
-
-      await dispatch(fetchAsyncSearch({ keyword: searchTerm }));
 
       // Correct the redirect URL
       history.push(`/Search?term=${encodeURIComponent(searchTerm)}`);
@@ -68,7 +80,7 @@ const Navbar = () => {
                 </Form>
                 
                 <div className="ml-3 ms-4">
-                  <img src={image} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
+                  <img src={profileImage} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
                   {showDropdown && (
                     <Dropdown align="end" className="mt-0 ms-2" show={showDropdown} onClose={() => setShowDropdown(false)}>
                       <Dropdown.Menu className='mt-2 txt-center'>
