@@ -11,7 +11,7 @@ const InifinteScroll = (pageNumber) => {
     setLoading(true)
     axios.get(`https://dummyapi.io/data/v1/post?page=${pageNumber}&limit=20`, {
       headers: {
-        "app-id": "65d08a4661de33117cf6503f"
+        "app-id": "65d08f07b536e68ad8626e8c"
       }
     })
       .then(response => {

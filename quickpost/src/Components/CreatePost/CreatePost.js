@@ -12,14 +12,18 @@ const CreatePost = () => {
   const [deleteShow, setdeleteShow] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [editShow, seteditShow] = useState(false);
+  const [editPostText, setEditPostText] = useState("")
 
-  const edithandleClose = () => seteditShow(false);
+  const edithandleClose = () => {
+    seteditShow(false)
+    setShowDropdown(false);
+  };
   const edithandleShow = () => seteditShow(true);
 
-
-  const deletehandleClose = () => {setdeleteShow(false)
-    setShowDropdown(false)};
-
+  const deletehandleClose = () => {
+    setdeleteShow(false);
+    setShowDropdown(false);
+  };
 
   const deletehandleShow = () => setdeleteShow(true);
 
@@ -42,6 +46,7 @@ const CreatePost = () => {
 
   const handleContentChange = (e) => {
     setPostText(e.target.value);
+    setEditPostText(e.target.value)
     setPostCount(e.target.value.length);
     if (postCount === 0 || postCount > 300) {
       setDisablePostButton(true);
@@ -61,7 +66,7 @@ const CreatePost = () => {
     axios
       .post("https://dummyapi.io/data/v1/post/create", Body, {
         headers: {
-          "app-id": "65d08a4661de33117cf6503f",
+          "app-id": "65d08f07b536e68ad8626e8c",
         },
       })
       .then((response) => {
@@ -76,24 +81,46 @@ const CreatePost = () => {
   const deletePost = (e, id) => {
     e.stopPropagation();
     setdeleteShow(false);
-    setShowDropdown(!showDropdown)
+    setShowDropdown(!showDropdown);
     axios
       .delete(`https://dummyapi.io/data/v1/post/${id}`, {
         headers: {
-          "app-id": "65d08a4661de33117cf6503f",
+          "app-id": "65d08f07b536e68ad8626e8c",
         },
       })
       .then((response) => {
         console.log(response);
         setPost(null);
-        //alert(response.status + ": Post Deleted")
-        //window.location.reload()
       })
       .catch((err) => console.log(err));
   };
+
+  const onChangeHandler = (e) =>{
+    setEditPostText(e.target.value)
+  }
   const editPost = (e, id) => {
     e.stopPropagation();
     console.log(id);
+    console.log(editPostText)
+    seteditShow(false);
+    setShowDropdown(!showDropdown);
+    const Body = {
+      text: editPostText,
+      image: "https://img.dummyapi.io/photo-1546975554-31053113e977.jpg",
+      likes: 0,
+      tags: [],
+    };
+    axios
+      .put(`https://dummyapi.io/data/v1/post/${id}`,Body, {
+        headers: {
+          "app-id": "65d08f07b536e68ad8626e8c",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setPost(response.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -177,7 +204,7 @@ const CreatePost = () => {
                             show={showDropdown}
                             onClose={() => setShowDropdown(false)}
                           >
-                            <Dropdown.Menu className="mt-2 txt-center"> 
+                            <Dropdown.Menu className="mt-2 txt-center">
                               <Button
                                 onClick={edithandleShow}
                                 className="dropdown-item"
@@ -229,7 +256,7 @@ const CreatePost = () => {
         </div>
       )}
       <Modal show={deleteShow} onHide={deletehandleClose}>
-        <Modal.Body>Are You Want to Delete  this Post?</Modal.Body>
+        <Modal.Body>Are You Want to Delete this Post?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={deletehandleClose}>
             Close
@@ -246,7 +273,7 @@ const CreatePost = () => {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control as="textarea" rows={3} style={{ resize: "none", height: "7rem" }} value={editPostText} onChange={onChangeHandler} />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -254,7 +281,7 @@ const CreatePost = () => {
           <Button variant="secondary" onClick={edithandleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={edithandleClose}>
+          <Button variant="primary" onClick={(e) => editPost(e, post.id)}>
             Save Changes
           </Button>
         </Modal.Footer>
@@ -264,6 +291,5 @@ const CreatePost = () => {
 };
 
 export default CreatePost;
-
 
 // (e) => editPost(e, post.id)
