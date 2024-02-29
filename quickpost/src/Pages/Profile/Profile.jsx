@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import axios from 'axios';
 
 function Profile() {
@@ -7,13 +8,104 @@ function Profile() {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [phone, setPhone] = useState('')
+    const [post, setPost] = useState();
+
+    const [deleteShow, setdeleteShow] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [editShow, seteditShow] = useState(false);
+    const [editPostText, setEditPostText] = useState("")
+
+    const edithandleClose = () => {
+        seteditShow(false)
+        setShowDropdown(false)
+    };
+    const edithandleShow = (id) => {
+        userPosts.map((post, index) => {
+            if (post.id === id) {
+                seteditShow(true);
+                setPost(id)
+                setEditPostText(post.text)
+            }
+        })
+    }
+
+
+    const deletehandleClose = () => {
+        setdeleteShow(false)
+        setShowDropdown(false)
+    };
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
+    const deletehandleShow = (id) => {
+        userPosts.map((post, index) => {
+            if (post.id === id) {
+                setdeleteShow(true)
+                setPost(id)
+            }
+        })
+    };
+
+    const deletePost = (e, id) => {
+        console.log(id)
+        e.stopPropagation();
+        setdeleteShow(false);
+        setShowDropdown(!showDropdown)
+        axios
+            .delete(`https://dummyapi.io/data/v1/post/${id}`, {
+                headers: {
+                    "app-id": "65d08f07b536e68ad8626e8c",
+                },
+            })
+            .then((response) => {
+                console.log(response);
+                setPost(null);
+                //alert(response.status + ": Post Deleted")
+                //window.location.reload()
+            })
+            .catch((err) => console.log(err));
+    };
+    // const editPost = (e, id) => {
+    //   e.stopPropagation();
+    //   console.log(id);
+    // };
+
+    const onChangeHandler = (e) => {
+        setEditPostText(e.target.value)
+    }
+    const editPost = (e, id) => {
+        e.stopPropagation();
+        console.log(id);
+        console.log(editPostText)
+        seteditShow(false);
+        setShowDropdown(!showDropdown);
+        const Body = {
+            text: editPostText,
+            image: "https://img.dummyapi.io/photo-1546975554-31053113e977.jpg",
+            likes: 0,
+            tags: [],
+        };
+        axios
+            .put(`https://dummyapi.io/data/v1/post/${id}`, Body, {
+                headers: {
+                    "app-id": "65d08f07b536e68ad8626e8c",
+                },
+            })
+            .then((response) => {
+                console.log(response);
+                setPost(response.data);
+            })
+            .catch((err) => console.log(err));
+    };
 
     const GetData = async () => {
-        const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109f4`, {
+        const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19`, {
             method: "Get",
             headers: {
                 'Content-Type': 'application/json',
-                'app-id': "65dc82396559d35e36b90287"
+                'app-id': "65d08f07b536e68ad8626e8c"
             },
         });
         const data = await response.json()
@@ -23,11 +115,11 @@ function Profile() {
 
 
     const getUserPosts = async () => {
-        const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109f4/post`, {
+        const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19/post`, {
             method: "Get",
             headers: {
                 'Content-Type': 'application/json',
-                'app-id': "65dc82396559d35e36b90287"
+                'app-id': "65d08f07b536e68ad8626e8c"
             },
         })
         const data = await response.json()
@@ -44,7 +136,7 @@ function Profile() {
                 phone: phone,
             }, {
             headers: {
-                'app-id': "65dc82396559d35e36b90287",
+                'app-id': "65d08f07b536e68ad8626e8c",
                 'Content-Type': 'application/json'
             }
         })
@@ -62,7 +154,10 @@ function Profile() {
     useEffect(() => {
         GetData();
         getUserPosts()
-    }, [])
+    }, [userPosts])
+
+
+
     return (
         <section className="h-100 gradient-custom-2">
             <div className="container py-5 h-100">
@@ -116,12 +211,40 @@ function Profile() {
                                             return (
                                                 <div className="col-12 mb-2" key={post.id}>
                                                     <div className="card">
-                                                        <img src={post.image} className="card-img-top h-50" alt="Fissure in Sandstone" style={{maxHeigh:'200px',objectFit:'cover'}} />
+                                                        <img src={post.image} className="card-img-top h-50" alt="Fissure in Sandstone" style={{ maxHeigh: '200px', objectFit: 'cover' }} />
                                                         <div className="card-body  h-50">
                                                             <div className='d-flex align-items-center mb-3 '>
                                                                 <img src={post.owner.picture} alt="Owner" className='rounded-circle me-2 mb-2 ' style={{ width: '50px', height: '50px' }} />
                                                                 <div className='align-self-center mb-2 '>{post.owner.firstName} {post.owner.lastName}</div>
-                                                                <div className='ms-auto text-gray '>{new Date(post.publishDate).toLocaleString()}</div>
+                                                                <div className='ms-auto text-gray '>{new Date(post.publishDate).toLocaleString()}
+                                                                    <i
+                                                                        className="bi bi-three-dots-vertical"
+                                                                        onClick={toggleDropdown}
+                                                                    ></i>
+                                                                    {showDropdown && (
+                                                                        <Dropdown
+                                                                            align="center"
+                                                                            className="mt-0 ms-2"
+                                                                            show={showDropdown}
+                                                                            onClose={() => setShowDropdown(false)}
+                                                                        >
+                                                                            <Dropdown.Menu className="mt-2 txt-center">
+                                                                                <Button
+                                                                                    onClick={()=>edithandleShow(post.id)}
+                                                                                    className="dropdown-item"
+                                                                                >
+                                                                                    Edit
+                                                                                </Button>
+                                                                                <Button
+                                                                                    onClick={() => deletehandleShow(post.id)}
+                                                                                    className="dropdown-item "
+                                                                                >
+                                                                                    Delete
+                                                                                </Button>
+                                                                            </Dropdown.Menu>
+                                                                        </Dropdown>
+                                                                    )}
+                                                                </div>
                                                             </div>
                                                             <p className="card-text">{post.text}</p>
                                                             <p className="card-text"><i className='fas fa-heart'></i>{post.likes}</p>
@@ -167,6 +290,37 @@ function Profile() {
                     </div>
                 </div>
             </div>
+            <Modal show={deleteShow} onHide={deletehandleClose}>
+                <Modal.Body>Are You Want to Delete  this Post?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={deletehandleClose}>
+                        Close
+                    </Button>
+                    <Button variant="danger" onClick={(e) => deletePost(e, post)}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={editShow} onHide={edithandleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Post</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Control as="textarea" rows={3} style={{ resize: "none", height: "7rem" }} value={editPostText} onChange={onChangeHandler} />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={edithandleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={(e) => editPost(e, post)}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
         </section>
     );
