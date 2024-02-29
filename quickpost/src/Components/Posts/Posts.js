@@ -93,12 +93,11 @@ const Posts = () => {
     <div className="container-fluid">
       <div className="row p-0">
         <div className="col-3 p-0">
-          <Leftbar />
+        <Leftbar isHomePage={true}/>
         </div>
         <div className="col-6">
           <div>
             <CreatePost />
-
             {posts.map((post, index) => (
               <div
                 key={post.id}
