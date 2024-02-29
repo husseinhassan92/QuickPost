@@ -19,9 +19,9 @@ const Navbar = () => {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get('https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109f4', {
+      const response = await axios.get('https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19', {
         headers: {
-          'app-id': "65dc82396559d35e36b90287",
+          'app-id': "65d08f07b536e68ad8626e8c",
           'Content-Type': 'application/json'
         }
       });
@@ -73,7 +73,7 @@ const Navbar = () => {
 
           <div className="col p-0">
             <BootstrapNavbar bg="light" expand="lg" className="p-0">
-              <div className="navbar-search d-flex align-items-center m-0">
+              <BootstrapNavbar.Collapse>
                 <Form className="d-flex align-items-center m-0">
                   <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                   <Button variant="outline-success" className="ms-3" onClick={handleSearch}>Search</Button>
@@ -91,7 +91,7 @@ const Navbar = () => {
                     </Dropdown>
                   )}
                 </div>
-              </div>
+              </BootstrapNavbar.Collapse>
             </BootstrapNavbar>
           </div>
         </div>
