@@ -12,7 +12,19 @@ const CreatePost = () => {
   const [deleteShow, setdeleteShow] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [editShow, seteditShow] = useState(false);
+  const [uploadShow, setUploadShow] = useState(false);
   const [editPostText, setEditPostText] = useState("")
+  const [image , setImage] = useState(null)
+
+
+  const uploadhandleClose = () => {
+    setUploadShow(false)
+    setImage(null)
+  };
+  const uploadhandle = () => {
+    setUploadShow(false)
+  };
+  const uploadhandleShow = () => setUploadShow(true);
 
   const edithandleClose = () => {
     seteditShow(false)
@@ -24,7 +36,6 @@ const CreatePost = () => {
     setdeleteShow(false);
     setShowDropdown(false);
   };
-
   const deletehandleShow = () => setdeleteShow(true);
 
   const toggleDropdown = () => {
@@ -58,7 +69,7 @@ const CreatePost = () => {
     event.preventDefault();
     const Body = {
       text: postText,
-      image: "https://img.dummyapi.io/photo-1546975554-31053113e977.jpg",
+      image: image,
       likes: 0,
       owner: user.id,
       tags: [],
@@ -106,7 +117,7 @@ const CreatePost = () => {
     setShowDropdown(!showDropdown);
     const Body = {
       text: editPostText,
-      image: "https://img.dummyapi.io/photo-1546975554-31053113e977.jpg",
+      image: image,
       likes: 0,
       tags: [],
     };
@@ -122,6 +133,16 @@ const CreatePost = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  function onUploadFileChange(e) {
+    let file = new FileReader();
+    file.readAsDataURL(e.target.files[0]);
+    file.onload = () => {
+      setImage(file.result);
+    };
+  }
+
+
 
   return (
     <>
@@ -155,8 +176,11 @@ const CreatePost = () => {
                 </Form.Group>
                 <div className="d-flex justify-content-end align-items-center">
                   <span className="text-light">
-                    Characters: {postCount}/300
+                    {postCount}/300
                   </span>
+                  <Button className="btn btn-dark text-danger ms-2" onClick={uploadhandleShow}>
+                  <i className="bi bi-image"></i>
+                  </Button>
                   <Button
                     onClick={handleCreatePost}
                     disabled={disablePostButton}
@@ -229,7 +253,7 @@ const CreatePost = () => {
                         <img
                           src={post.image}
                           alt="Post"
-                          className="img-fluid rounded mb-3 ps-1"
+                          className="img-fluid rounded mb-3 ps-1 w-100"
                         />
                       </Link>
                     )}
@@ -274,6 +298,11 @@ const CreatePost = () => {
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Control as="textarea" rows={3} style={{ resize: "none", height: "7rem" }} value={editPostText} onChange={onChangeHandler} />
+              <Form.Control
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              onChange={onUploadFileChange}
+            />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -286,6 +315,31 @@ const CreatePost = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+      <Modal show={uploadShow} onHide={uploadhandleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Upload  Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Control
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              onChange={onUploadFileChange}
+            />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={uploadhandleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={uploadhandle}>
+            Upload
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      
     </>
   );
 };

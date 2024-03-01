@@ -14,6 +14,7 @@ function Profile() {
     const [showDropdown, setShowDropdown] = useState(false);
     const [editShow, seteditShow] = useState(false);
     const [editPostText, setEditPostText] = useState("")
+    const [image, setImage] = useState(null)
 
     const edithandleClose = () => {
         seteditShow(false)
@@ -83,7 +84,7 @@ function Profile() {
         setShowDropdown(!showDropdown);
         const Body = {
             text: editPostText,
-            image: "https://img.dummyapi.io/photo-1546975554-31053113e977.jpg",
+            image: image,
             likes: 0,
             tags: [],
         };
@@ -148,6 +149,14 @@ function Profile() {
             .catch(function (error) {
                 console.log(error);
             })
+    }
+
+    function onUploadFileChange(e) {
+        let file = new FileReader();
+        file.readAsDataURL(e.target.files[0]);
+        file.onload = () => {
+            setImage(file.result);
+        };
     }
 
 
@@ -230,7 +239,7 @@ function Profile() {
                                                                         >
                                                                             <Dropdown.Menu className="mt-2 txt-center">
                                                                                 <Button
-                                                                                    onClick={()=>edithandleShow(post.id)}
+                                                                                    onClick={() => edithandleShow(post.id)}
                                                                                     className="dropdown-item"
                                                                                 >
                                                                                     Edit
@@ -309,6 +318,11 @@ function Profile() {
                     <Form>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Control as="textarea" rows={3} style={{ resize: "none", height: "7rem" }} value={editPostText} onChange={onChangeHandler} />
+                            <Form.Control
+                                type="file"
+                                accept=".jpg, .jpeg, .png"
+                                onChange={onUploadFileChange}
+                            />
                         </Form.Group>
                     </Form>
                 </Modal.Body>
