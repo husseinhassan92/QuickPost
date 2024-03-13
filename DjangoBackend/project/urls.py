@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from comment.views import *
+from post.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("api/post/",include("post.api.urls")),
     path("api/comments/",include("comment.api.urls"))
 ]
