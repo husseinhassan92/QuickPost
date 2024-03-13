@@ -10,7 +10,7 @@ class Reaction(models.Model):
         ('😢', 'Sad'),
         ('❤️', 'Love'),
         ('👎', 'Dislike'),
-        ('😐', 'Normal'),
-    ]
+        ('👍', 'Like'),
+      ]
     reaction_type = models.CharField(max_length=100, choices=REACTION_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
