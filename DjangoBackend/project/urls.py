@@ -21,6 +21,7 @@ from post.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/post/",include("post.api.urls"))
+    path("api/post/",include("post.api.urls")),
+    path('api/', include('api.urls')),
 
 ]
