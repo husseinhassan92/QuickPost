@@ -40,18 +40,23 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djoser',
+    'corsheaders',
     'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 
 ROOT_URLCONF = 'project.urls'
 
@@ -163,7 +168,7 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
-    'TOKEN_MODEL': None,  
+    'TOKEN_MODEL': None,
     'SERIALIZERS': {
         'user_create': 'account.serializers.UserCreateSerializer',
         'user': 'account.serializers.UserCreateSerializer',
