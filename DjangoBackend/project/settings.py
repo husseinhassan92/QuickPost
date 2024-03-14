@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'account.apps.AccountConfig',
     'post.apps.PostConfig',
-    'reaction.apps.Reaction',
+    'reaction.apps.ReactionConfig',
     'user.apps.UserConfig',
     'comment.apps.CommentConfig',
+    'follower.apps.FollowerConfig'
 ]
 
 MIDDLEWARE = [
