@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'post.apps.PostConfig',
     'reaction.apps.ReactionConfig',
-    'user.apps.UserConfig',
+    'profile.apps.ProfileConfig',
     'comment.apps.CommentConfig',
     'follower.apps.FollowerConfig'
 ]
@@ -184,4 +184,4 @@ DJOSER = {
     }
 }
 
-AUTH_USER_MODEL = 'account.Account'
+AUTH_USER_MODEL = 'account.UserAccount'

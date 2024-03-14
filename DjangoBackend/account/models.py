@@ -16,7 +16,7 @@ class AppUserManager(BaseUserManager):
         user.save()
         return user
 
-class Account(AbstractBaseUser,PermissionsMixin):
+class UserAccount(AbstractBaseUser,PermissionsMixin):
     username = models.CharField(max_length=50)
     email = models.CharField(max_length=50, unique=True)
     is_active = models.BooleanField(default=True)

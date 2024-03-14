@@ -30,7 +30,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('api/', include('reaction.urls')),
-    path('api/', include('user.urls')),
+    path('api/', include('profile.urls')),
     path("api/comments/",include("comment.api.urls"))
 
 ]   

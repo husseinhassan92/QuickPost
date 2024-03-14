@@ -1,10 +1,10 @@
 from django.db import models
 from post.models import Post 
-from django.contrib.auth.models import User
+from account.models import UserAccount
 
 class Reaction(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     REACTION_CHOICES = [
         ('😄', 'Happy'),
         ('😢', 'Sad'),
