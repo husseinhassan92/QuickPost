@@ -5,13 +5,22 @@ import Leftbar from "../LeftSide/LeftSide";
 import Rightbar from "../RightSide/RightSide";
 import CreatePost from "../CreatePost/CreatePost";
 import { Link } from "react-router-dom";
+import EmojiSelector from '../Reaction/reacte';
+
 
 const Posts = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const { loading, data: posts, hasMore } = InifinteScroll(pageNumber);
   const observer = useRef();
   const [postComments, setPostComments] = useState([]);
+  const [reaction, setReaction] = useState(null); 
+  const [showEmojis, setShowEmojis] = useState(false); 
 
+  const handleReactionSelect = (selectedReaction) => {
+    setReaction(selectedReaction); // Set the selected reaction
+    setShowEmojis(false); // Hide the emoji selector after selecting a reaction
+    // You can perform additional actions here, such as sending the selected reaction to the server
+  };
   const lastPostElementRef = useCallback(
     (node) => {
       if (loading) return;
@@ -88,6 +97,7 @@ const Posts = () => {
         console.log("Error deleting comment:", err.response.data);
       });
   };
+  const emojis = ['😊', '😢', '❤️', '👍', '👎'];
 
   return (
     <div className="container-fluid">
@@ -134,13 +144,28 @@ const Posts = () => {
                           </h5>
                           <p className="card-text text-light">{post.text}</p>
                           <div className="row mt-5">
-                            <div className="pb-3 col-4 text-start">
-                              <i className="bi bi-heart text-light pe-1"></i>{" "}
-                              {post.likes} Likes
-                            </div>
+                          <div className='pb-3 col-6 text-start'>
+    {/* Dropdown button for selecting reaction */}
+    <div className="dropdown">
+      {/* Button to toggle the visibility of emoji selector and set the reaction */}
+      <button className="btn btn-primary" onClick={() => setShowEmojis(!showEmojis)} style={{ backgroundColor: 'transparent', border: 'none', color: 'white' }}>
+        {reaction === null ? 'Show Reaction' : reaction}
+      </button>
+      {/* Emoji selector shown when reaction is selected */}
+      {showEmojis && (
+        <div className="emoji-selector">
+          {emojis.map((emoji, index) => (
+            <button className="btn btn-primary mx-0" key={index} onClick={() => handleReactionSelect(emoji)} style={{ backgroundColor: 'transparent', border: 'none', color: 'white' }}>
+              {emoji}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
 
                             <div
-                              className="pb-3 col-4 text-center"
+                              className="pb-3 col-3 text-center"
                               onClick={() => {
                                 axios
                                   .get(
@@ -168,7 +193,7 @@ const Posts = () => {
                               }{" "}
                               Comments
                             </div>
-                            <div className="pb-3 col-4 text-end pe-4">
+                            <div className="pb-3 col-3 text-end pe-4">
                               <i className="bi bi-share pe-1"></i> {post.likes}{" "}
                               Share
                             </div>

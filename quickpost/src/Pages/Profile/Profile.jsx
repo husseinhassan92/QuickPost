@@ -15,6 +15,15 @@ function Profile() {
     const [editShow, seteditShow] = useState(false);
     const [editPostText, setEditPostText] = useState("")
     const [image, setImage] = useState(null)
+    const [reaction, setReaction] = useState(null); 
+    const [showEmojis, setShowEmojis] = useState(false); 
+
+
+    const handleReactionSelect = (selectedReaction) => {
+        setReaction(selectedReaction); // Set the selected reaction
+        setShowEmojis(false); // Hide the emoji selector after selecting a reaction
+        // You can perform additional actions here, such as sending the selected reaction to the server
+      };
 
     const edithandleClose = () => {
         seteditShow(false)
@@ -166,6 +175,7 @@ function Profile() {
     }, [userPosts])
 
 
+    const emojis = ['😊', '😢', '❤️', '👍', '👎'];
 
     return (
         <section className="h-100 gradient-custom-2">
@@ -255,9 +265,27 @@ function Profile() {
                                                                     )}
                                                                 </div>
                                                             </div>
+                                                            <div className='pb-3 col-6 text-start'>
                                                             <p className="card-text">{post.text}</p>
-                                                            <p className="card-text"><i className='fas fa-heart'></i>{post.likes}</p>
-                                                        </div>
+
+    {/* Dropdown button for selecting reaction */}
+    <div className="dropdown">
+      {/* Button to toggle the visibility of emoji selector and set the reaction */}
+      <button className="btn btn-primary" onClick={() => setShowEmojis(!showEmojis)} style={{ backgroundColor: 'white', border: 'black 1px solid', color: 'black' }}>
+        {reaction === null ? 'Show Reaction' : reaction}
+      </button>
+      {/* Emoji selector shown when reaction is selected */}
+      {showEmojis && (
+        <div className="emoji-selector">
+          {emojis.map((emoji, index) => (
+            <button className="btn btn-primary mx-1" key={index} onClick={() => handleReactionSelect(emoji)} style={{ backgroundColor: 'white', border: 'none', color: 'white' }}>
+              {emoji}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>                                                        </div>
                                                     </div>
                                                 </div>
                                             )
