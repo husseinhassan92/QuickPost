@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllFriends, fetchAsyncFriends } from '../../Store/friendSlice';
+import { getAllFriends, fetchAsyncFriends } from '../../Store/Reducers/friendSlice';
 
 const Leftbar = ({ isHomePage }) => {
   const dispatch = useDispatch();

@@ -1,10 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchReducer from './searchSlice'; 
-import friendsReducer from './friendSlice'; // Corrected import path
+import { createStore, applyMiddleware, compose } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import {thunk} from 'redux-thunk';
+import rootReducer from './Reducers/CombineReducer';
+ // Corrected import path
 
-export default configureStore({
-  reducer: {
-    search: searchReducer,
-    friends: friendsReducer,
-  }
-});
+const initialState = {};
+
+const middleware = [thunk];
+
+const store = createStore(
+    rootReducer,
+    initialState,
+    composeWithDevTools(applyMiddleware(...middleware))
+);
+
+export default store;
+
+// export default configureStore({
+//   reducer: {
+//     search: searchReducer,
+//     friends: friendsReducer,
+//   }
+// });

@@ -4,9 +4,10 @@ import InifinteScroll from "./InifinteScroll";
 import Leftbar from "../LeftSide/LeftSide";
 import Rightbar from "../RightSide/RightSide";
 import CreatePost from "../CreatePost/CreatePost";
-import { Link } from "react-router-dom";
+import { Link , Redirect} from "react-router-dom";
+import { connect } from 'react-redux';
 
-const Posts = () => {
+const Posts = ({isAuthenticated}) => {
   const [pageNumber, setPageNumber] = useState(1);
   const { loading, data: posts, hasMore } = InifinteScroll(pageNumber);
   const observer = useRef();
@@ -88,6 +89,10 @@ const Posts = () => {
         console.log("Error deleting comment:", err.response.data);
       });
   };
+
+  if (!isAuthenticated) {
+    return <Redirect to='/' />
+}
 
   return (
     <div className="container-fluid">
@@ -261,4 +266,8 @@ const Posts = () => {
   );
 };
 
-export default Posts;
+const mapStateToProps = state => ({
+  isAuthenticated: state.AuthRecducer.isAuthenticated
+});
+
+export default connect(mapStateToProps)(Posts);

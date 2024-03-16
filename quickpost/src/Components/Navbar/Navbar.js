@@ -2,12 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Navbar as BootstrapNavbar, Nav, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { logout } from "../../Store/Actions/AuthAction";
 
-const Navbar = () => {
+const Navbar = ({logout, isAuthenticated}) => {
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [profileImage, setProfileImage] = useState("");
+
+  const [redirect, setRedirect] = useState(false);
+
+    const logout_user = () => {
+        logout();
+        setRedirect(true);
+    };
 
   useEffect(() => {
     fetchUserData();
@@ -86,7 +95,7 @@ const Navbar = () => {
                       <Dropdown.Menu className='mt-2 txt-center'>
                         <Link to="/profile" className="dropdown-item ">Profile</Link>
                         <Link to="/friends" className="dropdown-item">Friends</Link>
-                        <Link to="/" className="dropdown-item">Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
+                        <Link to="/" className="dropdown-item" onClick={logout_user}>Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
                       </Dropdown.Menu>
                     </Dropdown>
                   )}
@@ -100,4 +109,8 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+const mapStateToProps = state => ({
+  isAuthenticated: state.AuthRecducer.isAuthenticated
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);

@@ -17,6 +17,9 @@ import Welcom from './Pages/WelcomePage/Welcom';
 //import HomePage from './Pages/HomePage/HomePage.js';
 import Friends from './Pages/FriendsPage/Friends';
 import Profile from './Pages/Profile/Profile';
+import ResetPassword from './Pages/ResetPassword/ResetPassword.js';
+import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm.js';
+import Activate from './Pages/Activate/Activate.js';
 
 
 const App = () => {
@@ -25,21 +28,22 @@ const App = () => {
       <Router>
       <Route
             render={({ location }) => {
-              if (location.pathname !== "/" && location.pathname !== "/Sginup" && location.pathname !== "/Login") return <Navbar />;
+              if (location.pathname !== "/" && location.pathname !== "/Sginup" && location.pathname !== "/Login" && location.pathname !== "/reset-password" && location.pathname !== "/password/reset/confirm/:uid/:token") return <Navbar />;
             }}
           />
         <Switch>
           <Route exact path='/' component={Welcom} />
           <Route path='/Login' component={Login} />
           <Route path='/Sginup' component={Sginup} />
-          <Route path='/Sginup' component={Sginup} />
           <Route path='/Friends' component={Friends} />
           <Route path='/profile' component={Profile} />
-
           <Route path="/Posts" component={Posts} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
           <Route path="/post/:id" component={Post} />
           <Route path="/Messages" component={Messages} />
+          <Route  path='/reset-password' component={ResetPassword} />
+          <Route  path='/password/reset/confirm/:uid/:token'component={ResetPasswordConfirm} />
+          <Route exact path='/activate/:uid/:token' component={Activate} />
         </Switch>
       </Router>
     </Provider>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAsyncSearch, getSearchResults, getSearchStatus, clearSearch } from '../../Store/searchSlice';
+import { fetchAsyncSearch, getSearchResults, getSearchStatus, clearSearch } from '../../Store/Reducers/searchSlice';
 import Posts from '../../Components/Posts/Posts'; // Import the Posts component
 
 const SearchPage = () => {

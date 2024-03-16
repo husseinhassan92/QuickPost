@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAsyncFriends, getAllFriends } from '../../Store/friendSlice';
+import { fetchAsyncFriends, getAllFriends } from '../../Store/Reducers/friendSlice';
 import { Card, Container, Row, Spinner, Alert, Col, Button } from 'react-bootstrap';
 import "./Friends.css";
 import Leftbar from '../../Components/LeftSide/LeftSide';
