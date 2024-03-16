@@ -1,6 +1,6 @@
 from django.db import models
 from post.models import Post 
-from account.models import UserAccount
+from accounts.models import UserAccount
 
 class Reaction(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

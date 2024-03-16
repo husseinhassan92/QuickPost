@@ -1,6 +1,6 @@
 from django.db import models
 from post.models import Post
-from account.models import UserAccount
+from accounts.models import UserAccount
 
 # Create your models here.
 class Comment(models.Model):

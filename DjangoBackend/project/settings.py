@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
     'djoser',
     'corsheaders',
-    'account.apps.AccountConfig',
+    'accounts.apps.AccountsConfig',
     'post.apps.PostConfig',
     'reaction.apps.ReactionConfig',
     'profile.apps.ProfileConfig',
@@ -61,15 +61,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ORIGIN_ALLOW_ALL = True
 #CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,6 +83,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
@@ -138,7 +141,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build/static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -177,11 +184,50 @@ DJOSER = {
     'SEND_ACTIVATION_EMAIL': True,
     'TOKEN_MODEL': None,
     'SERIALIZERS': {
-        'user_create': 'account.serializers.UserCreateSerializer',
-        'user': 'account.serializers.UserCreateSerializer',
-        'current_user': 'account.serializers.UserCreateSerializer',
+        'user_create': 'accounts.serializers.UserCreateSerializer',
+        'user': 'accounts.serializers.UserCreateSerializer',
+        'current_user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     }
 }
 
-AUTH_USER_MODEL = 'account.UserAccount'
+# DJOSER = {
+#     'LOGIN_FIELD': 'email',
+#     'USER_CREATE_PASSWORD_RETYPE': True,
+#     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+#     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+#     'SEND_CONFIRMATION_EMAIL': True,
+#     'SET_USERNAME_RETYPE': True,
+#     'SET_PASSWORD_RETYPE': True,
+#     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+#     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
+#     'ACTIVATION_URL': 'activate/{uid}/{token}',
+#     'SEND_ACTIVATION_EMAIL': True,
+#     'SERIALIZERS': {
+#         'user_create': 'accounts.serializers.UserCreateSerializer',
+#         'user': 'accounts.serializers.UserCreateSerializer',
+#         'current_user': 'accounts.serializers.UserCreateSerializer',
+#         'user_delete': 'djoser.serializers.UserDeleteSerializer',
+#     }
+# }
+# DJOSER = {
+#     "LOGIN_FIELD": "email",
+#     "USER_CREATE_PASSWORD_RETYPE": True,
+#     "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
+#     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
+#     "SEND_CONFIRMATION_EMAIL": True,
+#     "SET_USERNAME_RETYPE": True,
+#     "SET_PASSWORD_RETYPE": True,
+#     "USERNAME_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+#     "PASSWORD_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
+#     "ACTIVATION_URL": "activate/{uid}/{token}",
+#     "SEND_ACTIVATION_EMAIL": True,
+#     "SERIALIZERS": {
+#         "user_create": "accounts.serializers.UserCreateSerializer",  # custom serializer
+#         "user": "accounts.serializers.UserCreateSerializer",
+#         "current_user": "accounts.serializers.UserCreateSerializer",
+#         "user_delete": "djoser.serializers.UserSerializer",
+#     },
+# }
+
+AUTH_USER_MODEL = 'accounts.UserAccount'

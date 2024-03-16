@@ -1,5 +1,5 @@
 from django.db import models
-from account.models import UserAccount
+from accounts.models import UserAccount
 
 
 class Follower(models.Model):
