@@ -5,7 +5,7 @@ import Posts from './Components/Posts/Posts';
 import Post from './Components/Post/Post';
 import SearchPage from './Pages/SearchPage/SearchPage';
 import Messages from './Messages';
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import store from "./Store/store";
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import Rightbar from './Components/RightSide/RightSide';
@@ -23,14 +23,12 @@ import Activate from './Pages/Activate/Activate.js';
 
 
 const App = () => {
+  const  isLoggedIn = useSelector(state => state.AuthRecducer.isAuthenticated)
+  console.log(isLoggedIn)
   return (
-    <Provider store={store}>
+    
       <Router>
-      <Route
-            render={({ location }) => {
-              if (location.pathname !== "/" && location.pathname !== "/Sginup" && location.pathname !== "/Login" && location.pathname !== "/reset-password" && location.pathname !== "/password/reset/confirm/:uid/:token") return <Navbar />;
-            }}
-          />
+        {isLoggedIn && <Navbar />}
         <Switch>
           <Route exact path='/' component={Welcom} />
           <Route path='/Login' component={Login} />
@@ -46,7 +44,6 @@ const App = () => {
           <Route exact path='/activate/:uid/:token' component={Activate} />
         </Switch>
       </Router>
-    </Provider>
   );
 };
 
