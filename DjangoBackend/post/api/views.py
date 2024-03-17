@@ -24,7 +24,7 @@ def getbyid(request,pk):
 
 @api_view(['POST'])
 def add(request):
-    post = PostSerializer(data=request.data)
+    post = PostSerializerAdd(data=request.data)
     if post.is_valid():
         post.save()
         return Response(post.data, status=201)
