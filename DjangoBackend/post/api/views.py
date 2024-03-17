@@ -13,8 +13,8 @@ def getall(request):
     posts = Post.objects.all()
     s_posts = SharePost.objects.all()
     return Response({"msg":"found",
-                     "posts":PostSerializer(posts,many=True).data,
-                     "shared":ShareSerializer(s_posts,many=True).data})
+                    "posts":PostSerializer(posts,many=True).data,
+                    "shared":ShareSerializer(s_posts,many=True).data})
 
 
 @api_view(['GET'])
@@ -73,9 +73,11 @@ def share(request):
         return Response(share_post.errors,status=400)
 
 @api_view(["DELETE"])
-def unshare(request, pk):
-    share_post=SharePost.objects.filter(id=pk)
-    if(len(share_post)>0):
-        share_post.delete()
+def unshare(request):
+    author = Profile.objects.get(id=request.data['author']).id
+    post = Profile.objects.get(id=request.data['post']).id
+    unshare = SharePost.objects.filter(author=author,post=post)
+    if(len(unshare)>0):
+        unshare.delete()
         return Response(data={'msg':'Post unshared'})
     return Response({'msg':'post not found'})

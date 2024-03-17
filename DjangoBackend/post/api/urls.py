@@ -9,5 +9,5 @@ urlpatterns = [
     path('update/<int:pk>',update),
     path('user/<int:pk>', getbyuser),
     path('share/',share),
-    path('unshare/<int:pk>',unshare),
+    path('unshare/',unshare),
 ]
