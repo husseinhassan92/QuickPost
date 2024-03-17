@@ -2,6 +2,7 @@ from django import views
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import  Response
+from profile.models import  Profile
 from post.models import *
 from .serlizer import *
 
@@ -10,7 +11,10 @@ from .serlizer import *
 @api_view(['GET'])
 def getall(request):
     posts = Post.objects.all()
-    return Response({"msg":"found","data":PostSerializer(posts,many=True).data})
+    s_posts = SharePost.objects.all()
+    return Response({"msg":"found",
+                     "posts":PostSerializer(posts,many=True).data,
+                     "shared":ShareSerializer(s_posts,many=True).data})
 
 
 @api_view(['GET'])
@@ -48,3 +52,30 @@ def update(request,pk):
             postdata.save()
             return Response(data=postdata.data,status=200)
         return Response(postdata.errors,status=400)
+
+
+
+@api_view(['GET'])
+def getbyuser(request,pk):
+    posts = Post.objects.filter(author=Profile.objects.get(id=pk))
+    s_posts = SharePost.objects.filter(author=Profile.objects.get(id=pk))
+    return Response({"msg":"posts Found",
+                     "post":PostSerializer(posts,many=True).data,
+                     "shared":ShareSerializer(s_posts,many=True).data})
+
+@api_view(['POST'])
+def share(request):
+    share_post = ShareSerializerAdd(data=request.data)
+    if share_post.is_valid():
+        share_post.save()
+        return Response(share_post.data, status=201)
+    else:
+        return Response(share_post.errors,status=400)
+
+@api_view(["DELETE"])
+def unshare(request, pk):
+    share_post=SharePost.objects.filter(id=pk)
+    if(len(share_post)>0):
+        share_post.delete()
+        return Response(data={'msg':'Post unshared'})
+    return Response({'msg':'post not found'})

@@ -20,7 +20,7 @@ def getall(request):
             return Response({"msg":"no comments found"}, status=status.HTTP_404_NOT_FOUND)
         
     elif request.method == "POST":
-        serializer = CommentSerializer(data=request.data)
+        serializer = CommentSerializerAdd(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"msg":"Saved successfully","data":serializer.data}, status= status.HTTP_201_CREATED)

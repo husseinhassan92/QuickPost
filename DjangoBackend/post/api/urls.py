@@ -6,5 +6,8 @@ urlpatterns = [
     path('post/<int:pk>',getbyid),
     path('add/',add),
     path('del/<int:pk>',delete),
-    path('update/<int:pk>',update)
+    path('update/<int:pk>',update),
+    path('user/<int:pk>', getbyuser),
+    path('share/',share),
+    path('unshare/<int:pk>',unshare),
 ]
