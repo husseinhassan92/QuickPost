@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from comment.api.serlizer import CommentSerializer
 from accounts.serializers import UserAccountSerializer
-#from profile.serializer import ProfileSerializer
 from profile.serializer import ProfileSerializer
 from reaction.serializers import ReactionSerializer
 from ..models import Post, SharePost
@@ -18,7 +17,8 @@ class PostSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     comments_count = serializers.SerializerMethodField()
     reaction_count =  serializers.SerializerMethodField()
-    author = ProfileSerializer()
+    profile = ProfileSerializer()
+    p_author = UserAccountSerializer(read_only=True)
     happy_count = serializers.SerializerMethodField()
     sad_count = serializers.SerializerMethodField()
     love_count = serializers.SerializerMethodField()
