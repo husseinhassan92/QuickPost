@@ -60,8 +60,8 @@ def getbyuser(request,pk):
     posts = Post.objects.filter(author=Profile.objects.get(id=pk))
     s_posts = SharePost.objects.filter(author=Profile.objects.get(id=pk))
     return Response({"msg":"posts Found",
-                     "post":PostSerializer(posts,many=True).data,
-                     "shared":ShareSerializer(s_posts,many=True).data})
+                    "post":PostSerializer(posts,many=True).data,
+                    "shared":ShareSerializer(s_posts,many=True).data})
 
 @api_view(['POST'])
 def share(request):
