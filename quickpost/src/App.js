@@ -4,9 +4,11 @@ import Navbar from './Components/Navbar/Navbar.js';
 import Posts from './Components/Posts/Posts';
 import Post from './Components/Post/Post';
 import SearchPage from './Pages/SearchPage/SearchPage';
-import Messages from './Messages';
+// import Messages from './Messages';
 import { Provider, useSelector } from "react-redux";
 import store from "./Store/store";
+import Message from './Pages/Message/Message'
+import MessageDetail from './Pages/MessageDetails/MessageDetail';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //import Rightbar from './Components/RightSide/RightSide';
 import './App.css';
@@ -38,7 +40,9 @@ const App = () => {
           <Route path="/Posts" component={Posts} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
           <Route path="/post/:id" component={Post} />
-          <Route path="/Messages" component={Messages} />
+          {/* <Route path="/Messages" component={Messages} /> */}
+          <Route component={Message} path="/Messages" exact />
+          <Route component={MessageDetail} path="/Messages/:id" exact />
           <Route  path='/reset-password' component={ResetPassword} />
           <Route  path='/password/reset/confirm/:uid/:token'component={ResetPasswordConfirm} />
           <Route exact path='/activate/:uid/:token' component={Activate} />
