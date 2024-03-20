@@ -48,7 +48,7 @@ export default function (state = initialState, action) {
             isAuthenticated: true,
         }
     case SIGNUP_SUCCESS:
-      localStorage.setItem("isAuthenticated")
+      localStorage.removeItem("isAuthenticated")
         return {
             ...state,
             isAuthenticated: null,
