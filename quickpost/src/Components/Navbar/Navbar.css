@@ -44,3 +44,7 @@
 .navbar a.nav-link {
     color: purple; /* Set text color of links in the Navbar to purple */
 }
+
+.mainNav{
+    border-bottom: 1px solid #fff !important;
+}

@@ -1,0 +1,13 @@
+.add_comment{
+    background-color: #2d2d2d !important;
+    color: #ddd;
+    border: 1px solid #ffffff3b;
+}
+
+.add_comment::placeholder {
+    color: #fff !important;
+}
+
+textarea{
+    color: #fff !important;
+}

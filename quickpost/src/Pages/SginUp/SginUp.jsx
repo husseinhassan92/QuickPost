@@ -92,7 +92,7 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to='/' />
+    return <Redirect to='/home' />
   }
   if (accountCreated) {
     return <Redirect to='/login' />

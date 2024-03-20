@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import axios from 'axios';
+import Sidebar from '../../Components/LeftSide/Sidebar';
+import Rightbar from '../../Components/RightSide/RightSide';
 
 function Profile() {
     const [userData, setUserData] = useState([])
@@ -168,11 +170,13 @@ function Profile() {
 
 
     return (
-        <section className="h-100 gradient-custom-2">
-            <div className="container py-5 h-100">
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col col-lg-9 col-xl-7">
-                        <div className="card">
+        <section className="h-100 gradient-custom-2 bg-dark">
+            <div className="container-fluid py-5 h-100">
+                <div className="row d-flex  h-100">
+                    <div className="col"><Sidebar/></div>
+
+                    <div className="col col-lg-9 col-xl-7 ">
+                        <div className="card ">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
                                     <img src={userData.picture} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
@@ -218,7 +222,7 @@ function Profile() {
                                     {
                                         userPosts.map(post => {
                                             return (
-                                                <div className="col-12 mb-2" key={post.id}>
+                                                <div className="col-12 mb-2 bg-dark" key={post.id}>
                                                     <div className="card">
                                                         <img src={post.image} className="card-img-top h-50" alt="Fissure in Sandstone" style={{ maxHeigh: '200px', objectFit: 'cover' }} />
                                                         <div className="card-body  h-50">
@@ -267,6 +271,8 @@ function Profile() {
                             </div>
                         </div>
                     </div>
+
+                    <div className='col'><Rightbar/></div>
                 </div>
             </div>
 

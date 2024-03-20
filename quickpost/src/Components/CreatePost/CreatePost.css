@@ -1,0 +1,6 @@
+.textarea {
+  color: #fff !important;
+}
+.textarea::placeholder {
+  color: #fff !important;
+}

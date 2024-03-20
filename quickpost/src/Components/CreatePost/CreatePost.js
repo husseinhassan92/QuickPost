@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import "./CreatePost.css";
 
 const CreatePost = () => {
   const [postText, setPostText] = useState("");
@@ -149,7 +150,7 @@ const CreatePost = () => {
       <div className="container  pt-4 ">
         <div className="row ">
           <div className="col">
-            <div className="border rounded-3 border-success p-3 shadow mt-2 bg-dark ms-2 me-2">
+            <div className=" rounded-3 p-3 shadow-lg mt-2 bg-dark ms-2 me-2">
               {user && (
                 <img
                   src={user.picture}
@@ -169,9 +170,10 @@ const CreatePost = () => {
                     as="textarea"
                     row={4}
                     value={postText}
+                    className="textarea"
                     onChange={handleContentChange}
                     placeholder="What is happening?"
-                    style={{ resize: "none", height: "7rem" }}
+                    style={{ resize: "none", height: "7rem" ,backgroundColor:"transparent",borderColor:"#ffffff45"}}
                   />
                 </Form.Group>
                 <div className="d-flex justify-content-end align-items-center">
@@ -263,14 +265,14 @@ const CreatePost = () => {
                   <div className="row mt-5">
                     <div className="pb-3 col-4 text-start">
                       <i className="bi bi-heart text-light pe-1"></i>{" "}
-                      {post.likes} Likes
+                      {post.likes} 
                     </div>
                     <div className="pb-3 col-4 text-center">
                       <i className="bi bi-chat-dots-fill pe-1"></i> {post.likes}{" "}
-                      Comments
+                      
                     </div>
                     <div className="pb-3 col-4 text-end pe-4">
-                      <i className="bi bi-share pe-1"></i> {post.likes} Share
+                      <i className="bi bi-share pe-1"></i> {post.likes}
                     </div>
                   </div>
                 </div>

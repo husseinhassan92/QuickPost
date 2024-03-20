@@ -1,13 +1,10 @@
 import React, { useCallback, useRef, useState } from "react";
 import axios from "axios";
-import InifinteScroll from "./InifinteScroll";
-import Leftbar from "../LeftSide/LeftSide";
-import Rightbar from "../RightSide/RightSide";
-import CreatePost from "../CreatePost/CreatePost";
 import { Link , Redirect} from "react-router-dom";
 import { connect } from 'react-redux';
-
-const Posts = ({isAuthenticated}) => {
+import InifinteScroll from "./InifinteScroll";
+import "./Posts.css"
+const Posts = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const { loading, data: posts, hasMore } = InifinteScroll(pageNumber);
   const observer = useRef();
@@ -90,19 +87,13 @@ const Posts = ({isAuthenticated}) => {
       });
   };
 
-  if (!isAuthenticated) {
-    return <Redirect to='/' />
-}
+//   if (!isAuthenticated) {
+//     return <Redirect to='/' />
+// }
 
   return (
-    <div className="container-fluid">
-      <div className="row p-0">
-        <div className="col-3 p-0">
-        <Leftbar isHomePage={true}/>
-        </div>
-        <div className="col-6">
+
           <div>
-            <CreatePost />
             {posts.map((post, index) => (
               <div
                 key={post.id}
@@ -141,7 +132,7 @@ const Posts = ({isAuthenticated}) => {
                           <div className="row mt-5">
                             <div className="pb-3 col-4 text-start">
                               <i className="bi bi-heart text-light pe-1"></i>{" "}
-                              {post.likes} Likes
+                              {post.likes} 
                             </div>
 
                             <div
@@ -171,11 +162,11 @@ const Posts = ({isAuthenticated}) => {
                                   (comment) => comment.post === post.id
                                 ).length
                               }{" "}
-                              Comments
+                              
                             </div>
                             <div className="pb-3 col-4 text-end pe-4">
                               <i className="bi bi-share pe-1"></i> {post.likes}{" "}
-                              Share
+                              
                             </div>
 
                             {postComments.map((comment) => (
@@ -225,7 +216,7 @@ const Posts = ({isAuthenticated}) => {
                               Add Comment
                             </h5>
                             <textarea
-                              className="form-control"
+                              className="form-control add_comment"
                               placeholder="Enter your comment"
                               value={newComment}
                               onChange={(e) => setNewComment(e.target.value)}
@@ -257,12 +248,6 @@ const Posts = ({isAuthenticated}) => {
               </div>
             ))}
           </div>
-        </div>
-        <div className="col-3 p-0 m-0">
-          <Rightbar />
-        </div>
-      </div>
-    </div>
   );
 };
 

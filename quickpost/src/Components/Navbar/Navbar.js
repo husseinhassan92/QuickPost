@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { logout } from "../../Store/Actions/AuthAction";
 
-const Navbar = ({logout, isAuthenticated}) => {
+const Navbar = ({ logout, isAuthenticated }) => {
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,10 +13,10 @@ const Navbar = ({logout, isAuthenticated}) => {
 
   const [redirect, setRedirect] = useState(false);
 
-    const logout_user = () => {
-        logout();
-        setRedirect(true);
-    };
+  const logout_user = () => {
+    logout();
+    setRedirect(true);
+  };
 
   useEffect(() => {
     fetchUserData();
@@ -58,54 +58,42 @@ const Navbar = ({logout, isAuthenticated}) => {
   };
 
   return (
-    <nav>
-      <div className='container-fluid p-1'>
-        <div className='row flex align-items-center justify-content-between m-0 '>
-          <div className="col p-0">
-            <BootstrapNavbar bg="light" expand="lg" className="p-0">
-              <BootstrapNavbar.Brand href="#" className="p-1">Quick Post</BootstrapNavbar.Brand>
-            </BootstrapNavbar>
-          </div>
+    <>
+    <nav className='mainNav d-lg-block d-none'>
+      <div className=' container shadow p-1 my-3 '>
+        <div className='row container'>
+          <div className='col-6 bg-dark p-3 mx-auto fixed-top'>
+            <div className='d-flex justify-content-between '>
 
-          <div className="col p-0">
-            <BootstrapNavbar bg="light" expand="lg" className="p-0">
-              <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
-              <BootstrapNavbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-5">
-                  <Link to="/" className="nav-link"><i className="fas fa-home"></i> Home</Link>
-                  <Link to="/Posts" className="nav-link"><i className="fas fa-user"></i>Posts</Link>
-                  <Link to="/messages" className="nav-link"><i className="fas fa-comments"></i> Messages</Link>
-                </Nav>
-              </BootstrapNavbar.Collapse>
-            </BootstrapNavbar>
-          </div>
+              <BootstrapNavbar expand="lg" className="p-0">
+                <BootstrapNavbar.Brand href="#" className="p-1"><Link to='/home' className='text-decoration-none'>Quick Post</Link></BootstrapNavbar.Brand>
+              </BootstrapNavbar>
 
-          <div className="col p-0">
-            <BootstrapNavbar bg="light" expand="lg" className="p-0">
-              <BootstrapNavbar.Collapse>
-                <Form className="d-flex align-items-center m-0">
-                  <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                  <Button variant="outline-success" className="ms-3" onClick={handleSearch}>Search</Button>
-                </Form>
-                
-                <div className="ml-3 ms-4">
-                  <img src={profileImage} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
-                  {showDropdown && (
-                    <Dropdown align="end" className="mt-0 ms-2" show={showDropdown} onClose={() => setShowDropdown(false)}>
-                      <Dropdown.Menu className='mt-2 txt-center'>
-                        <Link to="/profile" className="dropdown-item ">Profile</Link>
-                        <Link to="/friends" className="dropdown-item">Friends</Link>
-                        <Link to="/" className="dropdown-item" onClick={logout_user}>Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  )}
-                </div>
-              </BootstrapNavbar.Collapse>
-            </BootstrapNavbar>
+              <BootstrapNavbar expand="lg" className="p-0">
+                <BootstrapNavbar.Collapse>
+                  <div className="ml-3 ms-4">
+                    <img src={profileImage} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
+                    {showDropdown && (
+                      <Dropdown align="end" className="mt-0 ms-2" show={showDropdown} onClose={() => setShowDropdown(false)}>
+                        <Dropdown.Menu className='mt-2 txt-center'>
+                          <Link to="/profile" className="dropdown-item ">Profile</Link>
+                          <Link to="/friends" className="dropdown-item">Friends</Link>
+                          <Link to="/" className="dropdown-item" onClick={logout_user}>Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    )}
+                  </div>
+                </BootstrapNavbar.Collapse>
+              </BootstrapNavbar>
+
+            </div>
           </div>
         </div>
       </div>
     </nav>
+    </>
+    
+    
   );
 };
 

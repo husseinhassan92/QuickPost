@@ -13,7 +13,7 @@ const Leftbar = ({ isHomePage }) => {
   return (
     <div className="leftbar" style={{ height: "100rem" }}>
       <div className="leftbarWrapper">
-      <div className="bg-light border-left" id="left-panel" >
+      <div className="bg-light" id="left-panel" >
           <div className="list-group list-group-flush">
             <a href="#" className="list-group-item list-group-item-action bg-light pt-4">
               <i className="fas fa-home"></i> Home
