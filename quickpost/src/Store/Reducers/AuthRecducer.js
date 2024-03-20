@@ -19,7 +19,7 @@ import {
 const initialState = {
   access: localStorage.getItem("access"),
   refresh: localStorage.getItem("refresh"),
-  isAuthenticated: null,
+  isAuthenticated: localStorage.getItem("isAuthenticated"),
   user: null,
 };
 
@@ -28,26 +28,30 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case AUTHENTICATED_SUCCESS:
-        return {
-            ...state,
-            isAuthenticated: true
-        }
     case LOGIN_SUCCESS:
       // case GOOGLE_AUTH_SUCCESS:
       // case FACEBOOK_AUTH_SUCCESS:
       localStorage.setItem("access", payload.access);
       localStorage.setItem("refresh", payload.refresh);
+      localStorage.setItem("isAuthenticated",true)
       return {
         ...state,
         isAuthenticated: true,
         access: payload.access,
         refresh: payload.refresh,
       };
-    case SIGNUP_SUCCESS:
+    
+    case AUTHENTICATED_SUCCESS:
+      localStorage.setItem("isAuthenticated",true)
         return {
             ...state,
-            isAuthenticated: false
+            isAuthenticated: true,
+        }
+    case SIGNUP_SUCCESS:
+      localStorage.setItem("isAuthenticated")
+        return {
+            ...state,
+            isAuthenticated: null,
         }
     case USER_LOADED_SUCCESS:
       return {
@@ -55,9 +59,10 @@ export default function (state = initialState, action) {
         user: payload,
       };
     case AUTHENTICATED_FAIL:
+      localStorage.removeItem("isAuthenticated")
         return {
             ...state,
-            isAuthenticated: false
+            isAuthenticated: null,
         }
     case USER_LOADED_FAIL:
       return {
@@ -71,11 +76,12 @@ export default function (state = initialState, action) {
     case LOGOUT:
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
+      localStorage.removeItem("isAuthenticated")
       return {
         ...state,
         access: null,
         refresh: null,
-        isAuthenticated: false,
+        isAuthenticated: null,
         user: null,
       };
   

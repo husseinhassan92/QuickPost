@@ -16,7 +16,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=100)
     birth_date = models.DateField()
     image = models.ImageField(upload_to='user_profile_images/',blank=True, null=True)
-    user_account = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE, related_name='profile')
 
     # @receiver(post_save, sender=UserAccount)
     # def create_profile(sender, instance, created, **kwargs):
