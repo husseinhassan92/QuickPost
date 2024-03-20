@@ -1,44 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import { Navbar as BootstrapNavbar, Nav, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { logout } from "../../Store/Actions/AuthAction";
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
-const Navbar = ({ logout, isAuthenticated, profileData, toggleDropdown, setProfileData }) => {
-  const imageUrl = profileData && profileData.image ? `http://127.0.0.1:8000/api/profile/${profileData.image}` : '';
-
-  const history = useHistory();
+const Navbar = ({ logout }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const history = useHistory();
+  const location = useLocation(); 
+  const image = location.state && location.state.image;
 
-  const handleImageChange = event => {
-    const imageFile = event.target.files[0];
-    setProfileData({ ...profileData, image: imageFile });
-  };
+  const [redirect, setRedirect] = useState(false);
 
   const logout_user = () => {
     logout();
     setRedirect(true);
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   const handleSearch = async () => {
     try {
       const response = await axios.get('https://retoolapi.dev/p2SxxC/data', {
         params: {
-          searchTerm: searchTerm // Correct parameter name
+          searchTerm: searchTerm
         }
       });
 
-      console.log(response.data); // Log entire response
-
-      // Correct the redirect URL
+      console.log(response.data);
       history.push(`/Search?term=${encodeURIComponent(searchTerm)}`);
     } catch (error) {
-      console.error('An error occurred:', error.message);
+      console.error('An error occurred while searching:', error.message);
     }
   };
+
+  console.log("Image in Navbar:", image);
 
   return (
     <nav>
@@ -70,21 +70,17 @@ const Navbar = ({ logout, isAuthenticated, profileData, toggleDropdown, setProfi
                   <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                   <Button variant="outline-success" className="ms-3" onClick={handleSearch}>Search</Button>
                 </Form>
-
+                
                 <div className="ml-3 ms-4">
-                  {profileData && (
-                    <img
-                      src={imageUrl}
-                      alt="Profile"
-                      className="rounded-circle"
-                      onClick={() => setShowDropdown()}
-                      style={{ cursor: 'pointer', width: '40px', height: '40px' }}
-                    />
+                  {image ? (
+                    <img src={image} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
+                  ) : (
+                    <p>No image available</p>
                   )}
                   {showDropdown && (
                     <Dropdown align="end" className="mt-0 ms-2" show={showDropdown} onClose={() => setShowDropdown(false)}>
                       <Dropdown.Menu className='mt-2 txt-center'>
-                        <Link to="/profile" className="dropdown-item">Profile</Link>
+                        <Link to="/profile" className="dropdown-item ">Profile</Link>
                         <Link to="/friends" className="dropdown-item">Friends</Link>
                         <Link to="/" className="dropdown-item" onClick={logout_user}>Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
                       </Dropdown.Menu>

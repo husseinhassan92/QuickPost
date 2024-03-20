@@ -5,12 +5,14 @@ from rest_framework.viewsets import ModelViewSet
 from .models import Profile
 from .serializer import ProfileSerializer
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 class ProfileViewSet(ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     parser_classes = [MultiPartParser, FormParser]
-
+    permission_classes = [IsAuthenticated]
+    
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
@@ -27,11 +29,11 @@ class ProfileViewSet(ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
-class LastProfileAPIView(APIView):
-    def get(self, request, format=None):
-        try:
-            last_profile = Profile.objects.latest('created_at')
-            serializer = ProfileSerializer(last_profile)
-            return Response(serializer.data)
-        except Profile.DoesNotExist:
-            return Response({"detail": "No profiles found"}, status=status.HTTP_404_NOT_FOUND)
+# class LastProfileAPIView(APIView):
+#     def get(self, request, format=None):
+#         try:
+#             last_profile = Profile.objects.latest('created_at')
+#             serializer = ProfileSerializer(last_profile)
+#             return Response(serializer.data)
+#         except Profile.DoesNotExist:
+#             return Response({"detail": "No profiles found"}, status=status.HTTP_404_NOT_FOUND)

@@ -6,6 +6,7 @@ function CreateProfileForm() {
         first_name: '',
         last_name: '',
         birth_date: '',
+        user_account:user_account
         image: null
     });
     const [errors, setErrors] = useState({});
