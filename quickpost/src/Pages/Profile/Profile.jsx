@@ -7,7 +7,7 @@ function Profile() {
     const [userPosts, setUserPosts] = useState([])
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [phone, setPhone] = useState('')
+    const [birth_date, setBirthDate] = useState('');
     const [post, setPost] = useState();
 
     const [deleteShow, setdeleteShow] = useState(false);
@@ -130,35 +130,48 @@ function Profile() {
 
 
     const updateUserData = async () => {
-        axios.put("https:/dummyapi.io/data/v1/user/60d0fe4f5311236168a109f4",
-            {
-                firstName: firstName,
-                lastName: lastName,
-                phone: phone,
-            }, {
-            headers: {
-                'app-id': "65d08f07b536e68ad8626e8c",
-                'Content-Type': 'application/json'
+        const token = localStorage.getItem('token');
+
+        const profileData = new FormData();
+            profileData.append('first_name', firstName);
+            profileData.append('last_name', lastName);
+            profileData.append('birth_date', birth_date);
+            profileData.append('image', image);
+        try {
+        
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                    Accept: 'application/json',
+                },
+            };
+    
+            
+    
+            const response = await axios.put('http://127.0.0.1:8000/api/profile/15/', profileData, config);
+            console.log(response.data);
+            alert('Your info updated successfully');
+            // Additional actions after successful update
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                // Handle unauthorized access (e.g., redirect to login page)
+                console.error('Unauthorized access:', error.response.data);
+            } else {
+                // Handle other errors
+                console.error('Error updating profile:', error);
             }
-        })
-            .then(function (response) {
-                // console.log(response);
-                alert("Your Info updated succesfully")
-                GetData();
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
-
-    function onUploadFileChange(e) {
-        let file = new FileReader();
-        file.readAsDataURL(e.target.files[0]);
-        file.onload = () => {
-            setImage(file.result);
+        }
+    };
+    
+    const onUploadFileChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            setImage(reader.result);
         };
-    }
-
+    };
 
     useEffect(() => {
         GetData();
@@ -269,7 +282,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-
+            <input type="file" onChange={onUploadFileChange} />
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -287,7 +300,7 @@ function Profile() {
                                         <input type="text" class="form-control" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                                     </div>
                                     <div class="col-12">
-                                        <input type="text" class="form-control" placeholder="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                                    <input type="text" class="form-control" placeholder="Birth date" value={birth_date} onChange={(e) => setBirthDate(e.target.value)} />
                                     </div>
                                 </div>
                             </form>

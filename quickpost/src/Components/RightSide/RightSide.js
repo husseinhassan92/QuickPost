@@ -1,5 +1,6 @@
 import React from 'react';
 import "./RightSide.css";
+import { Link } from 'react-router-dom';
 
 const Rightbar = () => {
   const HomeRightbar = () => {
@@ -11,12 +12,12 @@ const Rightbar = () => {
           <a href="#" className="list-group-item list-group-item-action bg-light">
             <i className="fas fa-home"></i> Home
           </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
+          <Link to="./CreateProfile/CreateProfile" className="list-group-item list-group-item-action bg-light">
+            <i className="fas fa-user-friends"></i> create profile
+          </Link>
+          <Link to="./UpdateProfile/UpdateProfile" className="list-group-item list-group-item-action bg-light">
+            <i className="fas fa-user-friends"></i> Update Profile
+          </Link>
           <a href="#" className="list-group-item list-group-item-action bg-light">
             <i className="fas fa-home"></i> Home
           </a>

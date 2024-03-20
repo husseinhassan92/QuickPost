@@ -5,39 +5,22 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { logout } from "../../Store/Actions/AuthAction";
 
-const Navbar = ({logout, isAuthenticated}) => {
+const Navbar = ({ logout, isAuthenticated, profileData, toggleDropdown, setProfileData }) => {
+  const imageUrl = profileData && profileData.image ? `http://127.0.0.1:8000/api/profile/${profileData.image}` : '';
+
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-
   const [redirect, setRedirect] = useState(false);
 
-    const logout_user = () => {
-        logout();
-        setRedirect(true);
-    };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+  const handleImageChange = event => {
+    const imageFile = event.target.files[0];
+    setProfileData({ ...profileData, image: imageFile });
   };
 
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get('https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19', {
-        headers: {
-          'app-id': "65d08f07b536e68ad8626e8c",
-          'Content-Type': 'application/json'
-        }
-      });
-      setProfileImage(response.data.picture);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
+  const logout_user = () => {
+    logout();
+    setRedirect(true);
   };
 
   const handleSearch = async () => {
@@ -87,13 +70,21 @@ const Navbar = ({logout, isAuthenticated}) => {
                   <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                   <Button variant="outline-success" className="ms-3" onClick={handleSearch}>Search</Button>
                 </Form>
-                
+
                 <div className="ml-3 ms-4">
-                  <img src={profileImage} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
+                  {profileData && (
+                    <img
+                      src={imageUrl}
+                      alt="Profile"
+                      className="rounded-circle"
+                      onClick={() => setShowDropdown()}
+                      style={{ cursor: 'pointer', width: '40px', height: '40px' }}
+                    />
+                  )}
                   {showDropdown && (
                     <Dropdown align="end" className="mt-0 ms-2" show={showDropdown} onClose={() => setShowDropdown(false)}>
                       <Dropdown.Menu className='mt-2 txt-center'>
-                        <Link to="/profile" className="dropdown-item ">Profile</Link>
+                        <Link to="/profile" className="dropdown-item">Profile</Link>
                         <Link to="/friends" className="dropdown-item">Friends</Link>
                         <Link to="/" className="dropdown-item" onClick={logout_user}>Logout <i className="fas fa-sign-out-alt fa-lg"></i></Link>
                       </Dropdown.Menu>
