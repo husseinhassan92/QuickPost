@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import  Response
 from profile.models import  Profile
+from rest_framework.parsers import MultiPartParser, FormParser
 from post.models import *
 from .serlizer import *
 
@@ -28,6 +29,7 @@ def getbyid(request,pk):
 
 @api_view(['POST'])
 def add(request):
+    parser_classes = (MultiPartParser, FormParser)
     post = PostSerializerAdd(data=request.data)
     if post.is_valid():
         post.save()
@@ -75,7 +77,7 @@ def share(request):
 @api_view(["DELETE"])
 def unshare(request):
     author = Profile.objects.get(id=request.data['author']).id
-    post = Profile.objects.get(id=request.data['post']).id
+    post = Post.objects.get(id=request.data['post']).id
     unshare = SharePost.objects.filter(author=author,post=post)
     if(len(unshare)>0):
         unshare.delete()

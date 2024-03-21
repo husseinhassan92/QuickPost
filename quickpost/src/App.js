@@ -24,7 +24,8 @@ import Activate from './Pages/Activate/Activate.js';
 
 const App = () => {
   const  isLoggedIn = useSelector(state => state.AuthRecducer.isAuthenticated)
-  console.log(isLoggedIn)
+  const  user = useSelector(state => state.AuthRecducer.user)
+  console.log(user)
   return (
     
       <Router>

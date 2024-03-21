@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+//import { connect } from 'react-redux';
 
 function Profile() {
+    // const user = useSelector(state => state.AuthReducer?.user);
+    // console.log(user);
     const [userData, setUserData] = useState([])
     const [userPosts, setUserPosts] = useState([])
     const [firstName, setFirstName] = useState('')
@@ -339,5 +343,7 @@ function Profile() {
         </section>
     );
 }
-
+// const mapStateToProps = state => ({
+//     user: state.AuthRecducer.user
+// });
 export default Profile

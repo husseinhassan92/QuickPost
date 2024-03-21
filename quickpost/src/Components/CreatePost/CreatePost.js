@@ -2,19 +2,22 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { connect } from 'react-redux';
 
-const CreatePost = () => {
+const CreatePost = ({isAuthenticated, user}) => {
   const [postText, setPostText] = useState("");
   const [post, setPost] = useState();
   const [postCount, setPostCount] = useState(0);
   const [disablePostButton, setDisablePostButton] = useState(true);
-  const [user, setUser] = useState();
+  //const [user, setUser] = useState();
   const [deleteShow, setdeleteShow] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [editShow, seteditShow] = useState(false);
   const [uploadShow, setUploadShow] = useState(false);
   const [editPostText, setEditPostText] = useState("")
   const [image , setImage] = useState(null)
+
+  //if (user){console.log(user.id)}
 
 
   const uploadhandleClose = () => {
@@ -42,18 +45,18 @@ const CreatePost = () => {
     setShowDropdown(!showDropdown);
   };
 
-  useEffect(() => {
-    axios
-      .get(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19`, {
-        headers: {
-          "app-id": "65d08a4661de33117cf6503f",
-        },
-      })
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((err) => console.log("Error:", err));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19`, {
+  //       headers: {
+  //         "app-id": "65d08a4661de33117cf6503f",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       //setUser(response.data);
+  //     })
+  //     .catch((err) => console.log("Error:", err));
+  // }, []);
 
   const handleContentChange = (e) => {
     setPostText(e.target.value);
@@ -66,20 +69,28 @@ const CreatePost = () => {
     }
   };
   const handleCreatePost = (event) => {
-    event.preventDefault();
-    const Body = {
-      text: postText,
-      image: image,
-      likes: 0,
-      owner: user.id,
-      tags: [],
+    console.log(postText)
+    let form_data = new FormData();
+    if (image) {
+      form_data.append('image', image);
+    }
+    form_data.append('content', postText);
+    form_data.append('p_author', user.id);
+    form_data.append('profile', 1);
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+      },
     };
+    // const Body = JSON.stringify({
+    //   content: postText,
+    //   image: image,
+    //   p_author: user.id,
+    //   profile: 1,
+    // });
     axios
-      .post("https://dummyapi.io/data/v1/post/create", Body, {
-        headers: {
-          "app-id": "65d08f07b536e68ad8626e8c",
-        },
-      })
+      .post(`http://localhost:8000/api/post/add/`, form_data, config)
       .then((response) => {
         setPostText("");
         setPostCount(0);
@@ -135,11 +146,12 @@ const CreatePost = () => {
   };
 
   function onUploadFileChange(e) {
-    let file = new FileReader();
-    file.readAsDataURL(e.target.files[0]);
-    file.onload = () => {
-      setImage(file.result);
-    };
+    setImage(e.target.files[0])
+    // let file = new FileReader();
+    // file.readAsDataURL(e.target.files[0]);
+    // file.onload = () => {
+    //   setImage(file.result);
+    // };
   }
 
 
@@ -150,14 +162,7 @@ const CreatePost = () => {
         <div className="row ">
           <div className="col">
             <div className="border rounded-3 border-success p-3 shadow mt-2 bg-dark ms-2 me-2">
-              {user && (
-                <img
-                  src={user.picture}
-                  alt="Owner"
-                  className="rounded-circle me-2 mb-0"
-                  style={{ width: "50px", height: "50px" }}
-                />
-              )}
+              
               <Form className="d-flex flex-column mt-0">
                 <Form.Group className="mb-3 ">
                   <Form.Label>
@@ -202,14 +207,7 @@ const CreatePost = () => {
               <div className="card text-light bg-dark">
                 <div className="card-body">
                   <div className="d-flex align-items-center mb-3">
-                    <img
-                      src={post.owner.picture}
-                      alt="Owner"
-                      className="rounded-circle me-2 mb-2 "
-                      style={{ width: "50px", height: "50px" }}
-                    />
                     <div className="align-self-center mb-2 ">
-                      {post.owner.firstName} {post.owner.lastName}
                     </div>
                     <div className="ms-auto text-light row">
                       <div className="col-10">
@@ -251,7 +249,7 @@ const CreatePost = () => {
                     {post.image && (
                       <Link to={`/post/${post.id}`}>
                         <img
-                          src={post.image}
+                          src={image}
                           alt="Post"
                           className="img-fluid rounded mb-3 ps-1 w-100"
                         />
@@ -343,7 +341,10 @@ const CreatePost = () => {
     </>
   );
 };
-
-export default CreatePost;
+const mapStateToProps = state => ({
+  isAuthenticated: state.AuthRecducer.isAuthenticated,
+  user: state.AuthRecducer.user,
+});
+export default connect(mapStateToProps)(CreatePost);
 
 // (e) => editPost(e, post.id)
