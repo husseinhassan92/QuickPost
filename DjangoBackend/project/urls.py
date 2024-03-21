@@ -24,7 +24,6 @@ from django.urls import path, include, re_path
 
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/post/",include("post.api.urls")),
@@ -32,8 +31,11 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('api/', include('reaction.urls')),
     path('api/', include('profile.urls')),
-    path("api/comments/",include("comment.api.urls"))
+    path("api/comments/",include("comment.api.urls")),
+    path('api/messenger/', include("messenger.api.urls")),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns +=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 

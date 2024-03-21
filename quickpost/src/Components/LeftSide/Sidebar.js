@@ -26,6 +26,8 @@ function Sidebar() {
       <SidebarOption Icon={CiBookmark} text="Bookmarks" link={"/bookmarks"} title={"bookmarks"}/>
       <SidebarOption Icon={CiCircleList} text="Friends" link={"/friends"} title={"friends"}/>
       <SidebarOption Icon={AiOutlineUser} text="Profile" link={"/profile"} title={"profile"}/>
+      <SidebarOption Icon={AiOutlineUser} text="CreateProfile" link={"/CreateProfile"} title={"CreateProfile"}/>
+      <SidebarOption Icon={AiOutlineUser} text="UpdateProfile" link={"/UpdateProfile"} title={"UpdateProfile"}/>
 
       {/* Button -> Logout */}
       <Link className={`sidebarOption bg_logout`}>

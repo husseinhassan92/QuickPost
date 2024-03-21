@@ -18,6 +18,8 @@ import store from "./Store/store";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Error from './Components/Error/Error.js';
+import CreateProfile from './Components/CreateProfile/CreateProfile';
+import UpdateProfile from './Components/UpdateProfile/UpdateProfile';
 
 
 const App = () => {
@@ -36,6 +38,9 @@ const App = () => {
           <Route path='/Friends' component={Friends} />
           <Route path='/profile' component={Profile} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
+          <Route path='/CreateProfile' component={CreateProfile} />
+          <Route path='/UpdateProfile' component={UpdateProfile} />
+        
           <Route path="/post/:id" component={Post} />
           <Route path="/Messages" component={Messages} />
           <Route  path='/reset-password' component={ResetPassword} />

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import axios from 'axios';
 import Sidebar from '../../Components/LeftSide/Sidebar';
 import Rightbar from '../../Components/RightSide/RightSide';
+import { useHistory } from 'react-router-dom';
+import { Container, Form, FormGroup, FormLabel, FormControl, Button, Row, Col, Card , Dropdown, Modal } from 'react-bootstrap';
 
 function Profile() {
-    const [userData, setUserData] = useState([])
+    // const [userData, setUserData] = useState([])
     const [userPosts, setUserPosts] = useState([])
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [phone, setPhone] = useState('')
     const [post, setPost] = useState();
 
     const [deleteShow, setdeleteShow] = useState(false);
@@ -17,6 +15,96 @@ function Profile() {
     const [editShow, seteditShow] = useState(false);
     const [editPostText, setEditPostText] = useState("")
     const [image, setImage] = useState(null)
+    const [profileData, setProfileData] = useState({
+        first_name: '',
+        last_name: '',
+        birth_date: '',
+        image: null,
+      });
+      const [errors, setErrors] = useState({
+        first_name: '',
+        last_name: '',
+        birth_date: '',
+      });
+      const history = useHistory();
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `JWT ${localStorage.getItem('access')}`,
+          },
+        };
+
+        const response = await axios.get('http://127.0.0.1:8000/api/profile/4/', config);
+        setProfileData(response.data);
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      }
+    };
+
+    fetchProfileData();
+  }, []);
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setProfileData({ ...profileData, [name]: value });
+    setErrors({ ...errors, [name]: '' });
+  };
+
+  const handleImageChange = event => {
+    const imageFile = event.target.files[0];
+    setProfileData({ ...profileData, image: imageFile });
+  };
+  
+  const handleImageClick = () => {
+    history.push('/navbar', { image: profileData.image });
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    try {
+      const validationErrors = {};
+      if (profileData.first_name.trim().length < 3) {
+        validationErrors.first_name = 'First name must be at least 3 characters long.';
+      }
+      if (profileData.last_name.trim().length < 3) {
+        validationErrors.last_name = 'Last name must be at least 3 characters long.';
+      }
+      const currentDate = new Date();
+      const selectedDate = new Date(profileData.birth_date);
+      if (selectedDate >= currentDate) {
+        validationErrors.birth_date = 'Birth date must be before today.';
+      }
+
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('first_name', profileData.first_name);
+      formData.append('last_name', profileData.last_name);
+      formData.append('birth_date', profileData.birth_date);
+      formData.append('image', profileData.image);
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `JWT ${localStorage.getItem('access')}`,
+          Accept: 'application/json',
+        },
+      };
+
+      const response = await axios.put('http://127.0.0.1:8000/api/profile/4/', formData, config);
+      console.log('Profile updated successfully:', response.data);
+      setProfileData(response.data);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
 
     const edithandleClose = () => {
         seteditShow(false)
@@ -103,20 +191,6 @@ function Profile() {
             .catch((err) => console.log(err));
     };
 
-    const GetData = async () => {
-        const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19`, {
-            method: "Get",
-            headers: {
-                'Content-Type': 'application/json',
-                'app-id': "65d08f07b536e68ad8626e8c"
-            },
-        });
-        const data = await response.json()
-        setUserData(data);
-        console.log(data);
-    }
-
-
     const getUserPosts = async () => {
         const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19/post`, {
             method: "Get",
@@ -131,28 +205,6 @@ function Profile() {
     }
 
 
-    const updateUserData = async () => {
-        axios.put("https:/dummyapi.io/data/v1/user/60d0fe4f5311236168a109f4",
-            {
-                firstName: firstName,
-                lastName: lastName,
-                phone: phone,
-            }, {
-            headers: {
-                'app-id': "65d08f07b536e68ad8626e8c",
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(function (response) {
-                // console.log(response);
-                alert("Your Info updated succesfully")
-                GetData();
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-    }
-
     function onUploadFileChange(e) {
         let file = new FileReader();
         file.readAsDataURL(e.target.files[0]);
@@ -163,7 +215,6 @@ function Profile() {
 
 
     useEffect(() => {
-        GetData();
         getUserPosts()
     }, [userPosts])
 
@@ -176,18 +227,18 @@ function Profile() {
                     <div className="col"><Sidebar/></div>
 
                     <div className="col col-lg-9 col-xl-7 ">
-                        <div className="card ">
-                            <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
-                                <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                    <img src={userData.picture} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+                        <div className="card ms-5">
+                            <div className="rounded-top text-white d-flex flex-row " style={{ backgroundColor: '#000', height: '200px' }}>
+                                <div className="ms-4  d-flex flex-column " style={{ width: '150px' ,marginTop:'50px',height: '2 50px'}}>
+                                    <img src={profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-5" style={{ width: '150px', zIndex: 1 ,marginTop:'50px', height: '150px'}} />
                                     <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
                                         Edit profile
                                     </button>
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
-                                    <h5>{userData.firstName + " " + userData.lastName}</h5>
-                                    <p>{`${userData.location && userData.location.country}, ${userData.location && userData.location.city}`}</p>
-                                    <span>{userData.phone}</span>
+                                    <h5>{profileData.first_name + " " + profileData.last_name}</h5>
+                                    <p>{profileData.birth_date}</p>
+                                        {/* <span>{userData.phone}</span> */}
                                 </div>
                             </div>
                             <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
@@ -210,7 +261,7 @@ function Profile() {
                                 <div className="mb-5">
                                     <p className="lead fw-normal mb-1">About</p>
                                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
-                                        <p className="font-italic mb-1">I'm {userData.firstName + " " + userData.lastName} and lives in {`${userData.location && userData.location.country}, ${userData.location && userData.location.city}`}</p>
+                                        {/* <p className="font-italic mb-1">I'm {userData.firstName + " " + userData.lastName} and lives in {`${userData.location && userData.location.country}, ${userData.location && userData.location.city}`}</p> */}
 
                                     </div>
                                 </div>
@@ -284,23 +335,51 @@ function Profile() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body text-dark">
-                            <form>
-                                <div class="row gap-3">
-                                    <div class="col-12">
-                                        <input type="text" class="form-control" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                                    </div>
-                                    <div class="col-12">
-                                        <input type="text" class="form-control" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                                    </div>
-                                    <div class="col-12">
-                                        <input type="text" class="form-control" placeholder="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                                    </div>
-                                </div>
-                            </form>
+                        <Form onSubmit={handleSubmit} className='mt-5'>
+          <FormGroup>
+            <FormLabel>First Name:</FormLabel>
+            <FormControl
+              type="text"
+              name="first_name"
+              value={profileData.first_name}
+              onChange={handleInputChange}
+            />
+            {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Last Name:</FormLabel>
+            <FormControl
+              type="text"
+              name="last_name"
+              value={profileData.last_name}
+              onChange={handleInputChange}
+            />
+            {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Birth Date:</FormLabel>
+            <FormControl
+              type="date"
+              name="birth_date"
+              value={profileData.birth_date}
+              onChange={handleInputChange}
+            />
+            {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Profile Image:</FormLabel>
+            <FormControl
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </FormGroup>
+          <Button type="submit" variant="primary">Update Profile</Button>
+        </Form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={() => updateUserData()}>Save changes</button>
+                            {/* <button type="button" className="btn btn-primary" onClick={() => updateUserData()}>Save changes</button> */}
                         </div>
                     </div>
                 </div>
