@@ -20,6 +20,7 @@ import Profile from './Pages/Profile/Profile';
 import ResetPassword from './Pages/ResetPassword/ResetPassword.js';
 import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm.js';
 import Activate from './Pages/Activate/Activate.js';
+import CreateProfile from './Components/CreateProfile/CreateProfile';
 
 
 const App = () => {
@@ -43,6 +44,7 @@ const App = () => {
           <Route  path='/reset-password' component={ResetPassword} />
           <Route  path='/password/reset/confirm/:uid/:token'component={ResetPasswordConfirm} />
           <Route exact path='/activate/:uid/:token' component={Activate} />
+          <Route path="/createprofile" component={CreateProfile} />
         </Switch>
       </Router>
   );
