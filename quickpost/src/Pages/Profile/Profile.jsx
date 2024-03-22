@@ -18,12 +18,9 @@ function Profile({isAuthenticated, user}) {
     const [editShow, seteditShow] = useState(false);
     const [editPostText, setEditPostText] = useState("")
     const [image, setImage] = useState(null)
-    const [profileData, setProfileData] = useState({
-        first_name: '',
-        last_name: '',
-        birth_date: '',
-        image: null,
-      });
+    const [profileData, setProfileData] = useState({});
+
+    console.log("profile", profileData)
       const [errors, setErrors] = useState({
         first_name: '',
         last_name: '',
@@ -42,16 +39,17 @@ function Profile({isAuthenticated, user}) {
             };
     
             const response = await axios.get(`http://127.0.0.1:8000/api/profile/user/${user.id}`, config); 
-            console.log(response)
+            //console.log(response)
             setProfileData(response.data.data);
+
           } catch (error) {
             console.error('Error fetching profile data:', error);
           }
         };
-    
+        
         fetchProfileData();
       }, []);
-    
+      console.log("profile1", profileData)
       const handleInputChange = event => {
         const { name, value } = event.target;
         setProfileData({ ...profileData, [name]: value });
@@ -89,6 +87,7 @@ function Profile({isAuthenticated, user}) {
           }
     
           const formData = new FormData();
+          formData.append('user_account', profileData.id);
           formData.append('first_name', profileData.first_name);
           formData.append('last_name', profileData.last_name);
           formData.append('birth_date', profileData.birth_date);
@@ -101,7 +100,7 @@ function Profile({isAuthenticated, user}) {
             },
           };
     
-          const response = await axios.put(`http://127.0.0.1:8000/api/profile/user/${user.id}/`, formData, config);
+          const response = await axios.put(`http://127.0.0.1:8000/api/profile/${profileData.id}/`, formData, config);
           console.log('Profile updated successfully:', response);
           setProfileData(response.data.data);
         } catch (error) {
@@ -247,15 +246,15 @@ function Profile({isAuthenticated, user}) {
                         <div className="card">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                    <img src={profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+                                    <img src={'http://127.0.0.1:8000'+profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
                                     <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
                                         Edit profile
                                     </button>
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
-                                    <h5>{userData.firstName + " " + userData.lastName}</h5>
-                                    <p>{`${userData.location && userData.location.country}, ${userData.location && userData.location.city}`}</p>
-                                    <span>{userData.phone}</span>
+                                    <h5>{profileData.first_name + " " + profileData.last_name}</h5>
+                                    <p>{profileData.birth_date}</p>
+                                        {/* <span>{userData.phone}</span> */}
                                 </div>
                             </div>
                             <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
