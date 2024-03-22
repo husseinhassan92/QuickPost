@@ -8,11 +8,9 @@ class Reaction(models.Model):
     user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     REACTION_CHOICES = [
-        ('😄', 'Happy'),
-        ('😢', 'Sad'),
+ 
         ('❤️', 'Love'),
-        ('👎', 'Dislike'),
-        ('👍', 'Like'),
+ 
       ]
     reaction_type = models.CharField(max_length=100, choices=REACTION_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)

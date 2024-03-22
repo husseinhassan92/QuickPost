@@ -316,6 +316,7 @@ const Posts = ({isAuthenticated, user}) => {
   const { loading, data: posts, hasMore } = InifinteScroll(pageNumber);
   const observer = useRef();
   const [postComments, setPostComments] = useState([]);
+  const [likedPosts, setLikedPosts] = useState([]);
   
   let [Post , setPost] = useState([])
   async function getPost() {
@@ -420,6 +421,64 @@ const Posts = ({isAuthenticated, user}) => {
         console.log("Error deleting comment:", err.response.data);
       });
   };
+  const isPostLiked = (postId) => {
+    return likedPosts.includes(postId);
+  };
+
+  const handleLikePost = (postId) => {
+    axios.post(`http://127.0.0.1:8000/api/reactions/add/`,
+   {post :postId,user:1,profile:1,reaction_type:'❤️'}
+     , {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+        Accept: 'application/json',
+      }
+    })
+      .then((response) => {
+        setLikedPosts([...likedPosts, postId]);
+
+        const updatedPosts = Post.map((post) => {
+          if (post.id === postId) {
+            return {
+              ...post,
+              isLiked: true,
+            };
+          }
+          return post;
+        });
+        setPost(updatedPosts);
+      })
+      .catch((error) => {
+        // Handle error
+      });
+  };
+
+  const handleUnlikePost = (postId) => {
+    axios.post(`http://127.0.0.1:8000/api/reactions/unlike`, {post :postId,user:1}, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `JWT ${localStorage.getItem("access")}`,
+        Accept: 'application/json',
+      }
+    })
+      .then((response) => {
+        setLikedPosts(likedPosts.filter((id) => id !== postId));
+
+        const updatedPosts = Post.map((post) => {
+          if (post.id === postId) {
+            return {
+              ...post,
+              isLiked: false,
+            };
+          }
+          return post;
+        });
+        setPost(updatedPosts);
+      })
+      .catch((error) => {
+      });
+  };
 
   if (!isAuthenticated) {
     return <Redirect to='/Posts' />
@@ -475,13 +534,10 @@ const Posts = ({isAuthenticated, user}) => {
                           </h5> */}
                           <p className="card-text text-light">{post.content}</p>
                           <div className="row mt-5">
-                            <div className="pb-3 col-4 text-start">
-                              <i className="bi bi-heart text-light pe-1"></i>{" "}
-                              {post.love_count} Likes
+                          <div className="pb-3 col-4 text-start" onClick={() => (isPostLiked(post.id) ? handleUnlikePost(post.id) : handleLikePost(post.id))}>
+                              <i className={isPostLiked(post.id) ? "bi bi-heart-fill text-danger pe-1" : "bi bi-heart text-light pe-1"}></i>{" "}
+                              {post.reaction_count}{' '} Like
                             </div>
-
-
-
                             <div
                               className="pb-3 col-4 text-center"
                               onClick={() => {

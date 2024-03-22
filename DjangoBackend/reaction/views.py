@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from .models import Reaction
 from .serializers import ReactionSerializer
 from reaction.models import Reaction
+from accounts.models import UserAccount
+from post.models import Post
 
 @api_view(['GET'])
 def get_all_reactions(request):
@@ -28,15 +30,15 @@ def add_reaction(request):
     else:
         return Response(reaction.errors, status=400)
 
-@api_view(["DELETE"])
-def delete_reaction(request, pk):
-    try:
-        reaction = Reaction.objects.get(id=pk)
-    except Reaction.DoesNotExist:
-        return Response({'msg': 'Reaction not found'}, status=404)
-    reaction.delete()
-    return Response({'msg': 'Reaction deleted'}, status=200)
-
+@api_view(["POST"])
+def unlike(request):
+    user = UserAccount.objects.get(id=request.data['user']).id
+    post = Post.objects.get(id=request.data['post']).id
+    unlike = Reaction.objects.filter(user=user,post=post)
+    if(len(unlike)>0):
+        unlike.delete()
+        return Response(data={'msg':'Post unliked'})
+    return Response({'msg':'post not found'})
 @api_view(['GET', 'PUT'])
 def update_reaction(request, pk):
     try:
