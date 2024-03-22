@@ -1,5 +1,6 @@
 from django import views
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import  Response
 from profile.models import  Profile
@@ -57,13 +58,25 @@ def update(request,pk):
 
 
 
+# @api_view(['GET'])
+# def getbyuser(request,pk):
+#     posts = Post.objects.filter(author=UserAccount.objects.get(id=pk))
+#     s_posts = SharePost.objects.filter(author=UserAccount.objects.get(id=pk))
+#     return Response({"msg":"posts Found",
+#                     "post":PostSerializer(posts,many=True).data,
+#                     "shared":ShareSerializer(s_posts,many=True).data})
+
 @api_view(['GET'])
-def getbyuser(request,pk):
-    posts = Post.objects.filter(author=Profile.objects.get(id=pk))
-    s_posts = SharePost.objects.filter(author=Profile.objects.get(id=pk))
-    return Response({"msg":"posts Found",
-                    "post":PostSerializer(posts,many=True).data,
-                    "shared":ShareSerializer(s_posts,many=True).data})
+def getbyuser(request, pk):
+    posts = Post.objects.filter(profile=Profile.objects.get(id=pk))
+    s_posts = SharePost.objects.filter(profile=Profile.objects.get(id=pk))
+    
+    if posts.exists() or s_posts.exists():
+        return Response({"msg": "Posts found",
+                         "posts": PostSerializer(posts, many=True).data,
+                         "shared": ShareSerializer(s_posts, many=True).data})
+    else:
+        return Response({"msg": "No posts found for this user."}, status=404)
 
 @api_view(['POST'])
 def share(request):

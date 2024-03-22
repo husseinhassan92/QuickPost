@@ -7,5 +7,5 @@ router.register(r'profile', ProfileViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('profile/<int:pk>',getbyuser),
+    path('profile/user/<int:pk>',getbyuser),
 ]

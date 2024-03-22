@@ -45,6 +45,7 @@ const App = () => {
           <Route  path='/password/reset/confirm/:uid/:token'component={ResetPasswordConfirm} />
           <Route exact path='/activate/:uid/:token' component={Activate} />
           <Route path="/createprofile" component={CreateProfile} />
+          
         </Switch>
       </Router>
   );
