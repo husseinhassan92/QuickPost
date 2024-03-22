@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 function Profile({isAuthenticated, user}) {
     // const user = useSelector(state => state.AuthReducer?.user);
     // console.log(user);
-        // const [userData, setUserData] = useState([])
     const [userData, setUserData] = useState([])
     const [userPosts, setUserPosts] = useState([])
     const [post, setPost] = useState();
@@ -41,9 +40,9 @@ function Profile({isAuthenticated, user}) {
               },
             };
     
-            const response = await axios.get(`http://127.0.0.1:8000/api/profile/user/${user.id}`, config); 
-            console.log(response)
-            setProfileData(response.data.data);
+            const response = await axios.get(`http://127.0.0.1:8000/api/profile/${user.id}/`, config); 
+            console.log(response.data);
+            setProfileData(response.data);
           } catch (error) {
             console.error('Error fetching profile data:', error);
           }
@@ -193,36 +192,6 @@ function Profile({isAuthenticated, user}) {
             .catch((err) => console.log(err));
     };
 
-    // const GetData = async () => {
-    //     const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19`, {
-    //         method: "Get",
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'app-id': "65d08f07b536e68ad8626e8c"
-    //         },
-    //     });
-    //     const data = await response.json()
-    //     setUserData(data);
-    //     console.log(data);
-    // }
-
-
-    // const getUserPosts = async () => {
-    //     const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19/post`, {
-    //         method: "Get",
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'app-id': "65d08f07b536e68ad8626e8c"
-    //         },
-    //     })
-    //     const data = await response.json()
-    //     setUserPosts(data.data);
-    //     // console.log(data);
-    // }
-
-
-
-
     function onUploadFileChange(e) {
         let file = new FileReader();
         file.readAsDataURL(e.target.files[0]);
@@ -247,15 +216,15 @@ function Profile({isAuthenticated, user}) {
                         <div className="card">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                    <img src={profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
-                                    <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
+                                {profileData?.image && <img src={profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />}
+                                        <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
                                         Edit profile
                                     </button>
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
-                                    <h5>{userData.firstName + " " + userData.lastName}</h5>
-                                    <p>{`${userData.location && userData.location.country}, ${userData.location && userData.location.city}`}</p>
-                                    <span>{userData.phone}</span>
+                                    <h5>{profileData.first_name + " " + profileData.last_name}</h5>
+                                    <p>{profileData.birth_date}</p>
+                                        {/* <span>{userData.phone}</span> */}
                                 </div>
                             </div>
                             <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
