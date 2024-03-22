@@ -63,7 +63,7 @@ function Login({login_user, isAuthenticated}) {
   };
 
   if (isAuthenticated) {
-    return <Redirect to='/Posts' />
+    return <Redirect to='/createprofile' />
   }
 
   //const history = useHistory();

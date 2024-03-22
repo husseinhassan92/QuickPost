@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+//import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const CreateProfile= ({isAuthenticated, user}) => {
+    const history = useHistory();
     if (user){console.log(user)}
         const [formData, setFormData] = useState({
         first_name: '',
@@ -103,10 +106,12 @@ const CreateProfile= ({isAuthenticated, user}) => {
             });
             setErrors({});
             // Redirect or show success message
+            history.push('/Posts');
         } catch (error) {
             // Handle errors (e.g., display error message to the user)
             console.error('Error creating profile:', error);
         }
+
     };
 
     return (

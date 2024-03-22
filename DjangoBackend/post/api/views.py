@@ -68,8 +68,8 @@ def update(request,pk):
 
 @api_view(['GET'])
 def getbyuser(request, pk):
-    posts = Post.objects.filter(profile=Profile.objects.get(id=pk))
-    s_posts = SharePost.objects.filter(profile=Profile.objects.get(id=pk))
+    posts = Post.objects.filter(p_author=UserAccount.objects.get(id=pk))
+    s_posts = SharePost.objects.filter(p_author=UserAccount.objects.get(id=pk))
     
     if posts.exists() or s_posts.exists():
         return Response({"msg": "Posts found",
@@ -87,9 +87,9 @@ def share(request):
     else:
         return Response(share_post.errors,status=400)
 
-@api_view(["DELETE"])
+@api_view(["POST"])
 def unshare(request):
-    author = Profile.objects.get(id=request.data['author']).id
+    author = UserAccount.objects.get(id=request.data['author']).id
     post = Post.objects.get(id=request.data['post']).id
     unshare = SharePost.objects.filter(author=author,post=post)
     if(len(unshare)>0):

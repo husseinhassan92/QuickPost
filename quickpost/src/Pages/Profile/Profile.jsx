@@ -223,6 +223,7 @@ function Profile({isAuthenticated, user}) {
 
 
     function onUploadFileChange(e) {
+        //e.target.files[0]
         let file = new FileReader();
         file.readAsDataURL(e.target.files[0]);
         file.onload = () => {
