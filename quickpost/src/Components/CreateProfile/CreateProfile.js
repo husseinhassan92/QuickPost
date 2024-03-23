@@ -20,7 +20,7 @@ const CreateProfile= ({isAuthenticated, user, loadUserProfileById, userProfile})
     const history = useHistory();
     if (user){loadUserProfileById(user.id);}
     if (userProfile){
-        return <Redirect to='/Posts' />
+        return <Redirect to='/home' />
     }
 
     const handleChange = (e) => {
