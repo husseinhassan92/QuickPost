@@ -10,11 +10,23 @@ import { connect } from 'react-redux'
 
 const HomePage = ({ isAuthenticated, user, userProfile}) => {
   return (
-    <div>
-        <Leftbar/>
-        <Posts/>
-        <Rightbar/>
+    <>
+    <div className="container-fluid">
+      <div className="row">
+        <div className='d-flex'>
+          <div className="left-side col-lg-3 col-4">
+            <Leftbar />
+          </div>
+          <div className="middle col-lg-6 col-8">
+            <Posts />
+          </div>
+          <div className='right-side col-lg-3 '>
+            <Rightbar />
+          </div>
+        </div>
+      </div>
     </div>
+  </>
   )
 }
 
