@@ -1,35 +1,37 @@
 import React, { useEffect, useState } from 'react';
-//import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import axios from 'axios';
-//import { useSelector } from 'react-redux';
-//import {Form, FormGroup, FormLabel, FormControl, Button, Row, Col, Card , Dropdown, Modal } from 'react-bootstrap';
-//import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {  useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Form, FormGroup, FormLabel, FormControl, Button, Row, Col, Card, Dropdown, Modal } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import Nav from 'react-bootstrap/Nav';
+import Posts from '../../Components/Posts/Posts'
+import Navbar from '../../Components/Navbar/Navbar'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+// import MyPost from '../../Components/myPost/Post';
+import SharedPost from '../../Components/OthersharedPost/OtherSharedPost';
+// import SharedPost from '../../Components/sharedPost/SharedPost';
+import MyPost from '../../Components/OtherPost/OtherPost';
+
 
 function OtherProfile({isAuthenticated, user}) {
-    // const user = useSelector(state => state.AuthReducer?.user);
-    // console.log(user);
-        // const [userData, setUserData] = useState([])
     const user_account = useParams();
     console.log(user_account);
-    // const [userData, setUserData] = useState([])
-    // const [userPosts, setUserPosts] = useState([])
-    // const [post, setPost] = useState();
-    // const [deleteShow, setdeleteShow] = useState(false);
-    // const [showDropdown, setShowDropdown] = useState(false);
-    // const [image, setImage] = useState(null)
+    
     const [following, setFollowing] = useState(false); 
 
     const [profileData, setProfileData] = useState({});
+    const [userData, setUserData] = useState([])
+    const [userPosts, setUserPosts] = useState([])
+    const [post, setPost] = useState();
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [image, setImage] = useState(null)
+    const [activePage, setActivePage] = useState('posts');
 
-    //console.log("profile", profileData)
-    //   const [errors, setErrors] = useState({
-    //     first_name: '',
-    //     last_name: '',
-    //     birth_date: '',
-    //   });
-      //const history = useHistory();
+    const handlePageChange = (page) => {
+        setActivePage(page);
+    };
 
       useEffect(() => {
         const fetchProfileData = async () => {
@@ -52,32 +54,6 @@ function OtherProfile({isAuthenticated, user}) {
         
         fetchProfileData();
       }, []);
-    //   console.log("profile1", profileData)
-    //   const handleInputChange = event => {
-    //     const { name, value } = event.target;
-    //     setProfileData({ ...profileData, [name]: value });
-    //     setErrors({ ...errors, [name]: '' });
-    //   };
-    
-    //   const handleImageChange = event => {
-    //     const imageFile = event.target.files[0];
-    //     setProfileData({ ...profileData, image: imageFile });
-    //   };
-      
-    //   const handleImageClick = () => {
-    //     history.push('/navbar', { image: profileData.image });
-    //   };
-    
-    // const deletehandleClose = () => {
-    //     setdeleteShow(false)
-    //     setShowDropdown(false)
-    // };
-
-    // const toggleDropdown = () => {
-    //     setShowDropdown(!showDropdown);
-    // };
-    
-
     const handleFollow = () => {
         const data = {
             follower: user.id,
@@ -100,7 +76,16 @@ function OtherProfile({isAuthenticated, user}) {
                 console.error('Error following user:', error);
             });
     };
-
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };  
+    function onUploadFileChange(e) {
+        let file = new FileReader();
+        file.readAsDataURL(e.target.files[0]);
+        file.onload = () => {
+            setImage(file.result);
+        };
+    }
     return (
         <section className="h-100 gradient-custom-2">
             <div className="container py-5 h-100">
@@ -117,7 +102,6 @@ function OtherProfile({isAuthenticated, user}) {
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
                                     <h5>{profileData.first_name + " " + profileData.last_name}</h5>
                                     <p>{profileData.birth_date}</p>
-                                        {/* <span>{userData.phone}</span> */}
                                 </div>
                             </div>
                             <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
@@ -136,6 +120,28 @@ function OtherProfile({isAuthenticated, user}) {
                                     </div>
                                 </div>
                             </div>
+                            <div className="card-body p-4 text-black">
+
+
+
+                              
+<Nav justify variant="tabs" defaultActiveKey="/home">
+    <Nav.Item>
+        <Nav.Link   onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}>My Posts</Nav.Link>
+    </Nav.Item>
+    <Nav.Item>
+        <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'Navbar'}>Shared Posts</Nav.Link>
+    </Nav.Item>
+                                   
+</Nav>
+{activePage === 'posts' && <MyPost profileid={user_account.id} />}
+{activePage === 'nav' && <SharedPost profileid={user_account.id} />}
+
+
+
+
+
+</div>  
                         </div>
                     </div>
                 </div>
