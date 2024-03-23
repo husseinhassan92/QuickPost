@@ -33,6 +33,7 @@ urlpatterns = [
     path('api/', include('reaction.urls')),
     path('api/', include('profile.urls')),
     path('api/follow/', include('follower.urls')),
+    path('api/report/', include('report.urls')),
     path("api/comments/",include("comment.api.urls"))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

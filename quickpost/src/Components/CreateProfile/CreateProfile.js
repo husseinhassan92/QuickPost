@@ -113,7 +113,7 @@ const CreateProfile= ({isAuthenticated, user, loadUserProfileById, userProfile})
             });
             setErrors({});
             // Redirect or show success message
-            history.push('/Posts');
+            history.push('/home');
         } catch (error) {
             // Handle errors (e.g., display error message to the user)
             console.error('Error creating profile:', error);

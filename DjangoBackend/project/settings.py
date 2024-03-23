@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'reaction.apps.ReactionConfig',
     'profile.apps.ProfileConfig',
     'comment.apps.CommentConfig',
-    'follower.apps.FollowerConfig'
+    'follower.apps.FollowerConfig',
+    'report.apps.ReportConfig',
 ]
 
 MIDDLEWARE = [

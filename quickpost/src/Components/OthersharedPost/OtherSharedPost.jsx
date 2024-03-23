@@ -317,7 +317,7 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
                                       )
                                     }
                                   >
-                                    Delete
+                                   Report
                                   </button>
                                 </div>
                               </div>

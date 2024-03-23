@@ -231,7 +231,7 @@ const [postComments, setPostComments] = useState([]);
                                     )
                                   }
                                 >
-                                  Delete
+                                  Report
                                 </button>
                               </div>
                             </div>
