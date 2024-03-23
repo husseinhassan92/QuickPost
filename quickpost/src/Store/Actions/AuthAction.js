@@ -14,7 +14,9 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   ACTIVATION_SUCCESS,
-  ACTIVATION_FAIL
+  ACTIVATION_FAIL,
+  PROFILE_LOADED_SUCCESS,
+  PROFILE_LOADED_FAIL
 } from "../Actions/Types";
 
 export const load_user = () => async (dispatch) => {
@@ -112,6 +114,38 @@ export const login_user = (email, password) => async (dispatch) => {
     });
   }
 };
+export const loadUserProfileById = (userId) => async (dispatch, getState) => {
+    if (localStorage.getItem("access")) {
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${localStorage.getItem("access")}`,
+            Accept: "application/json",
+          },
+        }
+        try {
+            //const { access } = getState().AuthReducer; // Assuming your reducer name is AuthReducer
+            
+            const response = await axios.get(
+              `http://127.0.0.1:8000/api/profile/user/${userId}`,
+              config
+            );
+            dispatch({
+              type: PROFILE_LOADED_SUCCESS,
+              payload: response.data.data,
+            });
+          } catch (error) {
+            dispatch({
+              type: PROFILE_LOADED_FAIL,
+            });
+          }
+    }else{
+        dispatch({
+            type: PROFILE_LOADED_FAIL,
+        })
+    }
+    
+  };
 
 export const signup_user = (username, email, password, re_password) => async dispatch => {
     const config = {

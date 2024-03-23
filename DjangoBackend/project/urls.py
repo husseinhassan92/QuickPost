@@ -32,6 +32,7 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('api/', include('reaction.urls')),
     path('api/', include('profile.urls')),
+    path('api/follow/', include('follower.urls')),
     path("api/comments/",include("comment.api.urls"))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

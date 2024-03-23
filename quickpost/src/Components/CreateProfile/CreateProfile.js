@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link, Redirect, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 //import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+//import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { loadUserProfileById } from "../../Store/Actions/AuthAction";
 
-const CreateProfile= ({isAuthenticated, user}) => {
-    const history = useHistory();
-    if (user){console.log(user)}
-        const [formData, setFormData] = useState({
+const CreateProfile= ({isAuthenticated, user, loadUserProfileById, userProfile}) => {
+    //console.log(user.id)
+    //loadUserProfileById(1);
+    const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
         birth_date: '',        
@@ -15,6 +17,11 @@ const CreateProfile= ({isAuthenticated, user}) => {
         //user_account: user.id,
     });
     const [errors, setErrors] = useState({});
+    const history = useHistory();
+    if (user){loadUserProfileById(user.id);}
+    if (userProfile){
+        return <Redirect to='/Posts' />
+    }
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -147,6 +154,7 @@ const CreateProfile= ({isAuthenticated, user}) => {
 const mapStateToProps = state => ({
     isAuthenticated: state.AuthRecducer.isAuthenticated,
     user: state.AuthRecducer.user,
+    userProfile: state.AuthRecducer.userProfile,
 });
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(mapStateToProps,{loadUserProfileById})(CreateProfile);
         

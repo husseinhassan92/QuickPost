@@ -9,10 +9,11 @@ import twitte from "../../images/twitter.png";
 import loginimg from "../../images/loginimg.png";
 import { login_user } from "../../Store/Actions/AuthAction";
 
-function Login({login_user, isAuthenticated}) {
+function Login({login_user, isAuthenticated, user}) {
   const Emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const Passregex = /^.{8,}$/;
 
+  console.log(user)
   const [showPassword, setShowPassword] = useState(false);
 
   const [data, setData] = useState({ email: "", password: "" });
@@ -152,7 +153,8 @@ function Login({login_user, isAuthenticated}) {
   );
 }
 const mapStateToProps = state => ({
-  isAuthenticated: state.AuthRecducer.isAuthenticated
+  isAuthenticated: state.AuthRecducer.isAuthenticated,
+  user: state.AuthRecducer.user,
 });
 
 

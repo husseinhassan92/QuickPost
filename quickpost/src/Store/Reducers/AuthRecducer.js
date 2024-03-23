@@ -13,14 +13,18 @@ import {
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
   ACTIVATION_SUCCESS,
-  ACTIVATION_FAIL
+  ACTIVATION_FAIL,
+  PROFILE_LOADED_SUCCESS,
+  PROFILE_LOADED_FAIL
 } from "../Actions/Types";
+
 
 const initialState = {
   access: localStorage.getItem("access"),
   refresh: localStorage.getItem("refresh"),
   isAuthenticated: localStorage.getItem("isAuthenticated"),
   user: null,
+  userProfile: null,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -33,7 +37,7 @@ export default function (state = initialState, action) {
       // case FACEBOOK_AUTH_SUCCESS:
       localStorage.setItem("access", payload.access);
       localStorage.setItem("refresh", payload.refresh);
-      localStorage.setItem("isAuthenticated",true)
+      localStorage.setItem("isAuthenticated",true);
       return {
         ...state,
         isAuthenticated: true,
@@ -47,6 +51,16 @@ export default function (state = initialState, action) {
             ...state,
             isAuthenticated: true,
         }
+    case PROFILE_LOADED_SUCCESS:
+        return {
+            ...state,
+            userProfile: payload,
+          };
+    case PROFILE_LOADED_FAIL:
+        return {
+            ...state,
+            userProfile: null,
+          };
     case SIGNUP_SUCCESS:
       localStorage.removeItem("isAuthenticated")
         return {
