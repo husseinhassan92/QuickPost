@@ -179,9 +179,6 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
   return (
     <div className="container-fluid">
       <div className="row p-0">
-        <div className="col-3 p-0">
-          <Leftbar isHomePage={true} />
-        </div>
         <div className="col-6">
           <div>
             <CreatePost />
@@ -552,9 +549,6 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
 
           </div>
-        </div>
-        <div className="col-3 p-0 m-0">
-          <Rightbar />
         </div>
       </div>
     </div>

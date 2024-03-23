@@ -22,6 +22,8 @@ import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConf
 import Activate from './Pages/Activate/Activate.js';
 import CreateProfile from './Components/CreateProfile/CreateProfile';
 import OtherProfile from './Pages/OtherProfile/OtherProfile';
+import HomePage from './Pages/HomePage/HomePage.js';
+
 
 
 const App = () => {
@@ -37,8 +39,10 @@ const App = () => {
           <Route path='/Login' component={Login} />
           <Route path='/Sginup' component={Sginup} />
           <Route path='/Friends' component={Friends} />
+
           <Route path='/profile' component={Profile} />
-          <Route path="/Posts" component={Posts} />
+          {/* <Route path="/Posts" component={Posts} /> */}
+          <Route path="/home" component={HomePage} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
           <Route path="/post/:id" component={Post} />
           <Route path="/Messages" component={Messages} />
