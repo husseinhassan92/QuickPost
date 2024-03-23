@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import WhatsApp from '../../images/WhatsApp.jpeg'
 import { Button, Dropdown } from 'react-bootstrap';
 import Comment from '../Comment/Comment';
-import HeaderShared from '../HeaderShared/HeaderShared';
+import HeaderShared from '../OtherHeaderShared/HeaderShared';
 
 function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
   const [pageNumber, setPageNumber] = useState(1);

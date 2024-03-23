@@ -9,7 +9,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import WhatsApp from '../../images/WhatsApp.jpeg'
 import { Button, Dropdown } from 'react-bootstrap';
-import HeaderPost from '../HeaderPost/HeaderPost';
+import HeaderPost from '../OtherHeaderPost/HeaderPost';
 import Comment from '../Comment/Comment';
 
 
