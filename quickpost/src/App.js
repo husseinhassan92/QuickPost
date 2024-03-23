@@ -17,6 +17,8 @@ import Welcom from './Pages/WelcomePage/Welcom';
 //import HomePage from './Pages/HomePage/HomePage.js';
 import Friends from './Pages/FriendsPage/Friends';
 import Profile from './Pages/Profile/Profile';
+import OtherProfile from './Pages/OtherProfile/OtherProfile';
+
 import ResetPassword from './Pages/ResetPassword/ResetPassword.js';
 import ResetPasswordConfirm from './Pages/ResetPasswordConfirm/ResetPasswordConfirm.js';
 import Activate from './Pages/Activate/Activate.js';
@@ -37,6 +39,8 @@ const App = () => {
           <Route path='/Sginup' component={Sginup} />
           <Route path='/Friends' component={Friends} />
           <Route path='/profile' component={Profile} />
+          <Route path='/OtherProfile/:id' component={OtherProfile} />
+
           <Route path="/Posts" component={Posts} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
           <Route path="/post/:id" component={Post} />
@@ -45,7 +49,7 @@ const App = () => {
           <Route  path='/password/reset/confirm/:uid/:token'component={ResetPasswordConfirm} />
           <Route exact path='/activate/:uid/:token' component={Activate} />
           <Route path="/createprofile" component={CreateProfile} />
-          
+
         </Switch>
       </Router>
   );

@@ -8,5 +8,6 @@ export default combineReducers({
     AuthRecducer:AuthRecducer,
     search: searchReducer,
     friends: friendsReducer,
+    post: postReducer,
 });
 

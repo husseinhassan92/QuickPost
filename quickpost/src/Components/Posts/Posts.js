@@ -470,13 +470,15 @@ const Posts = ({ isAuthenticated }) => {
                         <div className="card-body">
 
                           <div className="d-flex align-items-center mb-3">
-                            <img
-                              src={post.profile.image === null ? WhatsApp : post.profile.image}
-                              alt="Owner"
-                              className="rounded-circle me-2 mb-2"
-                              style={{ width: "50px", height: "50px" }}
+                          <Link to={`/OtherProfile/${post.profile.user_account}`}>
+  <img
+    src={post.profile.image}
+    alt="Owner"
+    className="rounded-circle me-2 mb-2"
+    style={{ width: "50px", height: "50px" }}
+  />
+</Link>
 
-                            />
                             <div className="align-self-center mb-2">
                               {post.profile.first_name} {post.profile.last_name}
                             </div>
@@ -662,13 +664,15 @@ const Posts = ({ isAuthenticated }) => {
 
                           <div className="card-body">
                             <div className="d-flex align-items-center mb-3">
-                              <img
-                                src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
-                                alt="Owner"
-                                className="rounded-circle me-2 mb-2"
-                                style={{ width: "50px", height: "50px" }}
+                            {/* <a href={sharep.post.profile.image === null ? "whatsapp://..." : "/profile"}>
+  <img 
+    src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
+    alt="Owner"
+    className="rounded-circle me-2 mb-2"
+    style={{ width: "50px", height: "50px" }}
+  />
+</a> */}  
 
-                              />
                               <div className="align-self-center mb-2">
                                 {sharep.post.profile.first_name} {sharep.post.profile.last_name}
                               </div>

@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 function Profile({isAuthenticated, user}) {
     // const user = useSelector(state => state.AuthReducer?.user);
     // console.log(user);
+        // const [userData, setUserData] = useState([])
     const [userData, setUserData] = useState([])
     const [userPosts, setUserPosts] = useState([])
     const [post, setPost] = useState();
@@ -17,12 +18,9 @@ function Profile({isAuthenticated, user}) {
     const [editShow, seteditShow] = useState(false);
     const [editPostText, setEditPostText] = useState("")
     const [image, setImage] = useState(null)
-    const [profileData, setProfileData] = useState({
-        first_name: '',
-        last_name: '',
-        birth_date: '',
-        image: null,
-      });
+    const [profileData, setProfileData] = useState({});
+
+    console.log("profile", profileData)
       const [errors, setErrors] = useState({
         first_name: '',
         last_name: '',
@@ -40,17 +38,18 @@ function Profile({isAuthenticated, user}) {
               },
             };
     
-            const response = await axios.get(`http://127.0.0.1:8000/api/profile/${user.id}/`, config); 
-            console.log(response.data);
-            setProfileData(response.data);
+            const response = await axios.get(`http://127.0.0.1:8000/api/profile/user/${user.id}`, config); 
+            //console.log(response)
+            setProfileData(response.data.data);
+
           } catch (error) {
             console.error('Error fetching profile data:', error);
           }
         };
-    
+        
         fetchProfileData();
       }, []);
-    
+      console.log("profile1", profileData)
       const handleInputChange = event => {
         const { name, value } = event.target;
         setProfileData({ ...profileData, [name]: value });
@@ -88,6 +87,7 @@ function Profile({isAuthenticated, user}) {
           }
     
           const formData = new FormData();
+          formData.append('user_account', profileData.id);
           formData.append('first_name', profileData.first_name);
           formData.append('last_name', profileData.last_name);
           formData.append('birth_date', profileData.birth_date);
@@ -100,7 +100,7 @@ function Profile({isAuthenticated, user}) {
             },
           };
     
-          const response = await axios.put(`http://127.0.0.1:8000/api/profile/user/${user.id}/`, formData, config);
+          const response = await axios.put(`http://127.0.0.1:8000/api/profile/${profileData.id}/`, formData, config);
           console.log('Profile updated successfully:', response);
           setProfileData(response.data.data);
         } catch (error) {
@@ -192,6 +192,36 @@ function Profile({isAuthenticated, user}) {
             .catch((err) => console.log(err));
     };
 
+    // const GetData = async () => {
+    //     const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19`, {
+    //         method: "Get",
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'app-id': "65d08f07b536e68ad8626e8c"
+    //         },
+    //     });
+    //     const data = await response.json()
+    //     setUserData(data);
+    //     console.log(data);
+    // }
+
+
+    // const getUserPosts = async () => {
+    //     const response = await fetch(`https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19/post`, {
+    //         method: "Get",
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'app-id': "65d08f07b536e68ad8626e8c"
+    //         },
+    //     })
+    //     const data = await response.json()
+    //     setUserPosts(data.data);
+    //     // console.log(data);
+    // }
+
+
+
+
     function onUploadFileChange(e) {
         let file = new FileReader();
         file.readAsDataURL(e.target.files[0]);
@@ -216,8 +246,8 @@ function Profile({isAuthenticated, user}) {
                         <div className="card">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                {profileData?.image && <img src={profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />}
-                                        <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
+                                    <img src={'http://127.0.0.1:8000'+profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+                                    <button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
                                         Edit profile
                                     </button>
                                 </div>
@@ -245,7 +275,11 @@ function Profile({isAuthenticated, user}) {
                             </div>
                             <div className="card-body p-4 text-black">
                                 <div className="mb-5">
+                                <Button className='mt-5' variant="outline-danger">
+         Add to Favorites
+          </Button>
                                     <p className="lead fw-normal mb-1">About</p>
+
                                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
                                         <p className="font-italic mb-1">I'm {userData.firstName + " " + userData.lastName} and lives in {`${userData.location && userData.location.country}, ${userData.location && userData.location.city}`}</p>
 
@@ -285,6 +319,16 @@ function Profile({isAuthenticated, user}) {
                                                                                 >
                                                                                     Edit
                                                                                 </Button>
+                                                                                {/* {isFavorite(product.id) ? (
+          <Button onClick={() => handleRemoveFavorite(profile.id)} className='favorites ' variant="danger">
+          <i className="fa-solid fa-heart-broken"></i> Remove from Following
+          </Button>
+        ) : (
+          <Button onClick={handleAddFavorite} className='favorites ' variant="outline-danger">
+         Add to Favorites
+          </Button>
+        )} */}
+      
                                                                                 <Button
                                                                                     onClick={() => deletehandleShow(post.id)}
                                                                                     className="dropdown-item "
