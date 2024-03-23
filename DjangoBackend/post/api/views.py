@@ -69,7 +69,7 @@ def update(request,pk):
 @api_view(['GET'])
 def getbyuser(request, pk):
     posts = Post.objects.filter(p_author=UserAccount.objects.get(id=pk))
-    s_posts = SharePost.objects.filter(p_author=UserAccount.objects.get(id=pk))
+    s_posts = SharePost.objects.filter(author=UserAccount.objects.get(id=pk))
     
     if posts.exists() or s_posts.exists():
         return Response({"msg": "Posts found",
