@@ -171,10 +171,11 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
       });
   };
   const isPostLiked = (postId) => {
-    return likedPosts.includes(postId);}
+    return likedPosts.includes(postId);
+  };
   const handleLikePost = (postId) => {
     axios.post(`http://127.0.0.1:8000/api/reactions/add/`,
-      { post: postId, user: user.id, profile: 1, reaction_type: '❤️' },
+      { post: postId, user: user.id, profile: userProfile.id, reaction_type: '❤️' },
       {
         headers: {
           'Content-Type': 'application/json',
@@ -204,7 +205,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
   
 
   const handleUnlikePost = (postId) => {
-    axios.post(`http://127.0.0.1:8000/api/reactions/unlike`, { post: postId, user: 1 }, {
+    axios.post(`http://127.0.0.1:8000/api/reactions/unlike`, { post: postId, user: user.id }, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `JWT ${localStorage.getItem("access")}`,

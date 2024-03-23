@@ -4,7 +4,7 @@ import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { connect } from 'react-redux';
 
-const CreatePost = ({isAuthenticated, user}) => {
+const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) => {
   const [postText, setPostText] = useState("");
   const [post, setPost] = useState();
   const [postCount, setPostCount] = useState(0);
@@ -76,7 +76,7 @@ const CreatePost = ({isAuthenticated, user}) => {
     }
     form_data.append('content', postText);
     form_data.append('p_author', user.id);
-    form_data.append('profile', 1);
+    form_data.append('profile', userProfile.id);
     const config = {
       headers: {
         'content-type': 'multipart/form-data',
@@ -344,6 +344,7 @@ const CreatePost = ({isAuthenticated, user}) => {
 const mapStateToProps = state => ({
   isAuthenticated: state.AuthRecducer.isAuthenticated,
   user: state.AuthRecducer.user,
+  userProfile: state.AuthRecducer.userProfile,
 });
 export default connect(mapStateToProps)(CreatePost);
 
