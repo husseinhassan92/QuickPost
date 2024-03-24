@@ -98,34 +98,6 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
     return <Redirect to='/login' />
   }
 
-  // const name = useRef();
-  // const email = useRef();
-  // const user_name = useRef();
-  // const password = useRef();
-  // const [showHome, setshowHome] = useState(false)
-  // const localSginup = localStorage.getItem("sginup")
-
-  // useEffect(() => {
-  //   if (localSginup) {
-  //     setshowHome(true)
-  //   }
-  // }, [])
-  // const history = useHistory();
-
-  // const registry = (e) => {
-  //   e.preventDefault();
-  //   console.log(name, email, password, user_name);
-  //   if (name.current.value && email.current.value && password.current.value && user_name.current.value) {
-  //     localStorage.setItem('name', name.current.value);
-  //     localStorage.setItem('email', email.current.value);
-  //     localStorage.setItem('password', password.current.value);
-  //     localStorage.setItem('user Name', user_name.current.value);
-  //     localStorage.setItem('sginup', email.current.value);
-  //     history.push("/Login")
-
-  //   }
-  // }
-
 
   return (
     <>

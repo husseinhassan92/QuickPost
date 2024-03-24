@@ -5,5 +5,6 @@ from .views import *
 urlpatterns = [
     path('follow/',follow),
     path('following/<int:pk>/',getfollowing),
-    path('follower/<int:pk>/',getfollower)
+    path('follower/<int:pk>/',getfollower),
+    path('unfollow/',unfollow),
 ]

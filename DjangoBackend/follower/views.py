@@ -43,16 +43,16 @@ def getfollower(request, pk):
     followers=[]
     following_users = Follower.objects.filter(following=pk)
     for  i in range(len(following_users)):
-        followers.append(Profile.objects.filter(user_account=following_users[i].following)[0])
+        followers.append(Profile.objects.filter(user_account=following_users[i].follower)[0])
     serializer = ProfileFollowSerializer(followers,many=True)
     return Response(serializer.data)
 
 
 @api_view(["POST"])
 def unfollow(request):
-    Follower = UserAccount.objects.get(id=request.data['user']).id
-    following = UserAccount.objects.get(id=request.data['otherUser']).id
-    follow = Follower.objects.filter(Follower=Follower,following=following)
+    follower = UserAccount.objects.get(id=request.data['user'])
+    following = UserAccount.objects.get(id=request.data['otherUser'])
+    follow = Follower.objects.filter(follower=follower,following=following)
     if(len(follow)>0):
         follow.delete()
         return Response(data={'msg':'unfollow'})
