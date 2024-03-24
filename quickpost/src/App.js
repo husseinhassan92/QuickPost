@@ -42,9 +42,8 @@ const App = () => {
 
           <Route path='/profile' component={Profile} />
           {/* <Route path="/Posts" component={Posts} /> */}
-          <Route path="/Search/:searchTerm" component={SearchPage} />
           <Route path="/home" component={HomePage} />
-
+          <Route path="/Search/:searchTerm" component={SearchPage} />
           <Route path="/post/:id" component={Post} />
           <Route path="/Messages" component={Messages} />
           <Route  path='/reset-password' component={ResetPassword} />

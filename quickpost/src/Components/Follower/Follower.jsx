@@ -39,9 +39,9 @@ function Follower({isAuthenticated, user}) {
         </>
     )
 }
+
 const mapStateToProps = state => ({
     isAuthenticated: state.AuthRecducer.isAuthenticated,
     user: state.AuthRecducer.user,
-    userProfile: state.AuthRecducer.userProfile,
   });
   export default connect(mapStateToProps)(Follower);

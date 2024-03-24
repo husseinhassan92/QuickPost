@@ -1,18 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllFriends, fetchAsyncFriends } from '../../Store/Reducers/friendSlice';
-import SidebarOption from '../SubComponents/SidebarOption';
-import { CiLogout, CiSearch } from "react-icons/ci";
-import { IoMdLogOut, IoMdNotificationsOutline } from "react-icons/io";
-import { CiMail } from "react-icons/ci";
-import { CiBookmark } from "react-icons/ci";
-import { CiCircleList } from "react-icons/ci";
-import { AiOutlineUser } from "react-icons/ai";
-import { HiHashtag } from "react-icons/hi";
-import { GrHomeRounded } from "react-icons/gr";
-import { SiQuicktime } from "react-icons/si";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-
 
 const Leftbar = ({ isHomePage }) => {
   const dispatch = useDispatch();
@@ -23,25 +11,36 @@ const Leftbar = ({ isHomePage }) => {
   }, [dispatch]);
 
   return (
-    <>
-      <div className="sidebar vh-100 bg-dark">
-        <SiQuicktime className="sidebar__twitterIcon" />
-
-        <SidebarOption active Icon={GrHomeRounded} text="Home" link={"/home"} title={"home"} />
-        <SidebarOption Icon={HiHashtag} text="Explore" link={"/search"} title={"search"} />
-        <SidebarOption Icon={IoMdNotificationsOutline} text="Notifications" link={"/notifications"} title={"notifications"} />
-        <SidebarOption Icon={CiMail} text="Messages" link={""} title={"messages"} />
-        <SidebarOption Icon={CiBookmark} text="Bookmarks" link={"/bookmarks"} title={"bookmarks"} />
-        <SidebarOption Icon={CiCircleList} text="Friends" link={"/friends"} title={"friends"} />
-        <SidebarOption Icon={AiOutlineUser} text="Profile" link={"/profile"} title={"profile"} />
-
-        {/* Button -> Logout */}
-          <CiLogout className="fs-5 " />
-        <Link className={`sidebarOption bg_logout`}>
-          <h2 className="d-lg-block d-none">Logout</h2>
-        </Link>
+    <div className="leftbar" style={{ height: "100rem" }}>
+      <div className="leftbarWrapper">
+      <div className="bg-light border-left" id="left-panel" >
+          <div className="list-group list-group-flush">
+            <a href="#" className="list-group-item list-group-item-action bg-light pt-4">
+              <i className="fas fa-home"></i> Home
+            </a>
+            <a href="#" className="list-group-item list-group-item-action bg-light pt-4">
+              <i className="fas fa-user-friends"></i> Friends
+            </a>
+            <a href="#" className="list-group-item list-group-item-action bg-light border-bottom pt-4">
+              <i className="fas fa-comment"></i> Messages
+            </a>
+          </div>
+        </div>
+        {isHomePage && (
+          <ul className="list-unstyled bg-light">
+            {friends.map((friend) => (
+              <li key={friend.id} className="mb-3">
+                <div className='d-flex align-items-center'>
+                  <img src={friend.picture} alt="Owner" className='rounded-circle me-2' style={{ width: '50px', height: '50px' }} />
+                  <div>{friend.firstName}</div>
+                </div>
+                <hr />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 
