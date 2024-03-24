@@ -7,26 +7,27 @@ import Posts from '../../Components/Posts/Posts'
 import SearchPage from '../SearchPage/SearchPage'
 import Messages from '../../Messages'
 import { connect } from 'react-redux'
+import './homepage.css'
 
-const HomePage = ({ isAuthenticated, user, userProfile}) => {
+const HomePage = ({ isAuthenticated, user, userProfile }) => {
   return (
     <>
-    <div className="container-fluid">
-      <div className="row">
-        <div className='d-flex'>
-          <div className="left-side col-lg-3 col-4">
-            <Leftbar />
-          </div>
-          <div className="middle col-lg-6 col-8">
-            <Posts />
-          </div>
-          <div className='right-side col-lg-3 '>
-            <Rightbar />
+      <div className="container-fluid">
+        <div className="row">
+          <div className='d-flex'>
+            <div className="left-side col-lg-3 col-1 vh-100">
+              <Leftbar />
+            </div>
+            <div className="middle col-lg-6 col-11  border-left border-right  vh-100 overflow-y-auto">
+              <Posts />
+            </div>
+            <div className='right-side col-lg-3 d-none d-lg-block  '>
+              <Rightbar />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </>
+    </>
   )
 }
 

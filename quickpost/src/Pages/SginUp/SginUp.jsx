@@ -2,10 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { connect } from 'react-redux';
-import facebook from "../../images/facebook.png";
-import google from "../../images/google.png";
+// import facebook from "../../images/facebook.png";
+// import google from "../../images/google.png";
 import signUp from "../../images/signUp.png";
-import twitte from "../../images/twitter.png";
+// import twitte from "../../images/twitter.png";
 import './sginup.css'
 import { signup_user } from '../../Store/Actions/AuthAction';
 
@@ -132,17 +132,19 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
 
 
       <Container >
-        <Row className="  mt-5  p-3 ">
-          <Col lg={7} md={6}>
-            <img
-              className="col col-4 me-5 pe-lg-5 w-md-25 pt-5 img "
-              src={signUp}
-              alt=""
-            />
+        <Row className="  mt-5  p-3 text-white">
+          <Col lg={6} >
+            <div className=" d-none d-lg-block pe-lg-5 pt-5">
+              <img
+                className="img w-100"
+                src={signUp}
+                alt=""
+              />
+            </div>
 
           </Col>
-          <Col lg={5}  >
-            <Form onSubmit={e => sumbitdata(e)} className="bg-body   ms-md-3  p-5 border border-1  text-center shadow">
+          <Col lg={6}  >
+            <Form onSubmit={e => sumbitdata(e)} className="  ms-md-3  p-5 border border-1  text-center shadow">
               <h4 className=" pb-4">SGIN UP</h4>
 
               <Form.Group className="col col-10 mx-auto" controlId="userName">
@@ -200,7 +202,7 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
 
 
               <Button
-                variant="outline-dark "
+                variant="outline-primary "
                 type="submit"
                 className=" w-75 "
                 onClick={(e) => sumbitdata(e)}
