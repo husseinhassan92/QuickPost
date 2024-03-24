@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Nav from 'react-bootstrap/Nav';
 import Posts from '../../Components/Posts/Posts'
 import Navbar from '../../Components/Navbar/Navbar'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import MyPost from '../../Components/myPost/Post';
 import SharedPost from '../../Components/sharedPost/SharedPost';
 import Follower from '../../Components/Follower/Follower';
@@ -41,6 +41,8 @@ function Profile({ isAuthenticated, user }) {
     });
     const history = useHistory();
 
+
+
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
@@ -68,6 +70,10 @@ function Profile({ isAuthenticated, user }) {
         setProfileData({ ...profileData, [name]: value });
         setErrors({ ...errors, [name]: '' });
     };
+
+    if (!user) {
+        return <Redirect to='/' />
+    }
 
     const handleImageChange = event => {
         const imageFile = event.target.files[0];
@@ -379,6 +385,7 @@ function Profile({ isAuthenticated, user }) {
 const mapStateToProps = state => ({
     isAuthenticated: state.AuthRecducer.isAuthenticated,
     user: state.AuthRecducer.user,
+
 });
 export default connect(mapStateToProps)(Profile);
 

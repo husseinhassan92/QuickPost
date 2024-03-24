@@ -18,29 +18,33 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
   let [Post, setPost] = useState([]);
   async function getPost() {
-    let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-        Accept: "application/json",
-      },
-    });
+    if (localStorage.getItem("access")) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        },
+      }
+    let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, config);
     console.log(data);
     setPost(data.posts);
-  }
+  }}
 
   let [SharedPost, setSharedPost] = useState([]);
   async function getSharedPost() {
-    let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-        Accept: "application/json",
-      },
-    });
+    if (localStorage.getItem("access")) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        },
+      }
+    let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`,config);
     // console.log(share);
     setSharedPost(data.shared);
-  }
+  }}
 
   const sharePost = (postId) => {
     axios
@@ -78,13 +82,9 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
   useEffect(() => {
     getPost();
-    //getSharedPost();
+    getSharedPost();
   }, []);
 
-  useEffect(() => {
-    //getPost();
-    getSharedPost();
-  }, [sharePost]);
 
   const lastPostElementRef = useCallback(
     (node) => {
