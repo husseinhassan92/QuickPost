@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import "./login.css";
 import { Link, Redirect, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { connect } from 'react-redux';
@@ -12,8 +12,8 @@ import { login_user } from "../../Store/Actions/AuthAction";
 function Login({login_user, isAuthenticated, user}) {
   const Emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const Passregex = /^.{8,}$/;
-
-  console.log(user)
+  const [loginError, setLoginError] = useState("");
+  //console.log(user)
   const [showPassword, setShowPassword] = useState(false);
 
   const [data, setData] = useState({ email: "", password: "" });
@@ -56,10 +56,20 @@ function Login({login_user, isAuthenticated, user}) {
     }
   };
 
+
   const sumbitdata = (e) => {
-    if (!error.emailError || !error.passError) {
-      e.preventDefault();
-      login_user(email, password);   
+    e.preventDefault();
+    
+    if (!error.emailError && !error.passError) {
+      if (!isAuthenticated) {
+        setLoginError("Invalid email or password.");
+      }
+      
+      login_user(email, password);
+    } else {
+      // Email or password is invalid, show message
+      setLoginError("Invalid email or password.");
+
     }
   };
 
@@ -100,6 +110,7 @@ function Login({login_user, isAuthenticated, user}) {
                 className="form border border-1 mx-auto py-5"
               >
                 <h3 className="mb-4 mt-5">LOGIN</h3>
+                {loginError && <Alert variant="danger">{loginError}</Alert>}
                 <Form.Group
                   className="mb-3 col-8 mx-auto  "
                   controlId="formGroupEmail"
