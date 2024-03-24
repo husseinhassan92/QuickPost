@@ -5,8 +5,8 @@ import Leftbar from "../LeftSide/LeftSide";
 import Rightbar from "../RightSide/RightSide";
 import CreatePost from "../CreatePost/CreatePost";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from 'react-redux';
-import WhatsApp from '../../images/WhatsApp.jpeg'
+import { connect } from "react-redux";
+import WhatsApp from "../../images/WhatsApp.jpeg";
 import Comment from "../Comment/Comment";
 
 const Posts = ({ isAuthenticated, user, userProfile }) => {
@@ -16,40 +16,36 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
   const [postComments, setPostComments] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
 
-  let [Post, setPost] = useState([])
+  let [Post, setPost] = useState([]);
   async function getPost() {
     let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `JWT ${localStorage.getItem("access")}`,
         Accept: "application/json",
-      }
-    })
+      },
+    });
     console.log(data);
-    setPost(data.posts)
+    setPost(data.posts);
   }
 
-  let [SharedPost, setSharedPost] = useState([])
+  let [SharedPost, setSharedPost] = useState([]);
   async function getSharedPost() {
     let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `JWT ${localStorage.getItem("access")}`,
         Accept: "application/json",
-      }
-    })
+      },
+    });
     // console.log(share);
-    setSharedPost(data.shared)
+    setSharedPost(data.shared);
   }
 
   useEffect(() => {
     getPost();
     getSharedPost();
-  }, [])
-
-
-
-
+  }, []);
 
   const lastPostElementRef = useCallback(
     (node) => {
@@ -67,7 +63,6 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
   const [newComment, setNewComment] = useState("");
 
-
   console.log(Post);
   const handleAddComment = (postId, ownerId) => {
     axios
@@ -77,14 +72,14 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
           c_author: user.id,
           post: postId,
           content: newComment,
-          profile: userProfile.id
+          profile: userProfile.id,
         },
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `JWT ${localStorage.getItem("access")}`,
             Accept: "application/json",
-          }
+          },
         }
       )
       .then((response) => {
@@ -106,36 +101,31 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
     // console.log('Salah');
   };
 
-
-
-
-
-
-
-
-
   const sharePost = (postId) => {
-    axios.post(`http://127.0.0.1:8000/api/post/share/`,
-      {
-        //note
-        author: user.id,
-        profile: userProfile.id,
-        post: postId,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${localStorage.getItem("access")}`,
-          Accept: "application/json",
+    axios
+      .post(
+        `http://127.0.0.1:8000/api/post/share/`,
+        {
+          //note
+          author: user.id,
+          profile: userProfile.id,
+          post: postId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${localStorage.getItem("access")}`,
+            Accept: "application/json",
+          },
         }
-      })
-      .then(response => {
-        console.log('Post shared successfully:', response.data);
+      )
+      .then((response) => {
+        console.log("Post shared successfully:", response.data);
         // getPost();
         // Handle success, if needed
       })
-      .catch(error => {
-        console.error('Error sharing post:', error);
+      .catch((error) => {
+        console.error("Error sharing post:", error);
         // Handle error, if needed
       });
   };
@@ -144,10 +134,10 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
     axios
       .delete(`http://127.0.0.1:8000/api/comments/comment/${commentId}`, {
         headers: {
-          'Content-Type': 'multipart/json-data',
+          "Content-Type": "multipart/json-data",
           Authorization: `JWT ${localStorage.getItem("access")}`,
           Accept: "application/json",
-        }
+        },
       })
       .then((response) => {
         console.log("Comment deleted:", response.data);
@@ -158,7 +148,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
               "Content-Type": "application/json",
               Authorization: `JWT ${localStorage.getItem("access")}`,
               Accept: "application/json",
-            }
+            },
           })
           .then((response) => {
             console.log("Comments for post:", response.data);
@@ -174,70 +164,75 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
     return likedPosts.includes(postId);
   };
   const handleLikePost = (postId) => {
-    axios.post(`http://127.0.0.1:8000/api/reactions/add/`,
-      { post: postId, user: user.id, profile: userProfile.id, reaction_type: '❤️' },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `JWT ${localStorage.getItem("access")}`,
-          Accept: 'application/json',
+    axios
+      .post(
+        `http://127.0.0.1:8000/api/reactions/add/`,
+        {
+          post: postId,
+          user: user.id,
+          profile: userProfile.id,
+          reaction_type: "❤️",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${localStorage.getItem("access")}`,
+            Accept: "application/json",
+          },
         }
-      })
+      )
       .then((response) => {
         setLikedPosts([...likedPosts, postId]);
-  
+
         const updatedPosts = Post.map((post) => {
           if (post.id === postId) {
             return {
               ...post,
               isLiked: true,
-              reaction_count: post.reaction_count + 1, 
+              reaction_count: post.reaction_count + 1,
             };
           }
           return post;
         });
         setPost(updatedPosts);
       })
-      .catch((error) => {
-        
-      });
+      .catch((error) => {});
   };
-  
 
   const handleUnlikePost = (postId) => {
-    axios.post(`http://127.0.0.1:8000/api/reactions/unlike`, { post: postId, user: user.id }, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-        Accept: 'application/json',
-      }
-    })
+    axios
+      .post(
+        `http://127.0.0.1:8000/api/reactions/unlike`,
+        { post: postId, user: user.id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${localStorage.getItem("access")}`,
+            Accept: "application/json",
+          },
+        }
+      )
       .then((response) => {
-        
         setLikedPosts(likedPosts.filter((id) => id !== postId));
-  
+
         const updatedPosts = Post.map((post) => {
           if (post.id === postId) {
             return {
               ...post,
               isLiked: false,
-              reaction_count: post.reaction_count - 1, 
+              reaction_count: post.reaction_count - 1,
             };
           }
           return post;
         });
         setPost(updatedPosts);
       })
-      .catch((error) => {
-        
-      });
+      .catch((error) => {});
   };
 
   if (!isAuthenticated) {
-    return <Redirect to='/Posts' />
+    return <Redirect to="/Posts" />;
   }
-
-
 
   return (
     <div className="container-fluid">
@@ -255,13 +250,14 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                     <div className="col">
                       <div className="card text-light bg-dark">
                         <div className="card-body">
-
                           <div className="d-flex align-items-center mb-3">
-                          <Link
+                            <Link
                               to={`/OtherProfile/${post.profile.user_account}`}
                             >
                               <img
-                                src={'http://127.0.0.1:8000'+post.profile.image}
+                                src={
+                                  "http://127.0.0.1:8000" + post.profile.image
+                                }
                                 alt="Owner"
                                 className="rounded-circle me-2 mb-2"
                                 style={{ width: "50px", height: "50px" }}
@@ -276,10 +272,9 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                           </div>
                           <Link to={`/post/${post.id}`}>
                             <img
-                              src={'http://127.0.0.1:8000' + post.image}
+                              src={"http://127.0.0.1:8000" + post.image}
                               alt="Post"
                               className="img-fluid rounded mb-3 ps-1 w-100"
-
                             />
                           </Link>
                           {/* <h5 className="card-title text-light mt-3">
@@ -287,12 +282,23 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                           </h5> */}
                           <p className="card-text text-light">{post.content}</p>
                           <div className="row mt-5">
-                            <div className="pb-3 col-4 text-start" onClick={() => (isPostLiked(post.id) ? handleUnlikePost(post.id) : handleLikePost(post.id))}>
-                              <i className={isPostLiked(post.id) ? "bi bi-heart-fill text-danger pe-1" : "bi bi-heart text-light pe-1"}></i>{" "}
-                              {post.reaction_count}{' '} Like
+                            <div
+                              className="pb-3 col-4 text-start"
+                              onClick={() =>
+                                isPostLiked(post.id)
+                                  ? handleUnlikePost(post.id)
+                                  : handleLikePost(post.id)
+                              }
+                            >
+                              <i
+                                className={
+                                  isPostLiked(post.id)
+                                    ? "bi bi-heart-fill text-danger pe-1"
+                                    : "bi bi-heart text-light pe-1"
+                                }
+                              ></i>{" "}
+                              {post.reaction_count} Like
                             </div>
-
-
 
                             <div
                               className="pb-3 col-4 text-center"
@@ -321,18 +327,16 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   (comment) => comment.post === post.id
                                 ).length
                               }{" "} */}
-                              {post.comments_count}{' '}
-                              Comments
+                              {post.comments_count} Comments
                             </div>
 
-
-
-                            <div className="pb-3 col-4 text-end pe-4" onClick={() => sharePost(post.id)}>
-                              <i className="bi bi-share pe-1"></i> {post.share_count}{" "}
-                              Share
+                            <div
+                              className="pb-3 col-4 text-end pe-4"
+                              onClick={() => sharePost(post.id)}
+                            >
+                              <i className="bi bi-share pe-1"></i>{" "}
+                              {post.share_count} Share
                             </div>
-
-
 
                             {post.comments.map((comment) => (
                               <div
@@ -342,7 +346,11 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 <div className="card-body border-bottom border-secondary border-3 ">
                                   <div className="d-flex align-items-center pb-2">
                                     <img
-                                      src={post.profile.image === null ? WhatsApp : post.profile.image}
+                                      src={
+                                        post.profile.image === null
+                                          ? WhatsApp
+                                          : post.profile.image
+                                      }
                                       alt="Comment Owner"
                                       className="rounded-circle me-2 text-light"
                                       style={{ width: "30px", height: "30px" }}
@@ -396,12 +404,8 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             </button>
                           </div>
                         </div> */}
-
-                        <Comment
-                          postid={post.id}
-                          profileid={post.profile.id}
-
-                        />                      </div>
+                        <Comment postid={post.id} profileid={post.profile.id} />{" "}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -419,8 +423,6 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
             ))}
             {/* ========================================================================================================== */}
 
-
-
             {SharedPost.map((sharep, index) => (
               <div
                 key={sharep.post.id}
@@ -431,63 +433,66 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                     <div className="col">
                       <div className="card text-light bg-dark">
                         <div className="card-body">
-
-
-
-
-
                           <div className="d-flex align-items-center mb-3">
                             <img
-                              src={sharep.profile.image === null ? WhatsApp : sharep.profile.image}
+                              src={
+                                sharep.profile.image === null
+                                  ? WhatsApp
+                                  : sharep.profile.image
+                              }
                               alt="Owner"
                               className="rounded-circle me-2 mb-2"
                               style={{ width: "50px", height: "50px" }}
-
                             />
                             <div className="align-self-center mb-2">
-                              {sharep.profile.first_name} {sharep.profile.last_name}
+                              {sharep.profile.first_name}{" "}
+                              {sharep.profile.last_name}
                             </div>
                             <div className="ms-auto text-light">
                               {new Date(sharep.create_at).toLocaleString()}
                             </div>
                           </div>
 
-
-
-
                           <div className="card-body">
                             <div className="d-flex align-items-center mb-3">
                               <img
-                                src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
+                                src={
+                                  sharep.post.profile.image === null
+                                    ? WhatsApp
+                                    : sharep.post.profile.image
+                                }
                                 alt="Owner"
                                 className="rounded-circle me-2 mb-2"
                                 style={{ width: "50px", height: "50px" }}
-
                               />
                               <div className="align-self-center mb-2">
-                                {sharep.post.profile.first_name} {sharep.post.profile.last_name}
+                                {sharep.post.profile.first_name}{" "}
+                                {sharep.post.profile.last_name}
                               </div>
                               <div className="ms-auto text-light">
-                                {new Date(sharep.post.create_at).toLocaleString()}
+                                {new Date(
+                                  sharep.post.create_at
+                                ).toLocaleString()}
                               </div>
                             </div>
                             <Link to={`/post/${sharep.post.id}`}>
                               <img
-                                src={'http://127.0.0.1:8000' + sharep.post.image}
+                                src={
+                                  "http://127.0.0.1:8000" + sharep.post.image
+                                }
                                 alt="Post"
                                 className="img-fluid rounded mb-3 ps-1 w-100"
-
                               />
                             </Link>
 
-                            <p className="card-text text-light">{sharep.post.content}</p>
+                            <p className="card-text text-light">
+                              {sharep.post.content}
+                            </p>
                             <div className="row mt-5">
                               <div className="pb-3 col-4 text-start">
                                 <i className="bi bi-heart text-light pe-1"></i>{" "}
                                 {sharep.post.love_count} Likes
                               </div>
-
-
 
                               <div
                                 className="pb-3 col-4 text-center"
@@ -506,24 +511,24 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                       setPostComments(response.data.data);
                                     })
                                     .catch((err) =>
-                                      console.log("Error fetching comments:", err)
+                                      console.log(
+                                        "Error fetching comments:",
+                                        err
+                                      )
                                     );
                                 }}
                               >
                                 <i className="bi bi-chat-dots-fill pe-1"></i>{" "}
-
-                                {sharep.post.comments_count}{' '}
-                                Comments
+                                {sharep.post.comments_count} Comments
                               </div>
 
-
-
-                              <div className="pb-3 col-4 text-end pe-4" onClick={() => sharePost(sharep.post.id)}>
-                                <i className="bi bi-share pe-1"></i> {sharep.post.share_count}{" "}
-                                Share
+                              <div
+                                className="pb-3 col-4 text-end pe-4"
+                                onClick={() => sharePost(sharep.post.id)}
+                              >
+                                <i className="bi bi-share pe-1"></i>{" "}
+                                {sharep.post.share_count} Share
                               </div>
-
-
 
                               {sharep.post.comments.map((comment) => (
                                 <div
@@ -533,10 +538,17 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   <div className="card-body border-bottom border-secondary border-3 ">
                                     <div className="d-flex align-items-center pb-2">
                                       <img
-                                        src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
+                                        src={
+                                          sharep.post.profile.image === null
+                                            ? WhatsApp
+                                            : sharep.post.profile.image
+                                        }
                                         alt="Comment Owner"
                                         className="rounded-circle me-2 text-light"
-                                        style={{ width: "30px", height: "30px" }}
+                                        style={{
+                                          width: "30px",
+                                          height: "30px",
+                                        }}
                                       />
                                       <div className="text-light pt-2">
                                         {comment.c_author.username}{" "}
@@ -589,7 +601,6 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                           <Comment
                             postid={sharep.post.id}
                             profileid={sharep.post.profile.id}
-
                           />
                         </div>
                       </div>
@@ -608,9 +619,6 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                 </div>
               </div>
             ))}
-
-
-
           </div>
         </div>
       </div>
@@ -625,14 +633,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Posts);
-
-
-
-
-
-
-
-
 
 // import React, { useCallback, useEffect, useRef, useState } from "react";
 // import axios from "axios";

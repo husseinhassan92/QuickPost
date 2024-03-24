@@ -28,15 +28,26 @@ def getbyid(request,pk):
     else:
         return Response({"msg":"found","data":PostSerializer(posts).data},status=200)
 
+# @api_view(['POST'])
+# def add(request):
+#     parser_classes = (MultiPartParser, FormParser)
+#     post = PostSerializerAdd(data=request.data)
+#     if post.is_valid():
+#         post.save()
+#         return Response(post.data, status=201)
+#     else:
+#         return Response(post.errors,status=400)
+
 @api_view(['POST'])
 def add(request):
     parser_classes = (MultiPartParser, FormParser)
-    post = PostSerializerAdd(data=request.data)
-    if post.is_valid():
-        post.save()
-        return Response(post.data, status=201)
+    post_serializer = PostSerializerAdd(data=request.data)
+    if post_serializer.is_valid():
+        post_instance = post_serializer.save()
+        response_serializer = PostSerializer(post_instance)  # Serialize the created post instance
+        return Response(response_serializer.data)
     else:
-        return Response(post.errors,status=400)
+        return Response(post_serializer.errors)
 
 @api_view(["DELETE"])
 def delete(request, pk):
