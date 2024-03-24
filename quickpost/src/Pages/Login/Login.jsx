@@ -3,9 +3,9 @@ import { Form, Button } from "react-bootstrap";
 import "./login.css";
 import { Link, Redirect, useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { connect } from 'react-redux';
-import facebook from "../../images/facebook.png";
-import google from "../../images/google.png";
-import twitte from "../../images/twitter.png";
+// import facebook from "../../images/facebook.png";
+// import google from "../../images/google.png";
+// import twitte from "../../images/twitter.png";
 import loginimg from "../../images/loginimg.png";
 import { login_user } from "../../Store/Actions/AuthAction";
 
@@ -83,70 +83,76 @@ function Login({login_user, isAuthenticated, user}) {
 
   return (
     <>
-      <div className="container-fluid   ">
-        <div className="row">
-          <img
-            className="col col-lg-6  me-5 ms-5 ps-5 pt-5 img"
-            src={loginimg}
-            alt=""
-          />
-
-          <Form
-            onSubmit={(e) => sumbitdata(e)}
-            className="col col-lg-4   border border-1 pt-4 mt-5 ms-5 text-center  form "
-          >
-            <h3 className="mb-4 mt-5">LOGIN</h3>
-            <Form.Group
-              className="mb-3 col-8 mx-auto  "
-              controlId="formGroupEmail"
-            >
-              <Form.Control
-                value={data.email}
-                name="email"
-                type="email"
-                placeholder="Enter Your Email"
-                onChange={(e) => cahangeData(e)}
+      <div className="container text-white">
+        <div className="row ">
+          <div className=" d-flex justify-content-center align-items-center gap-4">
+            <div className="col-md-6 d-md-block d-none">
+              <img 
+                className=" img w-100" 
+                src={loginimg}
+                alt=""
               />
-              <p className="text-danger pt-2"> {error.emailError} </p>
-            </Form.Group>
-            <Form.Group
-              className="mb-3  col-8 mx-auto"
-              controlId="formGroupPassword"
-            >
-              <Form.Control
-                value={data.password}
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                onChange={(e) => cahangeData(e)}
-              />
+            </div>
 
-              <p className="text-danger pt-2"> {error.passError} </p>
-            </Form.Group>
-            <Button
-              disabled={error.emailError || (error.passError && "disabled")}
-              className="w-50   but "
-              variant="outline-dark "
-              onClick={(e) => sumbitdata(e)}
-            >
-              Login
-            </Button>{" "}
-            <p className="mt-3 mb-4">
-              You haven't an account?<Link to="/Sginup"> Sign Up</Link>
-            </p>
-            <p className="mt-3 mb-4">
-              You haven't an account?<Link to="/reset-password"> Forget Password</Link>
-            </p>
-            <a className="me-4" href="#">
-              <img className="icon" src={facebook} alt="" />
-            </a>
-            <a className="me-4" href="#">
-              <img className="icon" src={google} alt="" />
-            </a>
-            <a href="#">
-              <img className="icon" src={twitte} alt="" />
-            </a>
-          </Form>
+            <div className=" col-md-6 col-12 text-center">
+              <Form
+                onSubmit={(e) => sumbitdata(e)}
+                className="form border border-1 mx-auto py-5"
+              >
+                <h3 className="mb-4 mt-5">LOGIN</h3>
+                <Form.Group
+                  className="mb-3 col-8 mx-auto  "
+                  controlId="formGroupEmail"
+                >
+                  <Form.Control
+                    value={data.email}
+                    name="email"
+                    type="email"
+                    placeholder="Enter Your Email"
+                    onChange={(e) => cahangeData(e)}
+                  />
+                  <p className="text-danger pt-2"> {error.emailError} </p>
+                </Form.Group>
+                <Form.Group
+                  className="mb-3  col-8 mx-auto"
+                  controlId="formGroupPassword"
+                >
+                  <Form.Control
+                    value={data.password}
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    onChange={(e) => cahangeData(e)}
+                  />
+
+                  <p className="text-danger pt-2"> {error.passError} </p>
+                </Form.Group>
+                <Button
+                  disabled={error.emailError || (error.passError && "disabled")}
+                  className="w-50   but "
+                  variant="outline-primary "
+                  onClick={(e) => sumbitdata(e)}
+                >
+                  Login
+                </Button>{" "}
+                <p className="mt-3 mb-4">
+                  You haven't an account?<Link to="/Sginup"> Sign Up</Link>
+                </p>
+                {/* <p className="mt-3 mb-4">
+                  You haven't an account?<Link to="/reset-password"> Forget Password</Link>
+                </p>
+                <a className="me-4" href="#">
+                  <img className="icon" src={facebook} alt="" />
+                </a>
+                <a className="me-4" href="#">
+                  <img className="icon" src={google} alt="" />
+                </a>
+                <a href="#">
+                  <img className="icon" src={twitte} alt="" />
+                </a> */}
+              </Form>
+            </div>
+          </div>
         </div>
       </div>
     </>

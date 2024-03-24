@@ -1,86 +1,27 @@
 import React from 'react';
 import "./RightSide.css";
-import { Link, useHistory } from 'react-router-dom';
-
+import { FiSearch } from "react-icons/fi";
+import WhoToFollow from '../SubComponents/WhoToFollow';
+// import userProfile from "./../../images/user_profile.jpg"
 const Rightbar = () => {
   const HomeRightbar = () => {
     return (
-      <div className='container-fluid '> 
-      <div className='row'>
-        <div className="bg-light border-right" id="left-panel">
-        <div className="list-group list-group-flush">
-        <Link to="./CreateProfile/CreateProfile" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> create profile
-          </Link>
-          <Link to="./UpdateProfile/UpdateProfile" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Update Profile
-          </Link>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-home"></i> Home
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-home"></i> Home
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-home"></i> Home
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-home"></i> Home
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-home"></i> Home
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-home"></i> Home
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-home"></i> Home
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-user-friends"></i> Friends
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-light">
-            <i className="fas fa-comment"></i> Messages
-          </a>
+      <div className='rightBar container vh-100'>
+        <div className='row'>
+          <div className="" id="left-panel">
+            <div className="">
+                <div className="search_parent">
+                  <div className="search_icon">
+                    <FiSearch className='text-neutral-500 text-xl' />
+                  </div>
+                  <input type="text" id="search-navbar" placeholder="Search..." />
+                </div>
+              </div>
+              {/* <div className='d-flex gap-1'>
+              <WhoToFollow useraccount={"Saadawy10"} bio={"work as frontend"} imgname={"user"}/>
+              </div> */}
+          </div>
         </div>
-      </div>
-      </div>
       </div>
     );
   };

@@ -104,7 +104,7 @@ function Profile({ isAuthenticated, user }) {
             formData.append('first_name', profileData.first_name);
             formData.append('last_name', profileData.last_name);
             formData.append('birth_date', profileData.birth_date);
-            formData.append('image', profileData.image);
+            // formData.append('image', profileData.image);
 
             const config = {
                 headers: {
@@ -317,14 +317,14 @@ function Profile({ isAuthenticated, user }) {
                                     />
                                     {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
                                 </FormGroup>
-                                <FormGroup>
+                                {/* <FormGroup>
                                     <FormLabel>Profile Image:</FormLabel>
                                     <FormControl
                                         type="file"
                                         accept="image/*"
                                         onChange={handleImageChange}
                                     />
-                                </FormGroup>
+                                </FormGroup> */}
                                 <Button type="submit" variant="primary">Update Profile</Button>
                             </Form>
                         </div>

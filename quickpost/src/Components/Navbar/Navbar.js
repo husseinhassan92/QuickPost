@@ -58,30 +58,30 @@ const Navbar = ({logout, isAuthenticated}) => {
   };
 
   return (
-    <nav>
-      <div className='container-fluid p-1'>
+    <nav className='container-fluid p-1' >
+      <div className='container-fluid p-1 b' bg="dark">
         <div className='row flex align-items-center justify-content-between m-0 '>
           <div className="col p-0">
-            <BootstrapNavbar bg="light" expand="lg" className="p-0">
+            <BootstrapNavbar bg="dark" expand="lg" className="p-0">
               <BootstrapNavbar.Brand href="#" className="p-1">Quick Post</BootstrapNavbar.Brand>
             </BootstrapNavbar>
           </div>
 
           <div className="col p-0">
-            <BootstrapNavbar bg="light" expand="lg" className="p-0">
-              <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
+            <BootstrapNavbar bg="dark" expand="lg" className="p-0">
+              {/* <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
               <BootstrapNavbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-5">
                   <Link to="/" className="nav-link"><i className="fas fa-home"></i> Home</Link>
                   <Link to="/Posts" className="nav-link"><i className="fas fa-user"></i>Posts</Link>
                   <Link to="/messages" className="nav-link"><i className="fas fa-comments"></i> Messages</Link>
                 </Nav>
-              </BootstrapNavbar.Collapse>
-            </BootstrapNavbar>
+              </BootstrapNavbar.Collapse> */}
+            </BootstrapNavbar> 
           </div>
 
           <div className="col p-0">
-            <BootstrapNavbar bg="light" expand="lg" className="p-0">
+            <BootstrapNavbar bg="dark" expand="lg" className="p-0">
               <BootstrapNavbar.Collapse>
                 <Form className="d-flex align-items-center m-0">
                   <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
