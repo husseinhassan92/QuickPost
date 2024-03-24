@@ -23,20 +23,21 @@ function Follower({isAuthenticated, user}) {
     }, [])
     return (
         <>
-            {follower.map((follower) => (
-
-                <Col xs={12} sm={6} md={3} className='mb-5'>
-                    <Card className="friend-card h-100 " >
-                        <Card.Img variant="top" src={'http://127.0.0.1:8000'+follower.image} alt={follower.first_name} />
-                        <Card.Body>
-                            <Card.Title>{follower.first_name} {follower.last_name}</Card.Title>
-                           
-                        </Card.Body>
-                    </Card>
-                </Col>
-            ))}
-
-        </>
+        <div className='container mt-5'>
+            <div className='row'>
+                {follower.map((follower) => (
+                    <div key={follower.id} className='col-xs-12 col-sm-6 col-md-3 mb-5' >
+                        <div className='card friend-card h-100'>
+                            <img className='card-img-top' src={'http://127.0.0.1:8000' + follower.image} alt={follower.first_name} />
+                            <div className='card-body'>
+                                <h5 className='card-title'>{follower.first_name} {follower.last_name}</h5>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </>
     )
 }
 

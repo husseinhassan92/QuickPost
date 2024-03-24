@@ -138,10 +138,10 @@ function Login({login_user, isAuthenticated, user}) {
                 <p className="mt-3 mb-4">
                   You haven't an account?<Link to="/Sginup"> Sign Up</Link>
                 </p>
-                {/* <p className="mt-3 mb-4">
+                <p className="mt-3 mb-4">
                   You haven't an account?<Link to="/reset-password"> Forget Password</Link>
                 </p>
-                <a className="me-4" href="#">
+                {/* <a className="me-4" href="#">
                   <img className="icon" src={facebook} alt="" />
                 </a>
                 <a className="me-4" href="#">

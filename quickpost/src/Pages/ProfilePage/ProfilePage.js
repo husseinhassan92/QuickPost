@@ -3,10 +3,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom/cjs/react-router-
 import Navbar from '../../Components/Navbar/Navbar'
 import Leftbar from '../../Components/LeftSide/LeftSide'
 import Rightbar from '../../Components/RightSide/RightSide'
-import Posts from '../../Components/Posts/Posts'
 import SearchPage from '../SearchPage/SearchPage'
-import Messages from '../../Messages'
 import { connect } from 'react-redux'
+import Profile from '../Profile/Profile'
 
 const HomePage = ({ isAuthenticated, user, userProfile}) => {
   return (
@@ -17,13 +16,12 @@ const HomePage = ({ isAuthenticated, user, userProfile}) => {
           <div className="left-side col-lg-3 col-1 vh-100">
             <Leftbar />
           </div>
-          <div className="middle col-lg-6 col-11 border rounded-3 border-secondary">
-           <Navbar />
-            <Posts />
+          <div className="middle col-lg-9  col-11 border rounded-3 border-primary">
+            <Profile/>
           </div>
-          <div className='right-side col-lg-3 '>
+          {/* <div className='right-side col-lg-3 '>
             <Rightbar />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

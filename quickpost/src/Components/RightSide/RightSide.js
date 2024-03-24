@@ -17,9 +17,9 @@ const Rightbar = () => {
                   <input type="text" id="search-navbar" placeholder="Search..." />
                 </div>
               </div>
-              {/* <div className='d-flex gap-1'>
+              <div className='d-flex gap-1'>
               <WhoToFollow useraccount={"Saadawy10"} bio={"work as frontend"} imgname={"user"}/>
-              </div> */}
+              </div>
           </div>
         </div>
       </div>

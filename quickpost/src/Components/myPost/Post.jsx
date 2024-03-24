@@ -247,15 +247,14 @@ function MyPost({isAuthenticated, user, userProfile}) {
 
 
 
-                     <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : post.profile.image} 
-                     fullname={post.profile.first_name}
-                     lastname={post.profile.last_name}
-                     postdate={post.create_at}
-                     postid={post.id}
+                    <HeaderPost 
+    imgprofile={'http://127.0.0.1:8000' + post.profile.image} 
+    fullname={post.profile.first_name}
+    lastname={post.profile.last_name}
+    postdate={post.create_at}
+    postid={post.id}
+/>
 
-                     
-                     
-                     />
 
 
 

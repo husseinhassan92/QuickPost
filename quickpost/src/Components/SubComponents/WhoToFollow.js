@@ -8,7 +8,7 @@ function WhoToFollow({ path, imgname, useraccount, bio }) {
                 <div className='parent_sideleft'>
                     <div className='suggested_users'>
                         <div className="rounded-img">
-                            <img src={path} alt={imgname} className='rounded-circle' style={{ width: '50px', height: '50px' }} />
+                            <img src={"#"} alt={imgname} className='rounded-circle' style={{ width: '50px', height: '50px' }} />
                         </div>
                         <div className="who-to-follow">
                             <p className='fw-bold text-white'>{useraccount}</p>

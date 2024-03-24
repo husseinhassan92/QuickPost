@@ -273,7 +273,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
 
 
                   <HeaderShared
-                  profileimg={sharep.profile.image === null ? WhatsApp : sharep.profile.image}
+                  profileimg={'http://127.0.0.1:8000' + sharep.profile.image} 
                   firstNmae={sharep.profile.first_name}
                   lastName={sharep.profile.last_name}
                   sharedDate={sharep.create_at}
@@ -327,7 +327,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                     <div className="card-body">
                       <div className="d-flex align-items-center mb-3">
                         <img
-                          src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
+                          src={'http://127.0.0.1:8000' + sharep.post.profile.image}
                           alt="Owner"
                           className="rounded-circle me-2 mb-2"
                           style={{ width: "50px", height: "50px" }}

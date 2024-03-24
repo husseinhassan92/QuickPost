@@ -23,6 +23,8 @@ import Activate from './Pages/Activate/Activate.js';
 import CreateProfile from './Components/CreateProfile/CreateProfile';
 import OtherProfile from './Pages/OtherProfile/OtherProfile';
 import HomePage from './Pages/HomePage/HomePage.js';
+import ProfilePage from './Pages/ProfilePage/ProfilePage.js';
+import OtherProfilePage from './Pages/OtherProfilePage/OtherProfilePage.jsx';
 
 
 
@@ -40,7 +42,7 @@ const App = () => {
           <Route path='/Sginup' component={Sginup} />
           <Route path='/Friends' component={Friends} />
 
-          <Route path='/profile' component={Profile} />
+          <Route path='/profile' component={ProfilePage} />
           {/* <Route path="/Posts" component={Posts} /> */}
           <Route path="/home" component={HomePage} />
           <Route path="/Search/:searchTerm" component={SearchPage} />
@@ -50,7 +52,7 @@ const App = () => {
           <Route  path='/password/reset/confirm/:uid/:token'component={ResetPasswordConfirm} />
           <Route exact path='/activate/:uid/:token' component={Activate} />
           <Route path="/createprofile" component={CreateProfile} />
-          <Route path='/OtherProfile/:id' component={OtherProfile} />
+          <Route path='/OtherProfile/:id' component={OtherProfilePage} />
           
         </Switch>
       </Router>

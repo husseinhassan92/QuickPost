@@ -90,7 +90,7 @@ function OtherProfile({isAuthenticated, user}) {
         <section className="h-100 gradient-custom-2">
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col col-lg-9 col-xl-7">
+                    <div className="">
                         <div className="card">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>

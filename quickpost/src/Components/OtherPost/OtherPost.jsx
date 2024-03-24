@@ -207,12 +207,12 @@ const [postComments, setPostComments] = useState([]);
                         >
                           <div className="card-body border-bottom border-secondary border-3 ">
                             <div className="d-flex align-items-center pb-2">
-                              <img
-                                src={post.profile.image === null ? WhatsApp : post.profile.image}
-                                alt="Comment Owner"
-                                className="rounded-circle me-2 text-light"
-                                style={{ width: "30px", height: "30px" }}
-                              />
+                            <img
+    src={post.profile.image === null ? WhatsApp : 'http://127.0.0.1:8000' + post.profile.image}
+    alt="Comment Owner"
+    className="rounded-circle me-2 text-light"
+    style={{ width: "30px", height: "30px" }}
+/>
                               <div className="text-light pt-2">
                                 {comment.c_author.username}{" "}
                               </div>
