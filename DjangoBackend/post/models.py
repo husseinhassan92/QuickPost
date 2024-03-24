@@ -12,6 +12,9 @@ class Post(models.Model):
     profile = models.ForeignKey(Profile, related_name='post_profile',on_delete=models.CASCADE)
     create_at = models.DateTimeField(default=datetime.now)
 
+    def __str__(self):
+        return f"content {self.content} by {self.p_author}"
+
 class SharePost(models.Model):
     author = models.ForeignKey(UserAccount, related_name='share_user',on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, related_name='share_profile',on_delete=models.CASCADE)
