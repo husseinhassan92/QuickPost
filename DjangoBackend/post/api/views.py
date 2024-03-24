@@ -12,8 +12,8 @@ from .serlizer import *
 
 @api_view(['GET'])
 def getall(request):
-    posts = Post.objects.all()
-    s_posts = SharePost.objects.all()
+    posts = Post.objects.order_by('-create_at').all()
+    s_posts = SharePost.objects.order_by('-create_at').all()
     return Response({"msg":"found",
                     "posts":PostSerializer(posts,many=True).data,
                     "shared":ShareSerializer(s_posts,many=True).data})

@@ -78,6 +78,11 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
   useEffect(() => {
     getPost();
+    //getSharedPost();
+  }, []);
+
+  useEffect(() => {
+    //getPost();
     getSharedPost();
   }, [sharePost]);
 
@@ -236,7 +241,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
   };
 
   if (!isAuthenticated) {
-    return <Redirect to="/Posts" />;
+    return <Redirect to="/" />;
   }
 
   return (
@@ -276,11 +281,11 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             </div>
                           </div>
                           <Link to={`/post/${post.id}`}>
-                            <img
+                            {post.image && <img
                               src={"http://127.0.0.1:8000" + post.image}
                               alt="Post"
                               className="img-fluid rounded mb-3 ps-1 w-100"
-                            />
+                            />}
                           </Link>
                           {/* <h5 className="card-title text-light mt-3">
                             {post.title}
@@ -443,7 +448,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               src={
                                 sharep.profile.image === null
                                   ? WhatsApp
-                                  : sharep.profile.image
+                                  : "http://127.0.0.1:8000"+sharep.profile.image
                               }
                               alt="Owner"
                               className="rounded-circle me-2 mb-2"
@@ -464,7 +469,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 src={
                                   sharep.post.profile.image === null
                                     ? WhatsApp
-                                    : sharep.post.profile.image
+                                    : "http://127.0.0.1:8000"+sharep.post.profile.image
                                 }
                                 alt="Owner"
                                 className="rounded-circle me-2 mb-2"
@@ -481,13 +486,13 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               </div>
                             </div>
                             <Link to={`/post/${sharep.post.id}`}>
-                              <img
+                              {sharep.post.image && <img
                                 src={
                                   "http://127.0.0.1:8000" + sharep.post.image
                                 }
                                 alt="Post"
                                 className="img-fluid rounded mb-3 ps-1 w-100"
-                              />
+                              />}
                             </Link>
 
                             <p className="card-text text-light">

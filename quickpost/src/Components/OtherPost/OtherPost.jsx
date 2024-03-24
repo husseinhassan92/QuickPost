@@ -140,7 +140,7 @@ const [postComments, setPostComments] = useState([]);
               <div className="col">
                 <div className="card text-light bg-dark">
                   <div className="card-body">
-                     <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : post.profile.image} 
+                     <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+post.profile.image} 
                      fullname={post.profile.first_name}
                      lastname={post.profile.last_name}
                      postdate={post.create_at}

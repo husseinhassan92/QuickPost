@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch, connect, useStore } from 'react-redux';
 import { getAllFriends, fetchAsyncFriends } from '../../Store/Reducers/friendSlice';
 import SidebarOption from '../SubComponents/SidebarOption';
 import { CiLogout, CiSearch } from "react-icons/ci";
@@ -12,15 +12,22 @@ import { HiHashtag } from "react-icons/hi";
 import { GrHomeRounded } from "react-icons/gr";
 import { SiQuicktime } from "react-icons/si";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { logout } from "../../Store/Actions/AuthAction";
 
 
-const Leftbar = ({ isHomePage }) => {
-  const dispatch = useDispatch();
-  const friends = useSelector(getAllFriends);
+const Leftbar = ({ isHomePage ,logout, isAuthenticated}) => {
+  const [redirect, setRedirect] = useState(false);
 
-  useEffect(() => {
-    dispatch(fetchAsyncFriends());
-  }, [dispatch]);
+    const logout_user = () => {
+        logout();
+        setRedirect(true);
+    };
+  // const dispatch = useDispatch();
+  // const friends = useSelector(getAllFriends);
+
+  // useEffect(() => {
+  //   dispatch(fetchAsyncFriends());
+  // }, [dispatch]);
 
   return (
     <>
@@ -37,12 +44,16 @@ const Leftbar = ({ isHomePage }) => {
 
         {/* Button -> Logout */}
           <CiLogout className="fs-5 " />
-        <Link className={`sidebarOption bg_logout`}>
+        <Link  to="/" className={`sidebarOption bg_logout`} onClick={logout_user}>
           <h2 className="d-lg-block d-none">Logout</h2>
         </Link>
       </div>
     </>
   );
 };
+const mapStateToProps = state => ({
+  isAuthenticated: state.AuthRecducer.isAuthenticated
+});
 
-export default Leftbar;
+export default connect(mapStateToProps, { logout })(Leftbar);
+

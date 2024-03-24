@@ -247,7 +247,7 @@ function MyPost({isAuthenticated, user, userProfile}) {
 
 
 
-                     <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : post.profile.image} 
+                     <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+post.profile.image} 
                      fullname={post.profile.first_name}
                      lastname={post.profile.last_name}
                      postdate={post.create_at}
@@ -261,12 +261,12 @@ function MyPost({isAuthenticated, user, userProfile}) {
 
 
                     <Link to={`/post/${post.id}`}>
-                      <img
-                        src={'http://127.0.0.1:8000' + post.image}
-                        alt="Post"
-                        className="img-fluid rounded mb-3 ps-1 w-100"
+                    {post.image && <img
+                      src={'http://127.0.0.1:8000' + post.image}
+                      alt="Post"
+                      className="img-fluid rounded mb-3 ps-1 w-100"
 
-                      />
+                    />}
                     </Link>
                     {/* <h5 className="card-title text-light mt-3">
                             {post.title}
