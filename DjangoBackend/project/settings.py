@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -191,43 +192,27 @@ DJOSER = {
     }
 }
 
-# DJOSER = {
-#     'LOGIN_FIELD': 'email',
-#     'USER_CREATE_PASSWORD_RETYPE': True,
-#     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
-#     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
-#     'SEND_CONFIRMATION_EMAIL': True,
-#     'SET_USERNAME_RETYPE': True,
-#     'SET_PASSWORD_RETYPE': True,
-#     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-#     'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
-#     'ACTIVATION_URL': 'activate/{uid}/{token}',
-#     'SEND_ACTIVATION_EMAIL': True,
-#     'SERIALIZERS': {
-#         'user_create': 'accounts.serializers.UserCreateSerializer',
-#         'user': 'accounts.serializers.UserCreateSerializer',
-#         'current_user': 'accounts.serializers.UserCreateSerializer',
-#         'user_delete': 'djoser.serializers.UserDeleteSerializer',
-#     }
-# }
-# DJOSER = {
-#     "LOGIN_FIELD": "email",
-#     "USER_CREATE_PASSWORD_RETYPE": True,
-#     "USERNAME_CHANGED_EMAIL_CONFIRMATION": True,
-#     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-#     "SEND_CONFIRMATION_EMAIL": True,
-#     "SET_USERNAME_RETYPE": True,
-#     "SET_PASSWORD_RETYPE": True,
-#     "USERNAME_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
-#     "PASSWORD_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
-#     "ACTIVATION_URL": "activate/{uid}/{token}",
-#     "SEND_ACTIVATION_EMAIL": True,
-#     "SERIALIZERS": {
-#         "user_create": "accounts.serializers.UserCreateSerializer",  # custom serializer
-#         "user": "accounts.serializers.UserCreateSerializer",
-#         "current_user": "accounts.serializers.UserCreateSerializer",
-#         "user_delete": "djoser.serializers.UserSerializer",
-#     },
-# }
+JAZZMIN_SETTINGS = {
+    "site_title": "Quick Post Admin",
+    "site_header": "Quick Post",
+    "site_brand": "Quick Post",
+    "welcome_sign": "Have a  nice day!",
+    # Toggle navigation pin sidebar
+    "navigation_pin_sidebar": False,
+    # Specify the color for navigation pin logo
+    "navigation_pin_logo": "#ffffff",
+    # Toggle navigation highlight on mouse over
+    "show_nav_highlight": True,
+    # Toggles sidenav's width between md and lg
+    "nav_collapse_on_md": True,
+    # Toggles dark theme for site header links and sidenav
+    "dark_theme": True,
+    # Overrides the default redirect on successful logout
+    "logout_redirect_url": "/",
+    "hide_dashboard_search": False,
+    "hide_unused_applications": False,
+    "show_instances": True,
+}
+
 DOMAIN = 'localhost:3000'
 AUTH_USER_MODEL = 'accounts.UserAccount'
