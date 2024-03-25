@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reset_password } from '../../Store/Actions/AuthAction';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const ResetPassword = ({ reset_password }) => {
     const [requestSent, setRequestSent] = useState(false);
@@ -23,24 +24,41 @@ const ResetPassword = ({ reset_password }) => {
     if (requestSent) {
         return <Redirect to='/' />
     }
-
     return (
         <div className='container mt-5'>
-            <h1>Request Password Reset:</h1>
-            <form onSubmit={e => onSubmit(e)}>
-                <div className='form-group'>
-                    <input
-                        className='form-control'
-                        type='email'
-                        placeholder='Email'
-                        name='email'
-                        value={email}
-                        onChange={e => onChange(e)}
-                        required
-                    />
+            <div className='row '>
+                <div className='form-reset w-50 py-3 mx-auto'>
+
+                    <form className="card text-center mx-auto " style={{ width: "350px" }} onSubmit={e => onSubmit(e)}>
+                        <div className="card-header h5 text-white bg-primary">Password Reset</div>
+                        <div className="card-body px-5">
+                            <p className="card-text py-2">
+                                Enter your email address and we'll send you an email with instructions to reset your password.
+                            </p>
+                            <div className='form-group form-outline'>
+                                <input
+                                    className='form-control my-3'
+                                    type='email'
+                                    placeholder='Enter Your Email'
+                                    name='email'
+                                    value={email}
+                                    onChange={e => onChange(e)}
+                                    required
+                                />
+                            </div>
+                            <button className='btn btn-primary' type='submit'>Reset Password</button>
+                            <div className="d-flex justify-content-between mt-4">
+                                <Link to="/Login">
+                                    Login
+                                </Link>
+                                <Link to="/Sginup">
+                                    SginUp
+                                </Link>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <button className='btn btn-primary' type='submit'>Reset Password</button>
-            </form>
+            </div>
         </div>
     );
 };

@@ -53,6 +53,8 @@ const App = () => {
           <Route exact path='/activate/:uid/:token' component={Activate} />
           <Route path="/createprofile" component={CreateProfile} />
           <Route path='/OtherProfile/:id' component={OtherProfilePage} />
+          {/* <Route exact path='/activate' component={Activate} /> */}
+
           
         </Switch>
       </Router>

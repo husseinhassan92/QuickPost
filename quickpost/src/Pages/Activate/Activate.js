@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { verify } from '../../Store/Actions/AuthAction';
+import verify_img  from '../../images/verify.png'
 
 const Activate = ({ verify, match }) => {
     const [verified, setVerified] = useState(false);
@@ -19,20 +20,22 @@ const Activate = ({ verify, match }) => {
     }
 
     return (
-        <div className='container'>
-            <div 
-                className='d-flex flex-column justify-content-center align-items-center'
-                style={{ marginTop: '200px' }}
-            >
-                <h1>Verify your Account:</h1>
-                <button
-                    onClick={verify_account}
-                    style={{ marginTop: '50px' }}
-                    type='button'
-                    className='btn btn-primary'
-                >
-                    Verify
-                </button>
+        <div className='container text-white'>
+            <div className='row rounded shadow  mt-5 w-75 mx-auto p-2'>
+                <div className='text-center p-2' >
+                    <h1 >Verify your Account</h1>
+                    <div>
+                        <img src={verify_img} alt='Verify your Account' style={{width:"300px"}}className='rounded-circle m-2'/>
+                        <p className='w-75 mx-auto my-3 fs-5'>We're excited to have you get started. First, you need to confirm your account. Just press the button below.</p>
+                    </div>
+                    <button
+                        onClick={verify_account}
+                        type='button'
+                        className='btn btn-primary mb-3 p-2 px-5'
+                    >
+                        Verify
+                    </button>
+                </div>
             </div>
         </div>
     );
