@@ -12,8 +12,8 @@ from .serlizer import *
 
 @api_view(['GET'])
 def getall(request):
-    posts = Post.objects.all()
-    s_posts = SharePost.objects.all()
+    posts = Post.objects.order_by('-create_at').all()
+    s_posts = SharePost.objects.order_by('-create_at').all()
     return Response({"msg":"found",
                     "posts":PostSerializer(posts,many=True).data,
                     "shared":ShareSerializer(s_posts,many=True).data})
@@ -28,15 +28,26 @@ def getbyid(request,pk):
     else:
         return Response({"msg":"found","data":PostSerializer(posts).data},status=200)
 
+# @api_view(['POST'])
+# def add(request):
+#     parser_classes = (MultiPartParser, FormParser)
+#     post = PostSerializerAdd(data=request.data)
+#     if post.is_valid():
+#         post.save()
+#         return Response(post.data, status=201)
+#     else:
+#         return Response(post.errors,status=400)
+
 @api_view(['POST'])
 def add(request):
     parser_classes = (MultiPartParser, FormParser)
-    post = PostSerializerAdd(data=request.data)
-    if post.is_valid():
-        post.save()
-        return Response(post.data, status=201)
+    post_serializer = PostSerializerAdd(data=request.data)
+    if post_serializer.is_valid():
+        post_instance = post_serializer.save()
+        response_serializer = PostSerializer(post_instance)  # Serialize the created post instance
+        return Response(response_serializer.data)
     else:
-        return Response(post.errors,status=400)
+        return Response(post_serializer.errors)
 
 @api_view(["DELETE"])
 def delete(request, pk):

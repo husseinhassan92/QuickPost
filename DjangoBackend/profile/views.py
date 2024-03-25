@@ -21,6 +21,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from accounts.models import UserAccount
+from rest_framework import generics
 
 class ProfileViewSet(ModelViewSet):
     queryset = Profile.objects.all()
@@ -50,13 +51,12 @@ def getbyuser(request,pk):
                     "data":ProfileSerializer(profile).data})
     
     # function to get profile id bu using userid  ,,,,but make userid one to one with profile im model 
-# class LastProfileAPIView(APIView):
-#     def get(self, request, format=None):
-#         try:
-#             last_profile = Profile.objects.latest('created_at')
-#             serializer = ProfileSerializer(last_profile)
-#             return Response(serializer.data)
-#         except Profile.DoesNotExist:
-#             return Response({"detail": "No profiles found"}, status=status.HTTP_404_NOT_FOUND)
+class ProfileSearchAPIView(generics.ListAPIView):
+    serializer_class = ProfileSerializer
 
-
+    def get_queryset(self):
+        queryset = Profile.objects.all()
+        first_name = self.request.query_params.get('first_name', None)
+        if first_name is not None:
+            queryset = queryset.filter(first_name__icontains=first_name)
+        return queryset

@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import WhatsApp from '../../images/WhatsApp.jpeg'
 import { Button, Dropdown } from 'react-bootstrap';
 
-function HeaderPost({imgprofile,fullname,lastname,postdate,postid}) {
+function HeaderPost({imgprofile,fullname,lastname,postdate,postid ,post, userprofile, user_account}) {
 
 
      const [postText, setPostText] = useState("");
@@ -77,13 +77,14 @@ function HeaderPost({imgprofile,fullname,lastname,postdate,postid}) {
         <>
 
             <div className="d-flex align-items-center mb-3">
-                <img
-                    src={imgprofile}
-                    alt="Owner"
-                    className="rounded-circle me-2 mb-2"
-                    style={{ width: "50px", height: "50px" }}
-
-                />
+            <Link to={`/OtherProfile/`}>
+  <img
+    src={imgprofile}
+    alt="Owner"
+    className="rounded-circle me-2 mb-2"
+    style={{ width: "50px", height: "50px" }}
+  />
+</Link>
                 <div className="align-self-center mb-2">
                     {fullname} {lastname}
                 </div>

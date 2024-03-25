@@ -197,7 +197,7 @@ function MyPost({isAuthenticated, user, userProfile}) {
         <div
           key={post.id}
           //ref={index === posts.length - 1 ? lastPostElementRef : null}
-        >
+          style={{ backgroundColor: 'gray' }} >
           <div className="container pt-4">
             <div className="row">
               <div className="col">
@@ -245,8 +245,6 @@ function MyPost({isAuthenticated, user, userProfile}) {
                     </div> */}
 
 
-
-
                     <HeaderPost 
     imgprofile={'http://127.0.0.1:8000' + post.profile.image} 
     fullname={post.profile.first_name}
@@ -254,18 +252,13 @@ function MyPost({isAuthenticated, user, userProfile}) {
     postdate={post.create_at}
     postid={post.id}
 />
+                <Link to={`/post/${post.id}`}>
+                    {post.image && <img
+                      src={'http://127.0.0.1:8000' + post.image}
+                      alt="Post"
+                      className="img-fluid rounded mb-3 ps-1 w-100"
 
-
-
-
-
-                    <Link to={`/post/${post.id}`}>
-                      <img
-                        src={'http://127.0.0.1:8000' + post.image}
-                        alt="Post"
-                        className="img-fluid rounded mb-3 ps-1 w-100"
-
-                      />
+                    />}
                     </Link>
                     {/* <h5 className="card-title text-light mt-3">
                             {post.title}

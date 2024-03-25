@@ -1,83 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Navbar as BootstrapNavbar, Nav, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
+import { Navbar as BootstrapNavbar, Form, FormControl, Button, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { logout } from "../../Store/Actions/AuthAction";
+import { fetchAsyncSearch } from '../../Store/Reducers/searchSlice';
+import "./Navbar.css";
 
-const Navbar = ({logout, isAuthenticated}) => {
+const Navbar = ({ logout, isAuthenticated }) => {
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [profileImage, setProfileImage] = useState("");
-
   const [redirect, setRedirect] = useState(false);
-
-    const logout_user = () => {
-        logout();
-        setRedirect(true);
-    };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+  const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchStatus, setSearchStatus] = useState('idle');
+  const logout_user = () => {
+    logout();
+    setRedirect(true);
+  };
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get('https://dummyapi.io/data/v1/user/60d0fe4f5311236168a10a19', {
-        headers: {
-          'app-id': "65d08f07b536e68ad8626e8c",
-          'Content-Type': 'application/json'
-        }
-      });
-      setProfileImage(response.data.picture);
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  };
-
   const handleSearch = async () => {
-    try {
-      const response = await axios.get('https://retoolapi.dev/p2SxxC/data', {
-        params: {
-          searchTerm: searchTerm // Correct parameter name
+    dispatch(fetchAsyncSearch({ keyword: searchTerm }))
+      .then(() => {
+        if (history.location.pathname === '/home') {
+          // If on the home page, perform search action directly
+          // Example: console.log('Search directly on the home page');
+          // Implement your search action here
+        } else {
+          // If not on the home page, redirect to the search page
+          // history.push(`/search/${searchTerm}`);
+                    history.push(`/home`);
+
         }
+      })
+      .catch(error => {
+        console.error('Error searching profiles:', error);
+        setSearchStatus('failed');
       });
-
-      console.log(response.data); // Log entire response
-
-      // Correct the redirect URL
-      history.push(`/Search?term=${encodeURIComponent(searchTerm)}`);
-    } catch (error) {
-      console.error('An error occurred:', error.message);
-    }
   };
 
   return (
-    <nav className='container-fluid p-1' >
+    <nav className='container-fluid p-1'>
       <div className='container-fluid p-1 b' bg="dark">
         <div className='row flex align-items-center justify-content-between m-0 '>
           <div className="col p-0">
             <BootstrapNavbar bg="dark" expand="lg" className="p-0">
-              <BootstrapNavbar.Brand href="#" className="p-1">Quick Post</BootstrapNavbar.Brand>
+              <BootstrapNavbar.Brand href="#" className="logo p-1">Quick Post</BootstrapNavbar.Brand>
             </BootstrapNavbar>
           </div>
 
           <div className="col p-0">
-            <BootstrapNavbar bg="dark" expand="lg" className="p-0">
-              {/* <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
-              <BootstrapNavbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-5">
-                  <Link to="/" className="nav-link"><i className="fas fa-home"></i> Home</Link>
-                  <Link to="/Posts" className="nav-link"><i className="fas fa-user"></i>Posts</Link>
-                  <Link to="/messages" className="nav-link"><i className="fas fa-comments"></i> Messages</Link>
-                </Nav>
-              </BootstrapNavbar.Collapse> */}
-            </BootstrapNavbar> 
+            <BootstrapNavbar bg="dark" expand="lg" className="p-0"></BootstrapNavbar>
           </div>
 
           <div className="col p-0">
@@ -85,9 +64,9 @@ const Navbar = ({logout, isAuthenticated}) => {
               <BootstrapNavbar.Collapse>
                 <Form className="d-flex align-items-center m-0">
                   <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                  <Button variant="outline-success" className="ms-3" onClick={handleSearch}>Search</Button>
+                  <Button variant="outline-primary" className="ms-3" onClick={handleSearch}>Search</Button>
                 </Form>
-                
+
                 <div className="ml-3 ms-4">
                   <img src={profileImage} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
                   {showDropdown && (

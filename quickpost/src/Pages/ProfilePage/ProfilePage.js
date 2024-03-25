@@ -16,7 +16,7 @@ const HomePage = ({ isAuthenticated, user, userProfile}) => {
           <div className="left-side col-lg-3 col-1 vh-100">
             <Leftbar />
           </div>
-          <div className="middle col-lg-9  col-11 border rounded-3 border-primary">
+          <div className="middle col-lg-9  col-11 border rounded-3 border-secondary">
             <Profile/>
           </div>
           {/* <div className='right-side col-lg-3 '>

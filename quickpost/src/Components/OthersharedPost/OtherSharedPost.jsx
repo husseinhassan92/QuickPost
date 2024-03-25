@@ -210,7 +210,7 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
 
 
                   <HeaderShared
-                  profileimg={sharep.profile.image === null ? WhatsApp : sharep.profile.image}
+                  profileimg={sharep.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.profile.image}
                   firstNmae={sharep.profile.first_name}
                   lastName={sharep.profile.last_name}
                   sharedDate={sharep.create_at}

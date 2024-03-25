@@ -13,6 +13,7 @@ import MyPost from '../../Components/myPost/Post';
 import SharedPost from '../../Components/sharedPost/SharedPost';
 import Follower from '../../Components/Follower/Follower';
 import Following from '../../Components/Following/Following';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -26,18 +27,24 @@ function Profile({ isAuthenticated, user }) {
     const [editShow, seteditShow] = useState(false);
     const [editPostText, setEditPostText] = useState("")
     const [image, setImage] = useState(null)
-    const [profileData, setProfileData] = useState({});
     const [activePage, setActivePage] = useState('posts');
 
     const handlePageChange = (page) => {
         setActivePage(page);
     };
-
+const [profileData, setProfileData] = useState({
+    first_name: '',
+    last_name: '',
+    birth_date: '',
+    image: null,
+});
     console.log("profile", profileData)
     const [errors, setErrors] = useState({
         first_name: '',
         last_name: '',
         birth_date: '',
+        image: null, // Initialize image with a default value
+
     });
     const history = useHistory();
 
@@ -104,20 +111,27 @@ function Profile({ isAuthenticated, user }) {
             formData.append('first_name', profileData.first_name);
             formData.append('last_name', profileData.last_name);
             formData.append('birth_date', profileData.birth_date);
-            // formData.append('image', profileData.image);
+            formData.append('image', profileData.image);
 
+            if (profileData.image) {
+                formData.append('image', profileData.image);
+            }
+    
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `JWT ${localStorage.getItem('access')}`,
                 },
             };
-
+    
             const response = await axios.put(`http://127.0.0.1:8000/api/profile/${profileData.id}/`, formData, config);
             console.log('Profile updated successfully:', response);
             setProfileData(response.data.data);
         } catch (error) {
             console.error('Error updating profile:', error);
+            if (error.response && error.response.status === 400 && error.response.data.image) {
+                history.push('/profile');
+            }
         }
     };
     const edithandleClose = () => {
@@ -217,19 +231,24 @@ function Profile({ isAuthenticated, user }) {
                         <div className="card">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+                                <img src={'http://127.0.0.1:8000' + profileData?.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
                                    
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
                                     <h2>{profileData.first_name + " " + profileData.last_name}</h2>
                                     <p>{profileData.birth_date}</p>
                                     {/* <span>{userData.phone}</span> */}
-
+                                 
                                 </div>
-                                
+                               
                             </div>
                             <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
+                          
                                 <div className="d-flex justify-content-end text-center py-1">
+                              <div><Button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
+                                       Update Profile
+                                    </Button></div>
+
                                     <div>
                                     
                                         <p className="mb-1 h5">18</p>
@@ -280,61 +299,73 @@ function Profile({ isAuthenticated, user }) {
             </div>
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Update user info</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body text-dark">
-                            <Form onSubmit={handleSubmit} className='mt-5'>
-                                <FormGroup>
-                                    <FormLabel>First Name:</FormLabel>
-                                    <FormControl
-                                        type="text"
-                                        name="first_name"
-                                        value={profileData.first_name}
-                                        onChange={handleInputChange}
-                                    />
-                                    {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel>Last Name:</FormLabel>
-                                    <FormControl
-                                        type="text"
-                                        name="last_name"
-                                        value={profileData.last_name}
-                                        onChange={handleInputChange}
-                                    />
-                                    {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormLabel>Birth Date:</FormLabel>
-                                    <FormControl
-                                        type="date"
-                                        name="birth_date"
-                                        value={profileData.birth_date}
-                                        onChange={handleInputChange}
-                                    />
-                                    {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
-                                </FormGroup>
-                                {/* <FormGroup>
-                                    <FormLabel>Profile Image:</FormLabel>
-                                    <FormControl
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={handleImageChange}
-                                    />
-                                </FormGroup> */}
-                                <Button type="submit" variant="primary">Update Profile</Button>
-                            </Form>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            {/* <button type="button" className="btn btn-primary" onClick={() => updateUserData()}>Save changes</button> */}
-                        </div>
-                    </div>
-                </div>
+            <div className="modal-dialog " style={{ maxWidth: '50rem' }}>
+    <div className="modal-content">
+        <div className="modal-header">
+            <h1 className="modal-title fs-5" id="exampleModalLabel">Update user info</h1>
+            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div className="modal-body text-dark">
+        <form onSubmit={handleSubmit} className='mt-5'>
+    <div className="mb-3 d-flex align-items-center">
+        <label className="me-3 mb-0" style={{ width: '100px' }}>First Name:</label>
+        <input
+            type="text"
+            name="first_name"
+            value={profileData.first_name}
+            onChange={handleInputChange}
+            className="form-control"
+        />
+        {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
+    </div>
+    <div className="mb-3 d-flex align-items-center">
+        <label className="me-3 mb-0" style={{ width: '100px' }}>Last Name:</label>
+        <input
+            type="text"
+            name="last_name"
+            value={profileData.last_name}
+            onChange={handleInputChange}
+            className="form-control"
+        />
+        {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
+    </div>
+    <div className="mb-3 d-flex align-items-center">
+        <label className="me-3 mb-0" style={{ width: '100px' }}>Birth Date:</label>
+        <input
+            type="date"
+            name="birth_date"
+            value={profileData.birth_date}
+            onChange={handleInputChange}
+            className="form-control"
+        />
+        {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
+    </div>
+    <div className="mb-3 d-flex align-items-center">
+        <label className="me-3 mb-0" style={{ width: '100px' }}>Profile Image:</label>
+        <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="custom-file-input"
+            style={{ marginTop: '0.5rem' }}
+        />
+    </div>
+    <button type="submit" className="btn btn-primary">Update Profile</button>
+</form>
+
+        </div>
+        <div className="modal-footer d-flex justify-content-between">
+        {/* <button type="submit" className="btn btn-primary">Update Profile</button> */}
+
+            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
             </div>
             <Modal show={deleteShow} onHide={deletehandleClose}>
                 <Modal.Body>Are You Want to Delete  this Post?</Modal.Body>

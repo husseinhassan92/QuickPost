@@ -36,7 +36,7 @@
     border-color: purple; /* Set border color of the search button to purple */
 }
 
-.navbar-search .btn-outline-success:hover {
+.navbar-search .btn-outline-primary:hover {
     background-color: purple; /* Change background color of search button on hover to purple */
     color: white; /* Change text color of search button on hover to white */
 }
@@ -44,3 +44,10 @@
 .navbar a.nav-link {
     color: purple; /* Set text color of links in the Navbar to purple */
 }
+
+.logo {
+    color: white;
+    text-shadow: 1px 1px 2px rgb(214, 211, 211), 0 0 25px blue, 0 0 5px darkblue;
+    font-size: 2rem;
+  }
+  

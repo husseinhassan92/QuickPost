@@ -6,12 +6,13 @@ const initialState = {
     searchStatus: 'idle'
 }
 
-// Update the fetchAsyncSearch action creator to use the new API endpoint
 export const fetchAsyncSearch = createAsyncThunk('search/fetch', async ({ keyword }) => {
     try {
-        const response = await axios.get('https://retoolapi.dev/p2SxxC/data', {
-            params: {
-                searchTerm: keyword
+        const response = await axios.get(`http://localhost:8000/api/profiles/search/?first_name=${keyword}`, {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `JWT ${localStorage.getItem("access")}`,
+                Accept: "application/json",
             }
         });
         return response.data;

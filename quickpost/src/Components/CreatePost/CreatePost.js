@@ -96,6 +96,7 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
         setPostCount(0);
         setDisablePostButton(true);
         setPost(response.data);
+        console.log(response.data);
       })
       .catch((err) => console.log(err));
   };
@@ -161,7 +162,7 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
       <div className="container  pt-4 ">
         <div className="row ">
           <div className="col">
-            <div className="border rounded-3 border-success p-3 shadow mt-2 bg-dark ms-2 me-2">
+            <div className="border rounded-3 border-secondary p-3 shadow mt-2 bg-dark ms-2 me-2">
               
               <Form className="d-flex flex-column mt-0">
                 <Form.Group className="mb-3 ">
@@ -206,57 +207,37 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
             <div className="col">
               <div className="card text-light bg-dark">
                 <div className="card-body">
-                  <div className="d-flex align-items-center mb-3">
-                    <div className="align-self-center mb-2 ">
-                    </div>
-                    <div className="ms-auto text-light row">
-                      <div className="col-10">
-                        {new Date(post.publishDate).toLocaleString()}
-                      </div>
-
-                      <div className="col-1">
-                        <i
-                          className="bi bi-three-dots-vertical text-light "
-                          onClick={toggleDropdown}
-                        ></i>
-                        {showDropdown && (
-                          <Dropdown
-                            align="center"
-                            className="mt-0 ms-2"
-                            show={showDropdown}
-                            onClose={() => setShowDropdown(false)}
-                          >
-                            <Dropdown.Menu className="mt-2 txt-center">
-                              <Button
-                                onClick={edithandleShow}
-                                className="dropdown-item"
-                              >
-                                Edit
-                              </Button>
-                              <Button
-                                onClick={deletehandleShow}
-                                className="dropdown-item "
-                              >
-                                Delete
-                              </Button>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+                <div className="d-flex align-items-center mb-3">
+                            <Link
+                              to={`/OtherProfile/${post.profile.user_account}`}
+                            >
+                              <img
+                                src={
+                                  "http://127.0.0.1:8000" + post.profile.image
+                                }
+                                alt="Owner"
+                                className="rounded-circle me-2 mb-2"
+                                style={{ width: "50px", height: "50px" }}
+                              />
+                            </Link>
+                            <div className="align-self-center mb-2">
+                              {post.profile.first_name} {post.profile.last_name}
+                            </div>
+                            <div className="ms-auto text-light">
+                              {new Date(post.create_at).toLocaleString()}
+                            </div>
+                          </div>
                   <div>
                     {post.image && (
                       <Link to={`/post/${post.id}`}>
                         <img
-                          src={image}
+                          src={'http://127.0.0.1:8000'+ post.image}
                           alt="Post"
                           className="img-fluid rounded mb-3 ps-1 w-100"
                         />
                       </Link>
                     )}
-                    <h5 className="card-title text-light mt-3">{post.title}</h5>
-                    <p className="card-text text-light">{post.text}</p>
+                    <p className="card-text text-light">{post.content}</p>
                   </div>
                   <div className="row mt-5">
                     <div className="pb-3 col-4 text-start">

@@ -43,6 +43,6 @@ def getfollower(request, pk):
     followers=[]
     following_users = Follower.objects.filter(following=pk)
     for  i in range(len(following_users)):
-        followers.append(Profile.objects.filter(user_account=following_users[i].following)[0])
+        followers.append(Profile.objects.filter(user_account=following_users[i].follower)[0])
     serializer = ProfileFollowSerializer(followers,many=True)
     return Response(serializer.data)

@@ -18,11 +18,11 @@ const HomePage = ({ isAuthenticated, user, userProfile}) => {
             <Leftbar />
           </div>
           <div className="middle col-lg-6 col-11 border rounded-3 border-secondary">
-           <Navbar />
             <Posts />
           </div>
           <div className='right-side col-lg-3 '>
-            <Rightbar />
+
+          <Rightbar isActive={true} />             
           </div>
         </div>
       </div>

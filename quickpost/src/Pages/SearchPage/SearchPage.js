@@ -1,60 +1,47 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAsyncSearch, getSearchResults, getSearchStatus, clearSearch } from '../../Store/Reducers/searchSlice';
-import Posts from '../../Components/Posts/Posts'; // Import the Posts component
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
 const SearchPage = () => {
-  const dispatch = useDispatch();
-  const { term: searchTerm } = useParams(); // Make sure to use the correct parameter name from the route
-  const searchResults = useSelector(getSearchResults);
-  const searchStatus = useSelector(getSearchStatus);
-
-  useEffect(() => {
-    dispatch(clearSearch());
-    if (searchTerm) {
-      // Update the fetchAsyncSearch action to use the new API endpoint and parameters
-      dispatch(fetchAsyncSearch({ keyword: searchTerm }));
-    }
-  }, [searchTerm, dispatch]);
+  const searchResults = useSelector((state) => state.search.searchResults);
 
   return (
     <main>
-      <div className='search-content bg-white'>
-        <div className='container'>
-          <div className='py-5'>
-            <div className='title-md'>
+      <div className="search-content bg-white">
+        <div className="container">
+          <div className="py-5">
+            <div className="title-md">
               <h3>Search results:</h3>
             </div>
-            <br />
-            {searchStatus === 'loading' ? (
-              <i className="fa-solid fa-hourglass-start"></i>
-            ) : searchResults.length === 0 ? (
-              <div className='container' style={{ minHeight: "70vh" }}>
-                <div className='fw-5 text-danger py-5'>
-                  <h3>No results found.</h3>
-                </div>
-              </div>
-            ) : (
-              <div>
-                {/* Render search elements based on searchResults */}
-                {searchResults.map((result, index) => (
-                  <div key={index}>
-                    {/* Render each search element */}
-                    <p>{result.Column1}</p>
-                    <p>{result.Column2}</p>
-                    <p>{result.Column3}</p>
-
-                    {/* Add more elements as needed */}
-                  </div>
-                ))}
-              </div>
-            )}
+            <div>
+            {searchResults.length === 0 ? (
+  <p>No results found in the user list.</p>
+) : (
+  searchResults.map((profile) => (
+    <div key={profile.id}>
+      <Link to={`/OtherProfile/${profile.user_account}`}>
+        {profile.image ? (
+          <img
+            src={profile.image}
+            alt="Owner"
+            className="rounded-circle me-2 mb-2"
+            style={{ width: "50px", height: "50px" }}
+          />
+        ) : (
+          <div>No Image Available</div>
+        )}
+      </Link>
+      <p>First Name: {profile.first_name}</p>
+      <p>Last Name: {profile.last_name}</p>
+    </div>
+  ))
+)}
+            </div>
           </div>
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
 export default SearchPage;
