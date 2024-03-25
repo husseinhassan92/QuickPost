@@ -39,8 +39,9 @@ const Leftbar = ({ isHomePage ,logout, isAuthenticated}) => {
         <SidebarOption Icon={IoMdNotificationsOutline} text="Notifications" link={"/notifications"} title={"notifications"} />
         <SidebarOption Icon={CiMail} text="Messages" link={""} title={"messages"} />
         <SidebarOption Icon={CiBookmark} text="Bookmarks" link={"/bookmarks"} title={"bookmarks"} />
-        <SidebarOption Icon={CiCircleList} text="Friends" link={"/friends"} title={"friends"} />
+        <SidebarOption Icon={CiCircleList} text="Users" link={"/friends"} title={"friends"} />
         <SidebarOption Icon={AiOutlineUser} text="Profile" link={"/profile"} title={"profile"} />
+        {/* <Link to="/friends" className="dropdown-item">Friends</Link> */}
 
         {/* Button -> Logout */}
           <CiLogout className="fs-5 " />

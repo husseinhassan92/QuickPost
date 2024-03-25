@@ -17,6 +17,19 @@ const store = createStore(
 
 export default store;
 
+// import { configureStore } from '@reduxjs/toolkit';
+// import thunk from 'redux-thunk';  // Corrected import path
+// import rootReducer from './Reducers/CombineReducer';
+
+// const store = configureStore({
+//   reducer: rootReducer,
+//   middleware: [thunk],
+//   devTools: process.env.NODE_ENV !== 'production', // Enable Redux DevTools in development mode
+// });
+
+// export default store;
+
+
 // export default configureStore({
 //   reducer: {
 //     search: searchReducer,

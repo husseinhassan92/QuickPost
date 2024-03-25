@@ -1,13 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const fetchAsyncFriends = createAsyncThunk('friends/fetch', async () => {
-    const response = await fetch(`https://dummyapi.io/data/v1/user?limit=200`, {
-        headers: {
-            'app-id': '65dba58a1351b838dbb92f32' // Replace 'your_app_id' with your actual app ID obtained from the dummyapi.io website
-        }
-    });
-    const data = await response.json();
-    return data.data; // Assuming the response has a 'data' property containing an array of friends
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `JWT ${localStorage.getItem('access')}`,
+            },
+        };
+
+        const response = await axios.get(`http://127.0.0.1:8000/api/profile/`, config);
+        return response.data; // Assuming the response contains an array of friends
+    } catch (error) {
+        throw error; // Throw the error so it can be caught by the rejected action
+    }
 });
 
 const initialState = {

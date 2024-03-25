@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Nav from 'react-bootstrap/Nav';
 import Posts from '../../Components/Posts/Posts'
 import Navbar from '../../Components/Navbar/Navbar'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import MyPost from '../../Components/myPost/Post';
 import SharedPost from '../../Components/sharedPost/SharedPost';
 import Follower from '../../Components/Follower/Follower';
@@ -48,6 +48,8 @@ const [profileData, setProfileData] = useState({
     });
     const history = useHistory();
 
+
+
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
@@ -75,6 +77,10 @@ const [profileData, setProfileData] = useState({
         setProfileData({ ...profileData, [name]: value });
         setErrors({ ...errors, [name]: '' });
     };
+
+    if (!user) {
+        return <Redirect to='/' />
+    }
 
     const handleImageChange = event => {
         const imageFile = event.target.files[0];
@@ -231,11 +237,13 @@ const [profileData, setProfileData] = useState({
                         <div className="card">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                <img src={'http://127.0.0.1:8000' + profileData?.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+                                <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
                                    
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
-                                    <h2>{profileData.first_name + " " + profileData.last_name}</h2>
+                                <h2 style={{ color: 'white', textShadow: '2px 2px 4px rgba(255, 0, 0, 0.5)' }}>
+  {profileData.first_name.charAt(0).toUpperCase() + profileData.first_name.slice(1)} {profileData.last_name.charAt(0).toUpperCase() + profileData.last_name.slice(1)}
+</h2>
                                     <p>{profileData.birth_date}</p>
                                     {/* <span>{userData.phone}</span> */}
                                  
@@ -346,7 +354,7 @@ const [profileData, setProfileData] = useState({
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="custom-file-input"
+            className="form-control"
             style={{ marginTop: '0.5rem' }}
         />
     </div>
@@ -411,6 +419,7 @@ const [profileData, setProfileData] = useState({
 const mapStateToProps = state => ({
     isAuthenticated: state.AuthRecducer.isAuthenticated,
     user: state.AuthRecducer.user,
+
 });
 export default connect(mapStateToProps)(Profile);
 

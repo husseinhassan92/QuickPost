@@ -1,11 +1,14 @@
 import React from 'react'
 import {  useState } from "react";
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 
 function Comment({postid,profileid}) {
     const [newComment, setNewComment] = useState("");
     const [postComments, setPostComments] = useState([]);
+    const [Comment,setComment]=useState()
+
+    
 
 
     // console.log(Post);
@@ -28,7 +31,8 @@ function Comment({postid,profileid}) {
           }
         )
         .then((response) => {
-          console.log("Comment added:", response.data);
+          console.log("Comment added:", response.data.data);
+          setComment(response.data.data)
           setNewComment("");
           // Fetch comments for the specific post
           axios
@@ -49,6 +53,8 @@ function Comment({postid,profileid}) {
 <>
 <div className="card text-light bg-dark">
                     <div className="card-body">
+                      
+                      {Comment && Comment.content}
                       <h5 className="card-title text-light mt-3">
                         Add Comment
                       </h5>

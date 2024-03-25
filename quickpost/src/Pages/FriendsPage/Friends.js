@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAsyncFriends, getAllFriends } from '../../Store/Reducers/friendSlice';
 import { Card, Container, Row, Spinner, Alert, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; // Import Link
 import "./Friends.css";
 import Leftbar from '../../Components/LeftSide/LeftSide';
 
@@ -15,7 +16,8 @@ const Friend = ({ friend }) => {
           <Card.Title>{friend.firstName}</Card.Title>
           <Button  variant="danger">
           <i className="fa-solid fa-heart-broken"></i> unfriend
-          </Button>        </Card.Body>
+          </Button>        
+        </Card.Body>
       </Card>
     </Col>
   );
@@ -43,9 +45,18 @@ const FriendListPage = () => {
           {friendsStatus === 'FAILED' && <Alert variant="danger">Failed to fetch friends.</Alert>}
           {friendsStatus === 'SUCCEEDED' && (
             <Row className="friend-list">
-              {friends.map((friend) => (
-                <Friend key={friend.id} friend={friend} />
-              ))}
+            {friends.map((friend) => (
+              <Col key={friend.id} xs={12} sm={6} md={4} lg={3} className='mb-4'>
+                <Card>
+                  <Link to={`/OtherProfile/${friend.id}`}> {/* Use friend.id here */ }
+                    <Card.Img variant="top" src={friend.image} alt="Friend" style={{ height: "13rem" }} />
+                  </Link>
+                  <Card.Body>
+                  <Card.Title>{friend.first_name.charAt(0).toUpperCase() + friend.first_name.slice(1)}</Card.Title>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
             </Row>
           )}
         </Col>
