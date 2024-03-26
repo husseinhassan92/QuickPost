@@ -14,7 +14,7 @@ const HomePage = ({ isAuthenticated, user, userProfile}) => {
     <div className="container-fluid ">
       <div className="row">
         <div className='d-flex'>
-          <div className="left-side col-lg-3 col-1 vh-100">
+          <div className="left-side col-lg-3 col-2 vh-100">
             <Leftbar />
           </div>
           <div className="middle col-lg-9  col-11 border rounded-3 border-primary">

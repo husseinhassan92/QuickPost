@@ -10,18 +10,17 @@
 }
 
 .sidebarOption:hover {
-  background-color: #e8f5fe;
+  /* background-color: #e8f5fe; */
   border-radius: 30px;
   color: #1c7dc3;
   transition: color 100ms ease-out;
 }
 .sidebarOption.bg_logout{
-  color: rgb(255, 58, 58);
+  color: #fff;
 }
 .sidebarOption.bg_logout:hover{
-  background-color: rgb(255, 58, 58);
+  color: rgb(255, 58, 58);
   border-radius: 30px;
-  color: #fff;
   transition: color 200ms ease-out;
 }
 .sidebarOption > .MuiSvgIcon-root {
@@ -37,4 +36,9 @@
 
 .sidebarOption--active {
   color: var(--twitter-color);
+}
+@media (max-width: 992px) {
+  .sidebarOption:hover{
+        background-color: none !important;
+    }
 }
