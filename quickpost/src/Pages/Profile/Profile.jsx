@@ -248,6 +248,8 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                 .then((response) => {
                     console.log('Profile updated successfully:', response);
                     fetchProfileData();
+                    toast.success('Update Successfully');
+
                 })
             //setProfileData(response.data.data);
         } catch (error) {
@@ -346,6 +348,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
     return (
         <section className="h-100 gradient-custom-2">
             <div className="container py-5 h-100">
+            <ToastContainer />
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="">
                         <div className="card">
@@ -487,12 +490,12 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                                     {message !== '' ? (<p>{message}</p>) : ('')}
 
                             </div>}
+                           
 
 
                         </div>
                         <div className="modal-footer d-flex justify-content-between">
                             {/* <button type="submit" className="btn btn-primary">Update Profile</button> */}
-
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
