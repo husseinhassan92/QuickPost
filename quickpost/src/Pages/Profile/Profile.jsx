@@ -14,7 +14,8 @@ import SharedPost from '../../Components/sharedPost/SharedPost';
 import Follower from '../../Components/Follower/Follower';
 import Following from '../../Components/Following/Following';
 import { useDispatch } from 'react-redux';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
@@ -120,11 +121,11 @@ function Profile({ isAuthenticated, user }) {
                 },
             };
     
-            const response = await axios.put(`http://127.0.0.1:8000/api/profile/${profileData.id}/`, formData, config);
+            const response = await axios.put(`http://127.0.0.1:8000/api/profile/${user.id}/`, formData, config);
             console.log('Profile updated successfully:', response.data);
             setProfileData(response.data);
             setRefreshKey(prevKey => prevKey + 1); // Trigger re-render to force image refresh
-
+            toast.success('updated successfully');
         } catch (error) {
             console.error('Error updating profile:', error);
         }
@@ -247,7 +248,7 @@ function Profile({ isAuthenticated, user }) {
                                     {/* <span>{userData.phone}</span> */}
                                  
                                 </div>
-                               
+                               toast.succes
                             </div>
                             <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
                           
@@ -358,6 +359,7 @@ function Profile({ isAuthenticated, user }) {
         />
     </div>
     <button type="submit" className="btn btn-primary">Update Profile</button>
+    <ToastContainer />
 </form>
 
         </div>
