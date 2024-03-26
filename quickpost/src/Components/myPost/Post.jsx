@@ -183,6 +183,7 @@ function MyPost({isAuthenticated, user, userProfile}) {
     })
     .then(response => {
       console.log('Post Unshared successfully:', response.data);
+      
       // Handle success, if needed
     })
     .catch(error => {

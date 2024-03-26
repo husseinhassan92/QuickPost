@@ -97,6 +97,7 @@ export default function (state = initialState, action) {
         refresh: null,
         isAuthenticated: null,
         user: null,
+        userProfile: null,
       };
   
     case ACTIVATION_SUCCESS:

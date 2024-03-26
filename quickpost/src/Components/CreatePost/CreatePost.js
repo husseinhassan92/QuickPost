@@ -2,9 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) => {
+const CreatePost = ({
+  isAuthenticated,
+  user,
+  loadUserProfileById,
+  userProfile,
+}) => {
   const [postText, setPostText] = useState("");
   const [post, setPost] = useState();
   const [postCount, setPostCount] = useState(0);
@@ -14,23 +19,22 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
   const [showDropdown, setShowDropdown] = useState(false);
   const [editShow, seteditShow] = useState(false);
   const [uploadShow, setUploadShow] = useState(false);
-  const [editPostText, setEditPostText] = useState("")
-  const [image , setImage] = useState(null)
+  const [editPostText, setEditPostText] = useState("");
+  const [image, setImage] = useState(null);
 
   //if (user){console.log(user.id)}
 
-
   const uploadhandleClose = () => {
-    setUploadShow(false)
-    setImage(null)
+    setUploadShow(false);
+    setImage(null);
   };
   const uploadhandle = () => {
-    setUploadShow(false)
+    setUploadShow(false);
   };
   const uploadhandleShow = () => setUploadShow(true);
 
   const edithandleClose = () => {
-    seteditShow(false)
+    seteditShow(false);
     setShowDropdown(false);
   };
   const edithandleShow = () => seteditShow(true);
@@ -60,7 +64,7 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
 
   const handleContentChange = (e) => {
     setPostText(e.target.value);
-    setEditPostText(e.target.value)
+    setEditPostText(e.target.value);
     setPostCount(e.target.value.length);
     if (postCount === 0 || postCount > 300) {
       setDisablePostButton(true);
@@ -69,17 +73,17 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
     }
   };
   const handleCreatePost = (event) => {
-    console.log(postText)
+    console.log(postText);
     let form_data = new FormData();
     if (image) {
-      form_data.append('image', image);
+      form_data.append("image", image);
     }
-    form_data.append('content', postText);
-    form_data.append('p_author', user.id);
-    form_data.append('profile', userProfile.id);
+    form_data.append("content", postText);
+    form_data.append("p_author", user.id);
+    form_data.append("profile", userProfile.id);
     const config = {
       headers: {
-        'content-type': 'multipart/form-data',
+        "content-type": "multipart/form-data",
         Authorization: `JWT ${localStorage.getItem("access")}`,
       },
     };
@@ -118,13 +122,13 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
       .catch((err) => console.log(err));
   };
 
-  const onChangeHandler = (e) =>{
-    setEditPostText(e.target.value)
-  }
+  const onChangeHandler = (e) => {
+    setEditPostText(e.target.value);
+  };
   const editPost = (e, id) => {
     e.stopPropagation();
     console.log(id);
-    console.log(editPostText)
+    console.log(editPostText);
     seteditShow(false);
     setShowDropdown(!showDropdown);
     const Body = {
@@ -134,7 +138,7 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
       tags: [],
     };
     axios
-      .put(`https://dummyapi.io/data/v1/post/${id}`,Body, {
+      .put(`https://dummyapi.io/data/v1/post/${id}`, Body, {
         headers: {
           "app-id": "65d08f07b536e68ad8626e8c",
         },
@@ -147,7 +151,7 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
   };
 
   function onUploadFileChange(e) {
-    setImage(e.target.files[0])
+    setImage(e.target.files[0]);
     // let file = new FileReader();
     // file.readAsDataURL(e.target.files[0]);
     // file.onload = () => {
@@ -155,22 +159,20 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
     // };
   }
 
-
-
   return (
     <>
       <div className="container  pt-4 ">
         <div className="row ">
           <div className="col">
             <div className="border rounded-3 border-secondary p-3 shadow mt-2 bg-dark ms-2 me-2">
-              
-              <Form className="d-flex flex-column mt-0">
+              <img
+                src={"http://127.0.0.1:8000" + userProfile.image}
+                alt="Owner"
+                className="rounded-circle me-2 mb-2"
+                style={{ width: "50px", height: "50px" }}
+              />
+              <Form className="d-flex flex-column mt-2">
                 <Form.Group className="mb-3 ">
-                  <Form.Label>
-                    <div className="d-flex align-items-center mb-1">
-                      <div className="mx-3"></div>
-                    </div>
-                  </Form.Label>
                   <Form.Control
                     as="textarea"
                     row={4}
@@ -181,11 +183,12 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
                   />
                 </Form.Group>
                 <div className="d-flex justify-content-end align-items-center">
-                  <span className="text-light">
-                    {postCount}/300
-                  </span>
-                  <Button className="btn btn-dark text-danger ms-2" onClick={uploadhandleShow}>
-                  <i className="bi bi-image"></i>
+                  <span className="text-light">{postCount}/300</span>
+                  <Button
+                    className="btn btn-dark text-danger ms-2"
+                    onClick={uploadhandleShow}
+                  >
+                    <i className="bi bi-image"></i>
                   </Button>
                   <Button
                     onClick={handleCreatePost}
@@ -207,31 +210,25 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
             <div className="col">
               <div className="card text-light bg-dark">
                 <div className="card-body">
-                <div className="d-flex align-items-center mb-3">
-                            <Link
-                              to={`/OtherProfile/${post.profile.user_account}`}
-                            >
-                              <img
-                                src={
-                                  "http://127.0.0.1:8000" + post.profile.image
-                                }
-                                alt="Owner"
-                                className="rounded-circle me-2 mb-2"
-                                style={{ width: "50px", height: "50px" }}
-                              />
-                            </Link>
-                            <div className="align-self-center mb-2">
-                              {post.profile.first_name} {post.profile.last_name}
-                            </div>
-                            <div className="ms-auto text-light">
-                              {new Date(post.create_at).toLocaleString()}
-                            </div>
-                          </div>
+                  <div className="d-flex align-items-center mb-3">
+                    <img
+                      src={"http://127.0.0.1:8000" + post.profile.image}
+                      alt="Owner"
+                      className="rounded-circle me-2 mb-2"
+                      style={{ width: "50px", height: "50px" }}
+                    />
+                    <div className="align-self-center mb-2">
+                      {post.profile.first_name} {post.profile.last_name}
+                    </div>
+                    <div className="ms-auto text-light">
+                      {new Date(post.create_at).toLocaleString()}
+                    </div>
+                  </div>
                   <div>
                     {post.image && (
                       <Link to={`/post/${post.id}`}>
                         <img
-                          src={'http://127.0.0.1:8000'+ post.image}
+                          src={"http://127.0.0.1:8000" + post.image}
                           alt="Post"
                           className="img-fluid rounded mb-3 ps-1 w-100"
                         />
@@ -276,12 +273,18 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Control as="textarea" rows={3} style={{ resize: "none", height: "7rem" }} value={editPostText} onChange={onChangeHandler} />
               <Form.Control
-              type="file"
-              accept=".jpg, .jpeg, .png"
-              onChange={onUploadFileChange}
-            />
+                as="textarea"
+                rows={3}
+                style={{ resize: "none", height: "7rem" }}
+                value={editPostText}
+                onChange={onChangeHandler}
+              />
+              <Form.Control
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                onChange={onUploadFileChange}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -296,16 +299,16 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
       </Modal>
       <Modal show={uploadShow} onHide={uploadhandleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Upload  Image</Modal.Title>
+          <Modal.Title>Upload Image</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Control
-              type="file"
-              accept=".jpg, .jpeg, .png"
-              onChange={onUploadFileChange}
-            />
+              <Form.Control
+                type="file"
+                accept=".jpg, .jpeg, .png"
+                onChange={onUploadFileChange}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -318,11 +321,10 @@ const CreatePost = ({isAuthenticated, user, loadUserProfileById, userProfile}) =
           </Button>
         </Modal.Footer>
       </Modal>
-      
     </>
   );
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuthenticated: state.AuthRecducer.isAuthenticated,
   user: state.AuthRecducer.user,
   userProfile: state.AuthRecducer.userProfile,
