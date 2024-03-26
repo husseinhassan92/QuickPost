@@ -9,6 +9,11 @@ import signUp from "../../images/signUp.png";
 import './sginup.css'
 import { signup_user } from '../../Store/Actions/AuthAction';
 
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 const Sginup = ({ signup_user, isAuthenticated }) => {
   const [accountCreated, setAccountCreated] = useState(false);
 
@@ -81,22 +86,30 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
     }
   };
 
-  const sumbitdata = e => {
-    console.log(data);
-    e.preventDefault();
-    if (password === rePassword) {
-      console.log(data);
-      signup_user(userName, email, password, rePassword);
-      setAccountCreated(true);
-    }
-  };
+const sumbitdata = e => {
+  e.preventDefault();
+  if (password === rePassword) {
+    signup_user(userName, email, password, rePassword);
+    setAccountCreated(true);
+    
+    
+    toast.success('Sign Up Successfully, Check Mail');
+    setData({
+      userName: '',
+      email: '',
+      password: '',
+      rePassword: '',
+
+      
+    });
+  }
+};
 
   if (isAuthenticated) {
     return <Redirect to='/' />
   }
-  if (accountCreated) {
-    return <Redirect to='/login' />
-  }
+ 
+ 
 
 
   return (
@@ -116,7 +129,7 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
 
         </Col>
         <Col lg={6}  >
-          <Form onSubmit={e => sumbitdata(e)} className="  ms-md-3  p-5 border border-1  text-center shadow">
+          <Form  onSubmit={e => sumbitdata(e)} className="  ms-md-3  p-5 border border-1  text-center shadow">
             <h4 className=" pb-4">SGIN UP</h4>
 
             <Form.Group className="col col-10 mx-auto" controlId="userName">
@@ -145,6 +158,7 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
               <p className="text-danger pt-3">{error.emailError}</p>
             </Form.Group>
 
+            <ToastContainer />
 
 
             <Form.Group className="col col-10 mx-auto" controlId="password">

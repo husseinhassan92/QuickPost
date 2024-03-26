@@ -8,6 +8,13 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import WhatsApp from "../../images/WhatsApp.jpeg";
 import Comment from "../Comment/Comment";
+import { Alert, DropdownButton, Dropdown, Modal, Button } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
+// npm install react-toastify
+
 
 const Posts = ({ isAuthenticated, user, userProfile }) => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -15,6 +22,61 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
   const observer = useRef();
   const [postComments, setPostComments] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
+  const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const [reportText, setReportText] = useState("");
+  const [reportPostId, setReportPostId] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+
+
+
+  const handleReportTextChange = (e) => {
+    setReportText(e.target.value);
+  };
+
+  const handleShowModal = (postId) => {
+    setShowModal(true);
+    setReportPostId(postId); // Add this line to store the postId in state
+  };
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setReportText("");
+  };
+ 
+
+  const handleAddReport = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/report/report/', {
+        post: reportPostId,
+        user: user.id,
+        reason: reportText,
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        },
+      });
+      toast.success('Report Send Successfully');
+      setShowModal(false); // Close the modal
+      setReportText("");
+
+    } catch (error) {
+      if (error.response) {
+        toast.error(`Failed to add report: ${error.response.data.detail}`);
+      } else {
+        console.error('Error adding report:', error.message);
+        toast.error('An error occurred while adding report');
+      }
+    }
+  };
 
   let [Post, setPost] = useState([]);
   async function getPost() {
@@ -26,10 +88,11 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
           Accept: "application/json",
         },
       }
-    let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, config);
-    console.log(data);
-    setPost(data.posts);
-  }}
+      let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, config);
+      console.log(data);
+      setPost(data.posts);
+    }
+  }
 
   let [SharedPost, setSharedPost] = useState([]);
   async function getSharedPost() {
@@ -41,30 +104,30 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
           Accept: "application/json",
         },
       }
-    let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`,config);
-    // console.log(share);
-    setSharedPost(data.shared);
-  }}
+      let { data } = await axios.get(`http://127.0.0.1:8000/api/post/all/`, config);
+      // console.log(share);
+      setSharedPost(data.shared);
+    }
+  }
 
   const sharePost = (postId) => {
-    axios
-      .post(
-        `http://127.0.0.1:8000/api/post/share/`,
-        {
-          author: user.id,
-          profile: userProfile.id,
-          post: postId,
+    axios.post(
+      `http://127.0.0.1:8000/api/post/share/`,
+      {
+        author: user.id,
+        profile: userProfile.id,
+        post: postId,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `JWT ${localStorage.getItem("access")}`,
-            Accept: "application/json",
-          },
-        }
-      )
+      },
+    )
       .then((response) => {
-        console.log("Post shared successfully:", response.data);
+        console.log('Post shared successfully:', response.data);
         // Update the state to increment the share_count of the shared post
         const updatedPosts = Post.map((post) => {
           if (post.id === postId) {
@@ -73,12 +136,17 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
           return post;
         });
         setPost(updatedPosts);
+        toast.success('Post Shared successfully');
+
+        // Set a success message
+        // setMessage(`Post ${postId} shared successfully`);
       })
       .catch((error) => {
-        console.error("Error sharing post:", error);
+        console.error('Error sharing post:', error);
         // Handle error, if needed
       });
   };
+
 
   useEffect(() => {
     getPost();
@@ -102,7 +170,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
   const [newComment, setNewComment] = useState("");
 
-  console.log(Post);
+  //console.log(Post);
   const handleAddComment = (postId, ownerId) => {
     axios
       .post(
@@ -124,6 +192,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
       .then((response) => {
         console.log("Comment added:", response.data);
         setNewComment("");
+        getPost();
         // Fetch comments for the specific post
         axios
           .get(`http://127.0.0.1:8000/api/comments/comment/${postId}`)
@@ -151,6 +220,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
       })
       .then((response) => {
         console.log("Comment deleted:", response.data);
+        getPost();
         // Fetch updated comments for the specific post
         axios
           .get(`http://127.0.0.1:8000/api/comments/comment/${postId}`, {
@@ -173,6 +243,10 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
   const isPostLiked = (postId) => {
     return likedPosts.includes(postId);
   };
+
+
+
+
   const handleLikePost = (postId) => {
     axios
       .post(
@@ -206,7 +280,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
         });
         setPost(updatedPosts);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const handleUnlikePost = (postId) => {
@@ -237,7 +311,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
         });
         setPost(updatedPosts);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   if (!isAuthenticated) {
@@ -276,9 +350,74 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             <div className="align-self-center mb-2">
                               {post.profile.first_name} {post.profile.last_name}
                             </div>
-                            <div className="ms-auto text-light">
+                            <div className="ms-auto text-ligh">
                               {new Date(post.create_at).toLocaleString()}
+                              <i
+                                className="bi bi-three-dots-vertical text-light "
+                                onClick={toggleDropdown}
+                              ></i>
+                              {showDropdown && (
+                                <Dropdown
+                                  align="center"
+                                  className="mt-0 ms-2"
+                                  show={showDropdown}
+                                  onClose={() => setShowDropdown(false)}
+                                >
+                                  <Dropdown.Menu className="mt-2 txt-center bg-warning">
+                                    <Button
+                                 // <Dropdown.Item onClick={() => handleShowModal(post.id)}>Report</Dropdown.Item>
+
+                                      onClick={() => {
+                                        handleShowModal(post.id);
+                                        setShowDropdown(false);
+                                      }}
+                                      className="dropdown-item bg-warning "
+
+                                    >
+                                      Report Post
+                                    </Button>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              )}
+
+                              <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Report Post</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <textarea
+                                    value={reportText}
+                                    onChange={handleReportTextChange}
+                                    placeholder="Enter your report here..."
+                                    className="form-control"
+                                  />
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button variant="secondary" onClick={() => handleCloseModal()}>
+                                    Close
+                                  </Button>
+                                  <Button variant="primary" onClick={handleAddReport}>
+                                    Send Report
+                                  </Button>
+                                </Modal.Footer>
+                              </Modal>
+
+
+                              {/* <DropdownButton
+                                id={`dropdown-button-drop-right`}
+                                drop="down"
+                                title=""
+                                className="ms-2"
+                              >
+                                
+                                <Dropdown.Item onClick={() => handleShowModal(post.id)}>Report</Dropdown.Item>
+                              </DropdownButton> */}
+
+
+                              <ToastContainer />
+
                             </div>
+
                           </div>
                           <Link to={`/post/${post.id}`}>
                             {post.image && <img
@@ -347,6 +486,8 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               <i className="bi bi-share pe-1"></i>{" "}
                               {post.share_count} Share
                             </div>
+                            {/* {message && message.includes(post.id) && <Alert variant="success">Post Shared successfully</Alert>} */}
+
 
                             {post.comments.map((comment) => (
                               <div
@@ -357,9 +498,9 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   <div className="d-flex align-items-center pb-2">
                                     <img
                                       src={
-                                        post.profile.image === null
+                                        comment.profile.image === null
                                           ? WhatsApp
-                                          : post.profile.image
+                                          : "http://127.0.0.1:8000" + post.profile.image
                                       }
                                       alt="Comment Owner"
                                       className="rounded-circle me-2 text-light"
@@ -448,7 +589,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               src={
                                 sharep.profile.image === null
                                   ? WhatsApp
-                                  : "http://127.0.0.1:8000"+sharep.profile.image
+                                  : "http://127.0.0.1:8000" + sharep.profile.image
                               }
                               alt="Owner"
                               className="rounded-circle me-2 mb-2"
@@ -469,7 +610,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 src={
                                   sharep.post.profile.image === null
                                     ? WhatsApp
-                                    : "http://127.0.0.1:8000"+sharep.post.profile.image
+                                    : "http://127.0.0.1:8000" + sharep.post.profile.image
                                 }
                                 alt="Owner"
                                 className="rounded-circle me-2 mb-2"

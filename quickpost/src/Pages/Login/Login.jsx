@@ -9,6 +9,10 @@ import { connect } from 'react-redux';
 import loginimg from "../../images/loginimg.png";
 import { login_user } from "../../Store/Actions/AuthAction";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 function Login({login_user, isAuthenticated, user}) {
   const Emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const Passregex = /^.{8,}$/;
@@ -62,13 +66,15 @@ function Login({login_user, isAuthenticated, user}) {
     
     if (!error.emailError && !error.passError) {
       if (!isAuthenticated) {
-        setLoginError("Invalid email or password.");
+        // setLoginError("Invalid email or password.");
+        toast.success('Login Failed, Try Again');
+
       }
       
       login_user(email, password);
     } else {
       // Email or password is invalid, show message
-      setLoginError("Invalid email or password.");
+      // setLoginError("Invalid email or password.");
 
     }
   };
@@ -138,6 +144,8 @@ function Login({login_user, isAuthenticated, user}) {
 
                   <p className="text-danger pt-2"> {error.passError} </p>
                 </Form.Group>
+                <ToastContainer />
+
                 <Button
                   disabled={error.emailError || (error.passError && "disabled")}
                   className="w-50   but "
