@@ -61,6 +61,7 @@ const MyNavbar = ({ logout, isAuthenticated }) => {
     //         <BootstrapNavbar bg="dark" expand="lg" className="p-0"></BootstrapNavbar>
     //       </div>
 
+
     //       <div className="col p-0">
     //         <BootstrapNavbar bg="dark" expand="lg" className="p-0">
     //           <BootstrapNavbar.Collapse>

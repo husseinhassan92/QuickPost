@@ -14,8 +14,9 @@ import SharedPost from '../../Components/sharedPost/SharedPost';
 import Follower from '../../Components/Follower/Follower';
 import Following from '../../Components/Following/Following';
 import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { logout } from "../../Store/Actions/AuthAction";
-
 
 
 
@@ -80,6 +81,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
         fetchProfileData();
     }, []);
     console.log("profile1", profileData)
+
     const handleInputChange = event => {
         const { name, value } = event.target;
         setProfileData({ ...profileData, [name]: value });
@@ -202,10 +204,6 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
         setProfileData({ ...profileData, image: imageFile });
     };
 
-    const handleImageClick = () => {
-        history.push('/navbar', { image: profileData.image });
-    };
-
     const handleSubmit = async event => {
         event.preventDefault();
         try {
@@ -250,13 +248,12 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                 .then((response) => {
                     console.log('Profile updated successfully:', response);
                     fetchProfileData();
+                    toast.success('Update Successfully');
+
                 })
             //setProfileData(response.data.data);
         } catch (error) {
             console.error('Error updating profile:', error);
-            if (error.response && error.response.status === 400 && error.response.data.image) {
-                history.push('/profile');
-            }
         }
     };
     const edithandleClose = () => {
@@ -351,6 +348,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
     return (
         <section className="h-100 gradient-custom-2">
             <div className="container py-5 h-100">
+            <ToastContainer />
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="">
                         <div className="card">
@@ -367,7 +365,6 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                                     {/* <span>{userData.phone}</span> */}
 
                                 </div>
-
                             </div>
                             <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
 
@@ -493,12 +490,12 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                                     {message !== '' ? (<p>{message}</p>) : ('')}
 
                             </div>}
+                           
 
 
                         </div>
                         <div className="modal-footer d-flex justify-content-between">
                             {/* <button type="submit" className="btn btn-primary">Update Profile</button> */}
-
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -557,4 +554,3 @@ const mapStateToProps = state => ({
 
 });
 export default connect(mapStateToProps, { logout })(Profile);
-

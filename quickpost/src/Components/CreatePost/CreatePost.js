@@ -167,12 +167,21 @@ const CreatePost = ({
         <div className="row ">
           <div className="col">
             <div className="border rounded-3 border-secondary p-3 shadow mt-2 bg-dark ms-2 me-2">
-              {userProfile && <img
-                src={"http://127.0.0.1:8000" + userProfile.image}
-                alt="Owner"
-                className="rounded-circle me-2 mb-2"
-                style={{ width: "50px", height: "50px" }}
-              />}
+            <div className="d-inline-flex align-items-center">
+  {userProfile && userProfile.image && (
+    <img
+      src={"http://127.0.0.1:8000" + userProfile.image}
+      alt="Owner"
+      className="rounded-circle me-2 mb-2"
+      style={{ width: "50px", height: "50px" }}
+    />
+  )}
+  {userProfile && (
+  <h5 className="text-light inline m-0" style={{ textTransform: "capitalize" }}>
+    {userProfile.first_name} {userProfile.last_name}
+  </h5>
+)}
+</div>
               <Form className="d-flex flex-column mt-2">
                 <Form.Group className="mb-3 ">
                   <Form.Control

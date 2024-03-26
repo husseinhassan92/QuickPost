@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar.js';
 import Posts from './Components/Posts/Posts';
 import Post from './Components/Post/Post';
-import SearchPage from './Pages/SearchPage/SearchPage';
+import ExplorePage from './Pages/ExplorePage/Explore';
 import Messages from './Messages';
 import { Provider, useSelector } from "react-redux";
 import store from "./Store/store";
@@ -45,7 +45,7 @@ const App = () => {
           <Route path='/profile' component={ProfilePage} />
           {/* <Route path="/Posts" component={Posts} /> */}
           <Route path="/home" component={HomePage} />
-          <Route path="/Search/:searchTerm" component={SearchPage} />
+          <Route path="/Explore" component={ExplorePage} />
           <Route path="/post/:id" component={Post} />
           <Route path="/Messages" component={Messages} />
           <Route  path='/reset-password' component={ResetPassword} />
