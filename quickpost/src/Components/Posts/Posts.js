@@ -448,7 +448,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                     : "bi bi-heart text-light pe-1"
                                 }
                               ></i>{" "}
-                              {post.reaction_count} Like
+                              {post.reaction_count}<span className="d-lg-inline d-none"> Like</span>
                             </div>
 
                             <div
@@ -478,7 +478,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   (comment) => comment.post === post.id
                                 ).length
                               }{" "} */}
-                              {post.comments_count} Comments
+                              {post.comments_count} <span className="d-lg-inline d-none">Comments</span>
                             </div>
 
                             <div
@@ -486,7 +486,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               onClick={() => sharePost(post.id)}
                             >
                               <i className="bi bi-share pe-1"></i>{" "}
-                              {post.share_count} Share
+                              {post.share_count} <span className="d-lg-inline d-none">Share</span>
                             </div>
                             {/* {message && (
                               <Alert variant="success">{message}</Alert>
