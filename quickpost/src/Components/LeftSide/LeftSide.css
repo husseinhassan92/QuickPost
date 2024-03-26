@@ -1,84 +1,63 @@
-*{
-  margin: 0;
-  padding: 0;
-}
 
-.leftbarWrapper {
-  padding: 20px 20px 0 0;
-}
-
-.birthdayContainer {
+.links-active {
   display: flex;
+  justify-content: center;
   align-items: center;
+  color: #5f99f7 !important;
 }
 
-.birthdayImg {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
+.mainNav a {
+  color: white;
 }
 
-.birthdayText {
-  font-weight: 300;
-  font-size: 15px;
+@media screen and (min-width: 992px) {
+  .links-active,
+  .links {
+    justify-content: start;
+  }
+  .icon {
+    display: block !important;
+    margin-left: 16px;
+  }
+  .leftSide {
+    width: 20%;
+    padding-right: 16px;
+  }
+  .leftTweet {
+    width: 100% !important;
+  }
+  .leftTweet .tweetIcon {
+    display: none !important;
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+  }
 }
 
-.leftbarAd {
-  width: 100%;
-  border-radius: 10px;
-  margin: 30px 0;
-}
-
-.leftbarTitle{
-    margin-bottom: 20px;
-}
-
-.leftbarFriendList {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.leftbarTitle{
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-.leftbarInfo{
-  margin-bottom: 30px;
-}
-
-.leftbarInfoItem{
-  margin-bottom: 10px;
-}
-
-.leftbarInfoKey{
-  font-weight: 500;
-  margin-right: 15px;
-  color: #555;
-}
-
-.leftbarInfoValue{
-  font-weight: 300;
-}
-
-.leftbarFollowings{
+.links {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  color: gray transition 0.5s;
 }
 
-.leftbarFollowing{
+.links:hover {
+  color: #5f99f7;
+}
+
+.icon {
+  display: none;
+  font-weight: 700;
+}
+
+.icon-interact {
+
   display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: gray;
 }
-
-.leftbarFollowingImg{
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
+#bg_logout:hover{
+  color: red !important;;
 }

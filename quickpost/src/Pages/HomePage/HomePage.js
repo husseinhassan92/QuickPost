@@ -13,16 +13,20 @@ const HomePage = ({ isAuthenticated, user, userProfile, loadUserProfileById}) =>
   if (user){loadUserProfileById(user.id);}
   return (
     <>
-    <div className="container-fluid ">
+    <div className="container mt-3">
       <div className="row">
         <div className='d-flex'>
-          <div className="left-side col-lg-3 col-1 vh-100">
+          <div className="left-side col-lg-3 col-1 me-2 mt-5">
             <Leftbar />
           </div>
-          <div className="middle col-lg-6 col-11 border rounded-3 border-secondary">
+          <div className='mx-2 fixed-top'>
+              <Navbar/>
+          </div>
+          <div className="middle col-lg-6 col-11 position-relative  rounded-3 mx-2 mt-5">
             <Posts />
           </div>
-          <div className='right-side col-lg-3 '>
+          <div className='right-side col-lg-3 mt-5'>
+
           <Rightbar isActive={true} />             
           </div>
         </div>

@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import { connect } from "react-redux";
-//import { loadUserProfileById } from "../../Store/Actions/AuthAction";
+import { connect } from 'react-redux';
+import Navbar from "../Navbar/Navbar";
 
 const CreatePost = ({
   isAuthenticated,
@@ -163,7 +163,7 @@ const CreatePost = ({
 
   return (
     <>
-      <div className="container  pt-4 ">
+      <div className="container">
         <div className="row ">
           <div className="col">
             <div className="border rounded-3 border-secondary p-3 shadow mt-2 bg-dark ms-2 me-2">
@@ -196,7 +196,7 @@ const CreatePost = ({
                     onClick={handleCreatePost}
                     disabled={disablePostButton}
                     variant="primary"
-                    className="col-2 mx-3"
+                    className="col-2 mx-3 btn btn-primary"
                   >
                     Post
                   </Button>

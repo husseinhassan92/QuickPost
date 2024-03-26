@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { verify } from '../../Store/Actions/AuthAction';
-import verify_img  from '../../images/verify.png'
+import verify_img from '../../images/verify.png'
 
 const Activate = ({ verify, match }) => {
     const [verified, setVerified] = useState(false);
