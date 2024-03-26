@@ -52,7 +52,7 @@ const SearchPage = () => {
           </form>
         </div>
         {searchResultsRedux.length === 0 ? (
-          <p className='fw-bold text-white'>No results found in the user list.</p>
+          <p className='fw-bold text-white mt-3'>No results found in the user list.</p>
         ) : (
           // Map through searchResults and render user profiles
           searchResultsRedux.map((profile) => (

@@ -17,7 +17,7 @@ const ExplorePage = ({ isAuthenticated, user, userProfile}) => {
           <div className="left-side col-lg-3 col-1 vh-100">
             <Leftbar />
           </div>
-          <div className="middle col-lg-6 col-11 ">
+          <div className="middle col-lg-6 col-11 mt-3 ">
             <SearchPage />
           </div>
           <div className='right-side col-lg-3 '>

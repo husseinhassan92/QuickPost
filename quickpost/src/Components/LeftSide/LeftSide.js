@@ -60,7 +60,7 @@ const Leftbar = ({ isHomePage, logout, isAuthenticated }) => {
             <i className="bi bi-house-door-fill fs-5"></i>
             <span className="icon">Home</span>
           </Link>
-          <Link to="/search" className="links mb-6">
+          <Link to="/Explore" className="links mb-6">
             <i class="bi bi-search-heart fs-5"></i>
             <span className="icon">Explore</span>
           </Link>
