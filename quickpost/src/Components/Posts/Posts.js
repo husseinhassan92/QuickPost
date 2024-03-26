@@ -8,8 +8,11 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import WhatsApp from "../../images/WhatsApp.jpeg";
 import Comment from "../Comment/Comment";
-import { Alert } from "react-bootstrap";
+import { Alert, Button, Dropdown, Modal } from "react-bootstrap";
 import "./Posts.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Posts = ({ isAuthenticated, user, userProfile }) => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -18,6 +21,57 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
   const [postComments, setPostComments] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const [message, setMessage] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [reportText, setReportText] = useState("");
+  const [reportPostId, setReportPostId] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+
+  const handleReportTextChange = (e) => {
+    setReportText(e.target.value);
+  };
+
+  const handleShowModal = (postId) => {
+    setShowModal(true);
+    setReportPostId(postId); // Add this line to store the postId in state
+  };
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setReportText("");
+  };
+
+  const handleAddReport = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/report/report/', {
+        post: reportPostId,
+        user: user.id,
+        reason: reportText,
+      }, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        },
+      });
+      toast.success('Report Send Successfully');
+      setShowModal(false); // Close the modal
+      setReportText("");
+
+    } catch (error) {
+      if (error.response) {
+        toast.error(`Failed to add report: ${error.response.data.detail}`);
+      } else {
+        console.error('Error adding report:', error.message);
+        toast.error('An error occurred while adding report');
+      }
+    }
+  };
 
   let [Post, setPost] = useState([]);
   async function getPost() {
@@ -85,7 +139,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
         });
         setPost(updatedPosts);
         // Set a success message
-        setMessage("Post shared successfully");
+        toast.success('Post Shared successfully');
       })
       .catch((error) => {
         console.error("Error sharing post:", error);
@@ -262,6 +316,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
   return (
     <div className="container-fluid">
+      <ToastContainer />
       <div className="row p-0">
         <div className="">
           <div>
@@ -311,7 +366,58 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             </div>
                             <div className="ms-auto text-light">
                               {new Date(post.create_at).toLocaleString()}
+                              <i
+                                className="bi bi-three-dots-vertical text-light "
+                                onClick={toggleDropdown}
+                              ></i>
+                              {showDropdown && (
+                                <Dropdown
+                                  align="center"
+                                  className="mt-0 ms-2"
+                                  show={showDropdown}
+                                  onClose={() => setShowDropdown(false)}
+                                >
+                                  <Dropdown.Menu className="mt-2 txt-center bg-warning">
+                                    <Button
+                                 // <Dropdown.Item onClick={() => handleShowModal(post.id)}>Report</Dropdown.Item>
+
+                                      onClick={() => {
+                                        handleShowModal(post.id);
+                                        setShowDropdown(false);
+                                      }}
+                                      className="dropdown-item bg-warning "
+
+                                    >
+                                      Report Post
+                                    </Button>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              )}
+
+                              <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                <Modal.Header closeButton>
+                                  <Modal.Title>Report Post</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <textarea
+                                    value={reportText}
+                                    onChange={handleReportTextChange}
+                                    placeholder="Enter your report here..."
+                                    className="form-control"
+                                  />
+                                </Modal.Body>
+                                <Modal.Footer>
+                                  <Button variant="secondary" onClick={() => handleCloseModal()}>
+                                    Close
+                                  </Button>
+                                  <Button variant="primary" onClick={handleAddReport}>
+                                    Send Report
+                                  </Button>
+                                </Modal.Footer>
+                              </Modal>
+                              
                             </div>
+                            
                           </div>
                           <Link to={`/post/${post.id}`}>
                             {post.image && (
@@ -382,9 +488,9 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               <i className="bi bi-share pe-1"></i>{" "}
                               {post.share_count} Share
                             </div>
-                            {message && (
+                            {/* {message && (
                               <Alert variant="success">{message}</Alert>
-                            )}
+                            )} */}
 
                             {post.comments.map((comment) => (
                               <div

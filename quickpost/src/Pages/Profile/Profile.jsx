@@ -64,6 +64,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                     'Content-Type': 'application/json',
                     Authorization: `JWT ${localStorage.getItem('access')}`,
                 },
+
             };
 
             const response = await axios.get(`http://127.0.0.1:8000/api/profile/user/${user.id}`, config);
@@ -76,8 +77,6 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
     };
 
     useEffect(() => {
-
-
         fetchProfileData();
     }, []);
     console.log("profile1", profileData)
@@ -229,24 +228,25 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
             }
 
             const formData = new FormData();
-            formData.append('user_account', profileData.id);
+            formData.append('user_account', user.id);
             formData.append('first_name', profileData.first_name);
             formData.append('last_name', profileData.last_name);
             formData.append('birth_date', profileData.birth_date);
-            //formData.append('image', profileData.image);
+            formData.append('image', profileData.image);
 
-            if (profileData.image) {
-                formData.append('image', profileData.image);
-            }
+            // if (profileData.image) {
+            //     formData.append('image', profileData.image);
+            // }
 
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `JWT ${localStorage.getItem('access')}`,
                 },
+                
             };
 
-            await axios.put(`http://127.0.0.1:8000/api/profile/${userProfile.id}/`, formData, config)
+            await axios.put(`http://127.0.0.1:8000/api/profile/${userProfile.id}/`,formData, config)
                 .then((response) => {
                     console.log('Profile updated successfully:', response);
                     fetchProfileData();
@@ -478,7 +478,6 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                                     />
                                 </div>
                                 <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Update Profile</button>
-
                             </form>
                             <button onClick={handledelete} className="btn btn-danger ">Delete Profile</button>
                             {confirm && <div>

@@ -7,8 +7,10 @@ import Posts from '../../Components/Posts/Posts'
 import SearchPage from '../SearchPage/SearchPage'
 import Messages from '../../Messages'
 import { connect } from 'react-redux'
+import { loadUserProfileById } from "../../Store/Actions/AuthAction"; 
 
-const HomePage = ({ isAuthenticated, user, userProfile}) => {
+const HomePage = ({ isAuthenticated, user, userProfile, loadUserProfileById}) => {
+  if (user){loadUserProfileById(user.id);}
   return (
     <>
     <div className="container-fluid ">
@@ -21,7 +23,6 @@ const HomePage = ({ isAuthenticated, user, userProfile}) => {
             <Posts />
           </div>
           <div className='right-side col-lg-3 '>
-
           <Rightbar isActive={true} />             
           </div>
         </div>
@@ -36,4 +37,4 @@ const mapStateToProps = (state) => ({
   user: state.AuthRecducer.user,
 });
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps,{loadUserProfileById})(HomePage);
