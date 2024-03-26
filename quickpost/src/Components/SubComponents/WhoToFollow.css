@@ -1,0 +1,31 @@
+/* Navbar.css */
+*{
+    margin:0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+
+
+.search {
+    margin: 0; /* Remove margin */
+}
+
+search form {
+    display: flex;
+    margin: 0; /* Remove margin */
+}
+
+.navbar-search .btn {
+    margin-left: 10px; /* Add margin between the input and the button */
+}
+
+.navbar-search .btn-outline-success {
+    color: purple; /* Set text color of the search button to purple */
+    border-color: purple; /* Set border color of the search button to purple */
+}
+
+.navbar-search .btn-outline-primary:hover {
+    background-color: purple; /* Change background color of search button on hover to purple */
+    color: white; /* Change text color of search button on hover to white */
+}

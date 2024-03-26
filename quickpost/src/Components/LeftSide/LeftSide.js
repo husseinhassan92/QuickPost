@@ -35,13 +35,13 @@ const Leftbar = ({ isHomePage ,logout, isAuthenticated}) => {
         <SiQuicktime className="sidebar__twitterIcon" />
 
         <SidebarOption active Icon={GrHomeRounded} text="Home" link={"/home"} title={"home"} />
-        <SidebarOption Icon={HiHashtag} text="Explore" link={"/search"} title={"search"} />
+        <SidebarOption Icon={HiHashtag} text="Explore" link={"/Explore"} title={"Explore"} />
         <SidebarOption Icon={IoMdNotificationsOutline} text="Notifications" link={"/notifications"} title={"notifications"} />
-        <SidebarOption Icon={CiMail} text="Messages" link={""} title={"messages"} />
+        <SidebarOption Icon={CiMail} text="Messages" link={"/Messages"} title={"messages"} />
         <SidebarOption Icon={CiBookmark} text="Bookmarks" link={"/bookmarks"} title={"bookmarks"} />
         <SidebarOption Icon={CiCircleList} text="Users" link={"/friends"} title={"friends"} />
         <SidebarOption Icon={AiOutlineUser} text="Profile" link={"/profile"} title={"profile"} />
-        {/* <Link to="/friends" className="dropdown-item">Friends</Link> */}
+        {/* <Link to="/SearchPage" className="dropdown-item">Friends</Link> */}
 
         {/* Button -> Logout */}
           <CiLogout className="fs-5 " />

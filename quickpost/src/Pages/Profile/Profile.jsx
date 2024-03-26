@@ -17,7 +17,9 @@ import { useDispatch } from 'react-redux';
 
 
 
+
 function Profile({ isAuthenticated, user }) {
+    // const [profileData, setProfileData] = useState({});
 
     const [userData, setUserData] = useState([])
     const [userPosts, setUserPosts] = useState([])
@@ -32,13 +34,15 @@ function Profile({ isAuthenticated, user }) {
     const handlePageChange = (page) => {
         setActivePage(page);
     };
-const [profileData, setProfileData] = useState({
-    first_name: '',
-    last_name: '',
-    birth_date: '',
-    image: null,
-});
-    console.log("profile", profileData)
+    const [profileData, setProfileData] = useState({
+        first_name: '',
+        last_name: '',
+        birth_date: '',
+        image: null,
+    });
+    const [refreshKey, setRefreshKey] = useState(0); // State variable to force component re-render
+
+     console.log("profilee", profileData)
     const [errors, setErrors] = useState({
         first_name: '',
         last_name: '',
@@ -46,10 +50,6 @@ const [profileData, setProfileData] = useState({
         image: null, // Initialize image with a default value
 
     });
-    const history = useHistory();
-
-
-
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
@@ -70,25 +70,17 @@ const [profileData, setProfileData] = useState({
         };
 
         fetchProfileData();
-    }, []);
+    }, [user.id, refreshKey]);
     console.log("profile1", profileData)
+
     const handleInputChange = event => {
         const { name, value } = event.target;
         setProfileData({ ...profileData, [name]: value });
         setErrors({ ...errors, [name]: '' });
     };
-
-    if (!user) {
-        return <Redirect to='/' />
-    }
-
-    const handleImageChange = event => {
+      const handleImageChange = event => {
         const imageFile = event.target.files[0];
         setProfileData({ ...profileData, image: imageFile });
-    };
-
-    const handleImageClick = () => {
-        history.push('/navbar', { image: profileData.image });
     };
 
     const handleSubmit = async event => {
@@ -113,12 +105,10 @@ const [profileData, setProfileData] = useState({
             }
 
             const formData = new FormData();
-            formData.append('user_account', profileData.id);
+            formData.append('user_account', user.id);
             formData.append('first_name', profileData.first_name);
             formData.append('last_name', profileData.last_name);
             formData.append('birth_date', profileData.birth_date);
-            formData.append('image', profileData.image);
-
             if (profileData.image) {
                 formData.append('image', profileData.image);
             }
@@ -131,13 +121,12 @@ const [profileData, setProfileData] = useState({
             };
     
             const response = await axios.put(`http://127.0.0.1:8000/api/profile/${profileData.id}/`, formData, config);
-            console.log('Profile updated successfully:', response);
-            setProfileData(response.data.data);
+            console.log('Profile updated successfully:', response.data);
+            setProfileData(response.data);
+            setRefreshKey(prevKey => prevKey + 1); // Trigger re-render to force image refresh
+
         } catch (error) {
             console.error('Error updating profile:', error);
-            if (error.response && error.response.status === 400 && error.response.data.image) {
-                history.push('/profile');
-            }
         }
     };
     const edithandleClose = () => {
@@ -237,7 +226,17 @@ const [profileData, setProfileData] = useState({
                         <div className="card">
                             <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+                                {/* {profileData && profileData.image && (
+  <img src={'http://127.0.0.1:8000' + profileData.image} alt="Profile" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+)} */}
+<img src={'http://127.0.0.1:8000'+profileData.image + `?refresh=${refreshKey}`} alt="Profile" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }}/>
+
+{/* {profileData.image && ( // Conditionally render the image if it exists
+                <div>
+                    <h2>Profile Image Preview</h2>
+                    <img src={profileData.image} alt="Profile" />
+                </div>
+            )} */}
                                    
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>

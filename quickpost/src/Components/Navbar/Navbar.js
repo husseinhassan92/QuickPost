@@ -62,10 +62,10 @@ const Navbar = ({ logout, isAuthenticated }) => {
           <div className="col p-0">
             <BootstrapNavbar bg="dark" expand="lg" className="p-0">
               <BootstrapNavbar.Collapse>
-                <Form className="d-flex align-items-center m-0">
+                {/* <Form className="d-flex align-items-center m-0">
                   <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                   <Button variant="outline-primary" className="ms-3" onClick={handleSearch}>Search</Button>
-                </Form>
+                </Form> */}
 
                 <div className="ml-3 ms-4">
                   <img src={profileImage} alt="Profile" className="rounded-circle" onClick={toggleDropdown} style={{ cursor: 'pointer', width: '40px', height: '40px' }} />
