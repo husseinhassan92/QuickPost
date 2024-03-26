@@ -11,7 +11,7 @@ import OtherProfile from '../OtherProfile/OtherProfile'
 const HomePage = ({ isAuthenticated, user, userProfile}) => {
   return (
     <>
-    <div className="container-fluid ">
+    <div className="container mt-3 ">
       <div className="row">
         <div className='d-flex'>
           <div className="left-side col-lg-3 col-2 vh-100">

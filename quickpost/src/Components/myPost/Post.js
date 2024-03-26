@@ -14,7 +14,7 @@ import Comment from '../Comment/Comment';
 
 
 
-function MyPost({isAuthenticated, user, userProfile}) {
+function MyPost({ isAuthenticated, user, userProfile }) {
 
   // const [postText, setPostText] = useState("");
   // const [postCount, setPostCount] = useState(0);
@@ -56,20 +56,20 @@ function MyPost({isAuthenticated, user, userProfile}) {
   // };
 
   let [Post, setPost] = useState([])
-  
+
   async function getPost() {
-    if (user){
+    if (user) {
       let { data } = await axios.get(`http://127.0.0.1:8000/api/post/user/${user.id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-        Accept: "application/json",
-      }
-    })
-    console.log(data);
-    setPost(data.posts)
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        }
+      })
+      console.log(data);
+      setPost(data.posts)
     }
-    
+
   }
 
 
@@ -174,33 +174,33 @@ function MyPost({isAuthenticated, user, userProfile}) {
   const deletepost = (postId) => {
     console.log(postId);
     axios.delete(`http://127.0.0.1:8000/api/post/del/${postId}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-        Accept: "application/json",
-      }
-    })
-    .then(response => {
-      console.log('Post Unshared successfully:', response.data);
-      // Handle success, if needed
-    })
-    .catch(error => {
-      console.error('Error sharing post:', error);
-      // Handle error, if needed
-    });
-}
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        }
+      })
+      .then(response => {
+        console.log('Post Unshared successfully:', response.data);
+        // Handle success, if needed
+      })
+      .catch(error => {
+        console.error('Error sharing post:', error);
+        // Handle error, if needed
+      });
+  }
 
   return (
     <>
       {Post.map((post, index) => (
         <div
           key={post.id}
-          //ref={index === posts.length - 1 ? lastPostElementRef : null}
-          style={{ backgroundColor: 'gray' }} >
-          <div className="container pt-4">
+        //ref={index === posts.length - 1 ? lastPostElementRef : null}
+        >
+          <div className="container-fluid mb-2">
             <div className="row">
-              <div className="col">
+              <div className="col p-0">
                 <div className="card text-light bg-dark">
                   <div className="card-body">
 
@@ -245,20 +245,20 @@ function MyPost({isAuthenticated, user, userProfile}) {
                     </div> */}
 
 
-                    <HeaderPost 
-    imgprofile={'http://127.0.0.1:8000' + post.profile.image} 
-    fullname={post.profile.first_name}
-    lastname={post.profile.last_name}
-    postdate={post.create_at}
-    postid={post.id}
-/>
-                <Link to={`/post/${post.id}`}>
-                    {post.image && <img
-                      src={'http://127.0.0.1:8000' + post.image}
-                      alt="Post"
-                      className="img-fluid rounded mb-3 ps-1 w-100"
+                    <HeaderPost
+                      imgprofile={'http://127.0.0.1:8000' + post.profile.image}
+                      fullname={post.profile.first_name}
+                      lastname={post.profile.last_name}
+                      postdate={post.create_at}
+                      postid={post.id}
+                    />
+                    <Link to={`/post/${post.id}`}>
+                      {post.image && <img
+                        src={'http://127.0.0.1:8000' + post.image}
+                        alt="Post"
+                        className="img-fluid rounded mb-3 ps-1 w-100"
 
-                    />}
+                      />}
                     </Link>
                     {/* <h5 className="card-title text-light mt-3">
                             {post.title}
@@ -352,9 +352,9 @@ function MyPost({isAuthenticated, user, userProfile}) {
                   </div>
 
                   <Comment
-                  postid={post.id}
-                  profileid={post.profile.id}
-                  
+                    postid={post.id}
+                    profileid={post.profile.id}
+
                   />
                   {/* <div className="card text-light bg-dark">
                     <div className="card-body">

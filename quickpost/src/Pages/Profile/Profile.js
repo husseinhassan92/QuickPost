@@ -14,6 +14,7 @@ import SharedPost from '../../Components/sharedPost/SharedPost';
 import Follower from '../../Components/Follower/Follower';
 import Following from '../../Components/Following/Following';
 import { useDispatch } from 'react-redux';
+import "./profile.css"
 
 
 
@@ -32,12 +33,12 @@ function Profile({ isAuthenticated, user }) {
     const handlePageChange = (page) => {
         setActivePage(page);
     };
-const [profileData, setProfileData] = useState({
-    first_name: '',
-    last_name: '',
-    birth_date: '',
-    image: null,
-});
+    const [profileData, setProfileData] = useState({
+        first_name: '',
+        last_name: '',
+        birth_date: '',
+        image: null,
+    });
     console.log("profile", profileData)
     const [errors, setErrors] = useState({
         first_name: '',
@@ -122,14 +123,14 @@ const [profileData, setProfileData] = useState({
             if (profileData.image) {
                 formData.append('image', profileData.image);
             }
-    
+
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `JWT ${localStorage.getItem('access')}`,
                 },
             };
-    
+
             const response = await axios.put(`http://127.0.0.1:8000/api/profile/${profileData.id}/`, formData, config);
             console.log('Profile updated successfully:', response);
             setProfileData(response.data.data);
@@ -183,7 +184,7 @@ const [profileData, setProfileData] = useState({
             })
             .catch((err) => console.log(err));
     };
-  
+
 
     const onChangeHandler = (e) => {
         setEditPostText(e.target.value)
@@ -231,149 +232,138 @@ const [profileData, setProfileData] = useState({
 
     return (
         <section className="h-100 gradient-custom-2">
-            <div className="container py-5 h-100">
+            <div className="container py-5 vh-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="">
                         <div className="card">
-                            <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
-                                <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
-                                   
+                            <div className="rounded-top bg-dark text-white d-flex flex-row" style={{ height: '200px' }}>
+                                <div className="ms-3 mt-5 d-flex flex-column" style={{ width: '150px' }}>
+                                    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-3" style={{ width: '150px', zIndex: 1 }} />
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
-                                <h2 style={{ color: 'white', textShadow: '2px 2px 4px rgba(255, 0, 0, 0.5)' }}>
-  {profileData.first_name.charAt(0).toUpperCase() + profileData.first_name.slice(1)} {profileData.last_name.charAt(0).toUpperCase() + profileData.last_name.slice(1)}
-</h2>
+                                    <h2 style={{ color: 'white'}}>
+                                        {profileData.first_name.charAt(0).toUpperCase() + profileData.first_name.slice(1)} {profileData.last_name.charAt(0).toUpperCase() + profileData.last_name.slice(1)}
+                                    </h2>
                                     <p>{profileData.birth_date}</p>
                                     {/* <span>{userData.phone}</span> */}
-                                 
                                 </div>
-                               
+                                
                             </div>
-                            <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
-                          
-                                <div className="d-flex justify-content-end text-center py-1">
-                              <div><Button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
-                                       Update Profile
-                                    </Button></div>
-
+                            <div className="container text-white bg-dark">
+                                <div className="d-flex justify-content-between text-center py-1">
                                     <div>
-                                    
-                                        <p className="mb-1 h5">18</p>
-                                        <p className="small text-muted mb-0">Posts</p>
+                                            <Button type="button" className="btn btn-primary" data-mdb-ripple-color="white" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
+                                                Update Profile
+                                            </Button>
                                     </div>
-                                    <div className="px-3">
-                                        <p className="mb-1 h5">1026</p>
-                                        <p className="small text-muted mb-0">Followers</p>
-                                    </div>
-                                    <div>
-                                        <p className="mb-1 h5">478</p>
-                                        <p className="small text-muted mb-0">Following</p>
-                                    </div>
+                                    <div className="d-flex justify-content-end text-center text-white py-1">
+                                        <div>
+                                            <p className="mb-1 h5">18</p>
+                                            <p className="small t mb-0">Posts</p>
+                                        </div>
+                                        <div className="px-3">
+                                            <p className="mb-1 h5">1026</p>
+                                            <p className="small  mb-0">Followers</p>
+                                        </div>
+                                        <div>
+                                            <p className="mb-1 h5">478</p>
+                                            <p className="small  mb-0">Following</p>
+                                        </div>
+                                        </div>
                                 </div>
                             </div>
-                            <div className="card-body p-4 text-black">
+                            
 
-
-
-                              
-                                <Nav justify variant="tabs" defaultActiveKey="/home">
-                                    <Nav.Item>
-                                        <Nav.Link   onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}>My Posts</Nav.Link>
+{/* ==================================Navlink================================ */}
+                            <div className="card-body w-100 p-0 text-black">
+                                <Nav justify variant="tabs" defaultActiveKey="/home" className='bg-dark d-flex'>
+                                    <Nav.Item className='col-3 navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}>My Posts</Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
+                                    <Nav.Item className='col-3 navitem'>
                                         <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'Navbar'}>Shared Posts</Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
+                                    <Nav.Item className='col-3 navitem'> 
                                         <Nav.Link onClick={() => handlePageChange('follower')} active={activePage === 'Navbar'}>Follower</Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
+                                    <Nav.Item className='col-3 navitem'>
                                         <Nav.Link onClick={() => handlePageChange('following')} active={activePage === 'Navbar'}>Following</Nav.Link>
                                     </Nav.Item>
-                                                                   
                                 </Nav>
                                 {activePage === 'posts' && <MyPost />}
                                 {activePage === 'nav' && <SharedPost />}
                                 {activePage === 'follower' && <Follower />}
                                 {activePage === 'following' && <Following />}
-
-
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+{/* =====================================Modal Update Profile================================ */}
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog " style={{ maxWidth: '50rem' }}>
-    <div className="modal-content">
-        <div className="modal-header">
-            <h1 className="modal-title fs-5" id="exampleModalLabel">Update user info</h1>
-            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div className="modal-body text-dark">
-        <form onSubmit={handleSubmit} className='mt-5'>
-    <div className="mb-3 d-flex align-items-center">
-        <label className="me-3 mb-0" style={{ width: '100px' }}>First Name:</label>
-        <input
-            type="text"
-            name="first_name"
-            value={profileData.first_name}
-            onChange={handleInputChange}
-            className="form-control"
-        />
-        {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
-    </div>
-    <div className="mb-3 d-flex align-items-center">
-        <label className="me-3 mb-0" style={{ width: '100px' }}>Last Name:</label>
-        <input
-            type="text"
-            name="last_name"
-            value={profileData.last_name}
-            onChange={handleInputChange}
-            className="form-control"
-        />
-        {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
-    </div>
-    <div className="mb-3 d-flex align-items-center">
-        <label className="me-3 mb-0" style={{ width: '100px' }}>Birth Date:</label>
-        <input
-            type="date"
-            name="birth_date"
-            value={profileData.birth_date}
-            onChange={handleInputChange}
-            className="form-control"
-        />
-        {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
-    </div>
-    <div className="mb-3 d-flex align-items-center">
-        <label className="me-3 mb-0" style={{ width: '100px' }}>Profile Image:</label>
-        <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="form-control"
-            style={{ marginTop: '0.5rem' }}
-        />
-    </div>
-    <button type="submit" className="btn btn-primary">Update Profile</button>
-</form>
+                <div className="modal-dialog " style={{ maxWidth: '50rem' }}>
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Update user info</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body text-dark">
+                            <form onSubmit={handleSubmit} className='mt-5'>
+                                <div className="mb-3 d-flex align-items-center">
+                                    <label className="me-3 mb-0" style={{ width: '100px' }}>First Name:</label>
+                                    <input
+                                        type="text"
+                                        name="first_name"
+                                        value={profileData.first_name}
+                                        onChange={handleInputChange}
+                                        className="form-control"
+                                    />
+                                    {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
+                                </div>
+                                <div className="mb-3 d-flex align-items-center">
+                                    <label className="me-3 mb-0" style={{ width: '100px' }}>Last Name:</label>
+                                    <input
+                                        type="text"
+                                        name="last_name"
+                                        value={profileData.last_name}
+                                        onChange={handleInputChange}
+                                        className="form-control"
+                                    />
+                                    {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
+                                </div>
+                                <div className="mb-3 d-flex align-items-center">
+                                    <label className="me-3 mb-0" style={{ width: '100px' }}>Birth Date:</label>
+                                    <input
+                                        type="date"
+                                        name="birth_date"
+                                        value={profileData.birth_date}
+                                        onChange={handleInputChange}
+                                        className="form-control"
+                                    />
+                                    {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
+                                </div>
+                                <div className="mb-3 d-flex align-items-center">
+                                    <label className="me-3 mb-0" style={{ width: '100px' }}>Profile Image:</label>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        className="form-control"
+                                        style={{ marginTop: '0.5rem' }}
+                                    />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Update Profile</button>
+                            </form>
+                        </div>
+                        <div className="modal-footer d-flex justify-content-between">
+                            {/* <button type="submit" className="btn btn-primary">Update Profile</button> */}
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
 
-        </div>
-        <div className="modal-footer d-flex justify-content-between">
-        {/* <button type="submit" className="btn btn-primary">Update Profile</button> */}
-
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-    </div>
-</div>
-
-
-
-
-
+{/* ===============================Modal For ensure deleting post ========================================= */}
             </div>
             <Modal show={deleteShow} onHide={deletehandleClose}>
                 <Modal.Body>Are You Want to Delete  this Post?</Modal.Body>

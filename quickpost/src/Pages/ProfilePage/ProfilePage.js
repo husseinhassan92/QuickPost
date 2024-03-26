@@ -10,13 +10,16 @@ import Profile from '../Profile/Profile'
 const HomePage = ({ isAuthenticated, user, userProfile}) => {
   return (
     <>
-    <div className="container-fluid ">
+    <div className="container mt-3 ">
       <div className="row">
         <div className='d-flex'>
-          <div className="left-side col-lg-3 col-1 vh-100">
+          <div className="left-side col-lg-3 col-1 me-2 mt-5">
             <Leftbar />
           </div>
-          <div className="middle col-lg-9  col-11 border rounded-3 border-secondary">
+          <div className='mx-2 fixed-top'>
+              <Navbar/>
+          </div>
+          <div className="middle col-lg-9 bg-dark col-11  rounded-3 ">
             <Profile/>
           </div>
           {/* <div className='right-side col-lg-3 '>
