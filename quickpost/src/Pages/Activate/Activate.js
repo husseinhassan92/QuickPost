@@ -16,7 +16,7 @@ const Activate = ({ verify, match }) => {
     };
 
     if (verified) {
-        return <Redirect to='/' />
+        return <Redirect to='/Login' />
     }
 
     return (
