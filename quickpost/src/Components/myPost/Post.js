@@ -265,47 +265,43 @@ function MyPost({ isAuthenticated, user, userProfile }) {
                           </h5> */}
                     <p className="card-text text-light">{post.content}</p>
                     <div className="row mt-5">
-                      <div className="pb-3 col-4 text-start">
-                        <i className="bi bi-heart text-light pe-1"></i>{" "}
-                        {post.love_count} Likes
-                      </div>
+                      <div className="d-flex justify-content-between">
+                        <div className="pb-3 ">
+                          <i className="bi bi-heart text-light pe-1 cursor-pointer"></i>{" "}
+                          {post.love_count} <span className="d-md-block d-none">Likes</span>
+                        </div>
 
-
-
-                      <div
-                        className="pb-3 col-4 text-center"
-                        onClick={() => {
-                          axios
-                            .get(
-                              `http://127.0.0.1:8000/api/comments/comment/${post.id}/`,
-                              {
-                                headers: {
-                                  "app-id": "65d08f07b536e68ad8626e8c",
-                                  Authorization: "Bearer your-token",
-                                },
-                              }
-                            )
-                            .then((response) => {
-                              setPostComments(response.data.data);
-                            })
-                            .catch((err) =>
-                              console.log("Error fetching comments:", err)
-                            );
-                        }}
-                      >
-                        <i className="bi bi-chat-dots-fill pe-1"></i>{" "}
-                        {/* {
+                        <div
+                          className="pb-3 "
+                          onClick={() => {
+                            axios
+                              .get(
+                                `http://127.0.0.1:8000/api/comments/comment/${post.id}/`,
+                                {
+                                  headers: {
+                                    "app-id": "65d08f07b536e68ad8626e8c",
+                                    Authorization: "Bearer your-token",
+                                  },
+                                }
+                              )
+                              .then((response) => {
+                                setPostComments(response.data.data);
+                              })
+                              .catch((err) =>
+                                console.log("Error fetching comments:", err)
+                              );
+                          }}
+                        >
+                          <i className="bi bi-chat-dots-fill pe-1"></i>{" "}
+                          {/* {
                                 postComments.filter(
                                   (comment) => comment.post === post.id
                                 ).length
                               }{" "} */}
-                        {post.comments_count}{' '}
-                        Comments
+                          {post.comments_count}{' '}
+                          <span className="d-md-block d-none">Comments</span>
+                        </div>
                       </div>
-
-
-
-
 
 
 

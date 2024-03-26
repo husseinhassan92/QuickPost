@@ -283,8 +283,8 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             <div className="align-self-center mb-2">
                               {post.profile.first_name} {post.profile.last_name}
                             </div>
-                            <div className="ms-auto text-light">
-                              {new Date(post.create_at).toLocaleString()}
+                            <div className="ms-auto text-light ">
+                              <span className="d-md-flex flex-md-row flex-column">{new Date(post.create_at).toLocaleString()}</span>
                             </div>
                           </div>
                           <Link to={`/post/${post.id}`}>
@@ -314,7 +314,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                     : "bi bi-heart text-light pe-1"
                                 }
                               ></i>{" "}
-                              {post.reaction_count} Like
+                              {post.reaction_count}<span className="d-lg-inline d-none"> Like</span>
                             </div>
 
                             <div
@@ -344,7 +344,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   (comment) => comment.post === post.id
                                 ).length
                               }{" "} */}
-                              {post.comments_count} Comments
+                              {post.comments_count} <span className="d-lg-inline d-none">Comments</span>
                             </div>
 
                             <div
@@ -352,7 +352,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               onClick={() => sharePost(post.id)}
                             >
                               <i className="bi bi-share pe-1"></i>{" "}
-                              {post.share_count} Share
+                              {post.share_count} <span className="d-lg-inline d-none">Share</span>
                             </div>
                             {message && <Alert variant="success">{message}</Alert>}
 

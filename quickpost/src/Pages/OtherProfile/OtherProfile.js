@@ -122,9 +122,6 @@ function OtherProfile({isAuthenticated, user}) {
                             </div>
                             <div className="card-body p-4 text-black">
 
-
-
-                              
 <Nav justify variant="tabs" defaultActiveKey="/home">
     <Nav.Item>
         <Nav.Link   onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}>My Posts</Nav.Link>
@@ -132,7 +129,6 @@ function OtherProfile({isAuthenticated, user}) {
     <Nav.Item>
         <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'Navbar'}>Shared Posts</Nav.Link>
     </Nav.Item>
-                                   
 </Nav>
 {activePage === 'posts' && <MyPost profileid={user_account.id} />}
 {activePage === 'nav' && <SharedPost profileid={user_account.id} />}
