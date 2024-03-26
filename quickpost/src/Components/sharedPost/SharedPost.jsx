@@ -235,7 +235,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
     console.log(postId);
     axios.post(`http://127.0.0.1:8000/api/post/unshare/`,
       {
-        author: 1,
+        author: user.id,
         post: postId,
       },
       {
