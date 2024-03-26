@@ -8,8 +8,10 @@ import { connect } from 'react-redux';
 // import twitte from "../../images/twitter.png";
 import loginimg from "../../images/loginimg.png";
 import { login_user } from "../../Store/Actions/AuthAction";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function Login({login_user, isAuthenticated, user}) {
+function Login({login_user, isAuthenticated, user, msg}) {
   const Emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const Passregex = /^.{8,}$/;
   const [loginError, setLoginError] = useState("");
@@ -62,10 +64,17 @@ function Login({login_user, isAuthenticated, user}) {
     
     if (!error.emailError && !error.passError) {
       if (!isAuthenticated) {
-        setLoginError("Invalid email or password.");
+        //setLoginError("Invalid email or password.");
       }
       
       login_user(email, password);
+      if (msg === "Login Failed") {
+        toast.error('Invalid email or Password');
+      }
+      setData({
+        email: '',
+        password: '',
+      })
     } else {
       // Email or password is invalid, show message
       setLoginError("Invalid email or password.");
@@ -73,26 +82,17 @@ function Login({login_user, isAuthenticated, user}) {
     }
   };
 
+  
+
   if (isAuthenticated) {
+    toast.success('Login Successfully');
     return <Redirect to='/createprofile' />
   }
 
-  //const history = useHistory();
-
-  // const storage = () => {
-  //   const storedEmail = localStorage.getItem('email');
-  //   const storedPassword = localStorage.getItem('password');
-
-  //   if (storedEmail === data.email && storedPassword === data.password) {
-  //     // Redirect the user to the welcome page or perform any other action
-  //     history.push("/Posts"); // Replace '/welcome' with your actual welcome page URL
-  //   } else {
-  //     alert("Your Email or Password are not valid");
-  //   }
-  // }
 
   return (
     <>
+    <ToastContainer />
       <div className="container text-white">
         <div className="row ">
           <div className=" d-flex justify-content-center align-items-center gap-4">
@@ -172,6 +172,7 @@ function Login({login_user, isAuthenticated, user}) {
 const mapStateToProps = state => ({
   isAuthenticated: state.AuthRecducer.isAuthenticated,
   user: state.AuthRecducer.user,
+  msg: state.AuthRecducer.msg,
 });
 
 

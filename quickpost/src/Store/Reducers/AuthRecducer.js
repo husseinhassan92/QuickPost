@@ -25,6 +25,7 @@ const initialState = {
   isAuthenticated: localStorage.getItem("isAuthenticated"),
   user: null,
   userProfile: null,
+  msg:"",
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -43,6 +44,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         access: payload.access,
         refresh: payload.refresh,
+        msg:"Login  Success",
       };
     
     case AUTHENTICATED_SUCCESS:
@@ -86,7 +88,6 @@ export default function (state = initialState, action) {
     // case GOOGLE_AUTH_FAIL:
     // case FACEBOOK_AUTH_FAIL:
     case SIGNUP_FAIL:
-    case LOGIN_FAIL:
     case LOGOUT:
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
@@ -98,7 +99,23 @@ export default function (state = initialState, action) {
         isAuthenticated: null,
         user: null,
         userProfile: null,
+        msg:null,
+
       };
+
+      case LOGIN_FAIL:
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+        localStorage.removeItem("isAuthenticated")
+        return {
+          ...state,
+          access: null,
+          refresh: null,
+          isAuthenticated: null,
+          user: null,
+          userProfile: null,
+          msg:"Login Failed",
+        };
   
     case ACTIVATION_SUCCESS:
     case ACTIVATION_FAIL:

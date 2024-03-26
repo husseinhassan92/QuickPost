@@ -8,6 +8,8 @@ import signUp from "../../images/signUp.png";
 import twitte from "../../images/twitter.png";
 import './sginup.css'
 import { signup_user } from '../../Store/Actions/AuthAction';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Sginup = ({ signup_user, isAuthenticated }) => {
   const [accountCreated, setAccountCreated] = useState(false);
@@ -93,23 +95,29 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
     if (isValid) {
       signup_user(data.userName, data.email, data.password, data.rePassword);
       setAccountCreated(true);
+      toast.success('Sign Up Successfully, Check Mail');
+      setData({
+        userName: '',
+        email: '',
+        password: '',
+        rePassword: '',
+      });
     }
   };
 
   
 
-  if (isAuthenticated) {
-    return <Redirect to='/' />
-  }
-  if (accountCreated) {
-    return <Redirect to='/login' />
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to='/' />
+  // }
+  // if (accountCreated) {
+  //   return <Redirect to='/login' />
+  // }
 
 
   return (
     <>
-
-
+      <ToastContainer />
     <Container >
       <Row className="  mt-5  p-3 text-white">
         <Col lg={6} >
