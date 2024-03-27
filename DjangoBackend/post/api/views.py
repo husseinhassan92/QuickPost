@@ -87,7 +87,9 @@ def getbyuser(request, pk):
                          "posts": PostSerializer(posts, many=True).data,
                          "shared": ShareSerializer(s_posts, many=True).data})
     else:
-        return Response({"msg": "No posts found for this user."}, status=404)
+        return Response({"msg": " no Posts",
+                         "posts": PostSerializer(posts, many=True).data,
+                         "shared": ShareSerializer(s_posts, many=True).data})
 
 @api_view(['POST'])
 def share(request):
