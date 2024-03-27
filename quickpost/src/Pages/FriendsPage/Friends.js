@@ -33,9 +33,9 @@ const FriendListPage = () => {
   }, [dispatch]);
 
   return (
-    <Container fluid>
+    <Container>
       <Row>
-      <Col sm={3} className="px-0 bg-light" style={{ height: "100rem" }}>
+      <Col  className="px-0" >
         <Leftbar isHomePage={false} />
                 </Col>
         <Col sm={9}>
@@ -46,7 +46,7 @@ const FriendListPage = () => {
           {friendsStatus === 'SUCCEEDED' && (
             <Row className="friend-list">
             {friends.map((friend) => (
-              <Col key={friend.id} xs={12} sm={6} md={4} lg={3} className='mb-4'>
+              <Col key={friend.id}  sm={6} md={4} lg={3} className='mb-4'>
                 <Card>
                   <Link to={`/OtherProfile/${friend.id}`}> {/* Use friend.id here */ }
                     <Card.Img variant="top" src={friend.image} alt="Friend" style={{ height: "13rem" }} />

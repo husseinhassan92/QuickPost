@@ -122,11 +122,11 @@ const CreateProfile= ({isAuthenticated, user, loadUserProfileById, userProfile})
     };
 
     return (
-        <div className="container mt-5" style={{ backgroundColor: '#F5F5F5' }}>
+        <div className="container mt-5 bg-dark text-white shadow p-3 " >
             <div className="row justify-content-center">
                 <div className="col-12">
                     <div className="card p-4">
-                        <h2 className="mb-4">Create Profile</h2>
+                        <h2 className="mb-4 text-white">Create Profile</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <input type="text" className={`form-control ${errors.first_name ? 'is-invalid' : ''}`} name="first_name" value={formData.first_name} onChange={handleChange} placeholder="First Name" />

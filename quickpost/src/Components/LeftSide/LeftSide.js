@@ -52,6 +52,7 @@ const Leftbar = ({ isHomePage, logout, isAuthenticated }) => {
         {/* <!--==== Logo ====--> */}
         <Link to="/home" className="links-active my-2">
         <i class="bi bi-quora fs-2"></i>
+        <span className="icon m-0 fs-3">uickPost</span>
         </Link>
         {/* <!--==== Navbar ====--> */}
         <Nav className="mainNav d-flex flex-column gap-3 align-items-center">

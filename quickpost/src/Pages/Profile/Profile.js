@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { logout } from "../../Store/Actions/AuthAction";
+import './profile.css'
 
 
 
@@ -32,10 +33,10 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
     const [image, setImage] = useState(null)
     const [activePage, setActivePage] = useState('posts');
     const [confirm, setConfirm] = useState(false);
-    const[current_password, setCurrent_password]=useState("");
-    const[message,setMessage]=useState("");
+    const [current_password, setCurrent_password] = useState("");
+    const [message, setMessage] = useState("");
 
-    const cahangePassword = (e)=>{
+    const cahangePassword = (e) => {
         setCurrent_password(e.target.value);
     };
 
@@ -99,7 +100,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
         } else {
             setConfirm(true)
         }
-        
+
         //logout()
         //history.push('/home');
     }
@@ -120,12 +121,12 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
     //             axios.delete(
     //             `${process.env.REACT_APP_API_URL}/auth/users/me/`,config,body
     //           ).then(
-                
+
     //                 //logout(),
     //                 history.push("/")
-                
+
     //           )
-              
+
     //         } catch (err) {
     //             setMessage("password is incorrect")
     //         }
@@ -133,51 +134,51 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
     // }
     const handledeleteuser = async () => {
         console.error(current_password);
-      
+
         if (localStorage.getItem("access")) {
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `JWT ${localStorage.getItem("access")}`,
-              Accept: "application/json",
-            },
-            data: { current_password: current_password }, // Move body to 'data' property
-          };
-      
-          try {
-            const response = await axios.delete(
-              `${process.env.REACT_APP_API_URL}/auth/users/me/`,
-              config
-            );
-      
-            // Check response status and handle accordingly
-            if (response.status === 204) {
-              // Successful deletion
-              logout();
-              history.push("/");
-            } else {
-              // Handle other status codes
-              setMessage("An error occurred while processing your request.");
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                    Accept: "application/json",
+                },
+                data: { current_password: current_password }, // Move body to 'data' property
+            };
+
+            try {
+                const response = await axios.delete(
+                    `${process.env.REACT_APP_API_URL}/auth/users/me/`,
+                    config
+                );
+
+                // Check response status and handle accordingly
+                if (response.status === 204) {
+                    // Successful deletion
+                    logout();
+                    history.push("/");
+                } else {
+                    // Handle other status codes
+                    setMessage("An error occurred while processing your request.");
+                }
+            } catch (err) {
+                // Handle Axios error
+                if (err.response) {
+                    // Server responded with a non-2xx status code
+                    setMessage(err.response.data.detail || "An error occurred.");
+                } else if (err.request) {
+                    // The request was made but no response was received
+                    setMessage("No response received from the server.");
+                } else {
+                    // Something else went wrong
+                    setMessage("An error occurred while processing your request.");
+                }
             }
-          } catch (err) {
-            // Handle Axios error
-            if (err.response) {
-              // Server responded with a non-2xx status code
-              setMessage(err.response.data.detail || "An error occurred.");
-            } else if (err.request) {
-              // The request was made but no response was received
-              setMessage("No response received from the server.");
-            } else {
-              // Something else went wrong
-              setMessage("An error occurred while processing your request.");
-            }
-          }
         }
-      };
-    const handleconfirm = ()=>{
+    };
+    const handleconfirm = () => {
         handledeleteuser();
     }
-      
+
     // const handleconfirm = () => {
     //     axios.delete(`http://127.0.0.1:8000/auth/users/me/`,{}
     //     {
@@ -196,7 +197,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
     //       // Handle error, if needed
     //     });
     // }
-    
+
 
 
     const handleImageChange = event => {
@@ -241,10 +242,10 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `JWT ${localStorage.getItem('access')}`,
                 },
-                
+
             };
 
-            await axios.put(`http://127.0.0.1:8000/api/profile/${userProfile.id}/`,formData, config)
+            await axios.put(`http://127.0.0.1:8000/api/profile/${userProfile.id}/`, formData, config)
                 .then((response) => {
                     console.log('Profile updated successfully:', response);
                     fetchProfileData();
@@ -346,19 +347,19 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
 
 
     return (
-        <section className="h-100 gradient-custom-2">
-            <div className="container py-5 h-100">
-            <ToastContainer />
+        <section className="h-100 gradient-custom-2 ">
+            <div className="container bg-dark py-5 vh-100">
+                <ToastContainer />
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="">
                         <div className="card">
-                            <div className="rounded-top text-white d-flex flex-row" style={{ backgroundColor: '#000', height: '200px' }}>
-                                <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
+                            <div className="ps-3 rounded-top text-white d-flex bg-dark flex-row" style={{ height: '200px' }}>
+                                <div className=" d-flex flex-column" style={{ width: '150px' }}>
                                     <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
 
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
-                                    <h2 style={{ color: 'white', textShadow: '2px 2px 4px rgba(255, 0, 0, 0.5)' }}>
+                                    <h2 style={{ color: 'white' }}>
                                         {profileData.first_name.charAt(0).toUpperCase() + profileData.first_name.slice(1)} {profileData.last_name.charAt(0).toUpperCase() + profileData.last_name.slice(1)}
                                     </h2>
                                     <p>{profileData.birth_date}</p>
@@ -366,45 +367,45 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
 
                                 </div>
                             </div>
-                            <div className="p-4 text-black" style={{ backgroundColor: '#f8f9fa' }}>
 
-                                <div className="d-flex justify-content-end text-center py-1">
-                                    <div><Button type="button" className="btn btn-outline-dark" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
-                                        Update Profile
-                                    </Button></div>
-
+                            <div className="container text-white bg-dark py-4" >
+                                <div className="d-flex justify-content-between text-center py-1">
                                     <div>
+                                        <Button type="button" className="btn btn-primary flex-start px-5 " data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
+                                            Settings
+                                        </Button>
+                                    </div>
 
-                                        <p className="mb-1 h5">18</p>
-                                        <p className="small text-muted mb-0">Posts</p>
-                                    </div>
-                                    <div className="px-3">
-                                        <p className="mb-1 h5">1026</p>
-                                        <p className="small text-muted mb-0">Followers</p>
-                                    </div>
-                                    <div>
-                                        <p className="mb-1 h5">478</p>
-                                        <p className="small text-muted mb-0">Following</p>
-                                    </div>
+                                    {/* <div className='d-flex'>
+                                        <div>
+                                            <p className="mb-1 h5">18</p>
+                                            <p className="small  mb-0">Posts</p>
+                                        </div>
+                                        <div className="px-3">
+                                            <p className="mb-1 h5">1026</p>
+                                            <p className="small  mb-0">Followers</p>
+                                        </div>
+                                        <div>
+                                            <p className="mb-1 h5">478</p>
+                                            <p className="small  mb-0">Following</p>
+                                        </div>
+                                    </div> */}
                                 </div>
                             </div>
-                            <div className="card-body p-4 text-black">
 
-
-
-
+                            <div className="card-body bg-dark">
                                 <Nav justify variant="tabs" defaultActiveKey="/home">
-                                    <Nav.Item>
-                                        <Nav.Link onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}>My Posts</Nav.Link>
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}><span className='links'>My Posts</span></Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'Navbar'}>Shared Posts</Nav.Link>
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'Navbar'}><span className='links'>shared Posts</span></Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link onClick={() => handlePageChange('follower')} active={activePage === 'Navbar'}>Follower</Nav.Link>
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('follower')} active={activePage === 'Navbar'}><span className='links'>Followers</span></Nav.Link>
                                     </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link onClick={() => handlePageChange('following')} active={activePage === 'Navbar'}>Following</Nav.Link>
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('following')} active={activePage === 'Navbar'}><span className='links'>Following</span></Nav.Link>
                                     </Nav.Item>
 
                                 </Nav>
@@ -412,10 +413,6 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                                 {activePage === 'nav' && <SharedPost />}
                                 {activePage === 'follower' && <Follower />}
                                 {activePage === 'following' && <Following />}
-
-
-
-
                             </div>
                         </div>
                     </div>
@@ -426,7 +423,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                 <div className="modal-dialog " style={{ maxWidth: '50rem' }}>
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Update user info</h1>
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Settings</h1>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body text-dark">
@@ -476,21 +473,22 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                                 </div>
                                 <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Update Profile</button>
                             </form>
-                            <button onClick={handledelete} className="btn btn-danger ">Delete Profile</button>
+                            <hr/>
+                            <button onClick={handledelete} className="btn btn-danger my-3">Delete Profile</button>
                             {confirm && <div>
-                                <label className="me-3 mb-0" style={{ width: '100px' }}>confirm password:</label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value={current_password}
-                                        onChange={(e) => cahangePassword(e)}
-                                        className="form-control"
-                                    />
-                                    <button onClick={handleconfirm} className="btn btn-danger" data-bs-dismiss="modal">Confirm</button>
-                                    {message !== '' ? (<p>{message}</p>) : ('')}
+                                <label className=" mb-0">confirm password:</label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={current_password}
+                                    onChange={(e) => cahangePassword(e)}
+                                    className="form-control mb-3"
+                                />
+                                <button onClick={handleconfirm} className="btn btn-success" data-bs-dismiss="modal">Confirm</button>
+                                {message !== '' ? (<p>{message}</p>) : ('')}
 
                             </div>}
-                           
+
 
 
                         </div>

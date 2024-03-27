@@ -16,19 +16,18 @@ const HomePage = ({ isAuthenticated, user, userProfile, loadUserProfileById}) =>
     <div className="container mt-3">
       <div className="row">
         <div className='d-flex'>
-          <div className="left-side col-lg-3 col-1 me-2 mt-5">
+          <div className="left-side col-2 me-3 mt-5">
             <Leftbar />
           </div>
-          <div className='mx-2 fixed-top'>
+          {/* <div className='mx-2 mb-3 fixed-top'>
               <Navbar/>
-          </div>
-          <div className="middle col-lg-6 col-11 position-relative  rounded-3 mx-2 mt-5">
+          </div> */}
+          <div className="middle  col-10  rounded-3  mt-5">
             <Posts />
           </div>
-          <div className='right-side col-lg-3 mt-5'>
-
+          {/* <div className='right-side col-lg-2 mt-5'>
           <Rightbar isActive={true} />             
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -2,6 +2,16 @@
 @media (max-width: 992px) {
     .navitem{
         font-size: 16px !important;
-        background-color: #000 !important;
     }
+    .links{
+        font-size: 16px !important;
+        display:  block !important;
+    }
+}
+.links{
+    color: white !important;
+}
+
+.navitem:hover .links{
+    color: rgb(48, 48, 243) !important;
 }

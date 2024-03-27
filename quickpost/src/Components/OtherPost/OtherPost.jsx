@@ -135,9 +135,9 @@ const [postComments, setPostComments] = useState([]);
         <div
           key={post.id}
         >
-          <div className="container pt-4">
+          <div className="container">
             <div className="row">
-              <div className="col">
+              <div className="">
                 <div className="card text-light bg-dark">
                   <div className="card-body">
                      <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+post.profile.image} 
@@ -162,7 +162,8 @@ const [postComments, setPostComments] = useState([]);
                     <div className="row mt-5">
                       <div className="pb-3 col-4 text-start">
                         <i className="bi bi-heart text-light pe-1"></i>{" "}
-                        {post.love_count} Likes
+                        {post.love_count}
+                        <span className="d-lg-inline d-none">Likes</span>
                       </div>
 
 
@@ -191,7 +192,7 @@ const [postComments, setPostComments] = useState([]);
                         <i className="bi bi-chat-dots-fill pe-1"></i>{" "}
                        
                         {post.comments_count}{' '}
-                        Comments
+                        <span className="d-lg-inline d-none">Comments</span>
                       </div>
 
 

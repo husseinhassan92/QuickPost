@@ -11,17 +11,16 @@ import { connect } from 'react-redux'
 const ExplorePage = ({ isAuthenticated, user, userProfile}) => {
   return (
     <>
-    <div className="container-fluid ">
+    <div className="container">
       <div className="row">
         <div className='d-flex'>
-          <div className="left-side col-lg-3 col-1 vh-100">
+          <div className="left-side ps-3 col-lg-3 col-2 vh-100">
             <Leftbar />
           </div>
-          <div className="middle col-lg-6 col-11 mt-3 ">
+          <div className="middle col-lg-6 col-10 mt-3 ">
             <SearchPage />
           </div>
           <div className='right-side col-lg-3 '>
-
           </div>
         </div>
       </div>

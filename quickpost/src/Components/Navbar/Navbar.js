@@ -91,12 +91,12 @@ const MyNavbar = ({ logout, isAuthenticated }) => {
 
     <Navbar className="bg-dark ">
       <Container>
-        <Navbar.Brand href="#" className='text-primary'>QuickPost</Navbar.Brand>
+        <Navbar.Brand href="#" className='text-primary fs-2'>QuickPost</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className='text-white'>
+          {/* <Navbar.Text className='text-white'>
             Signed in as: <a href="#">Mark Otto</a>
-          </Navbar.Text>
+          </Navbar.Text> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

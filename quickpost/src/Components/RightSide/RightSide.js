@@ -17,11 +17,10 @@ const Rightbar = () => {
           <div className="" id="left-panel">
             <div className="">
               <div className="search_parent">
-                <div className="search_icon">
+                {/* <div className="search_icon">
                   <FiSearch className='text-neutral-500 text-xl' />
-                </div>
+                </div> */}
                 <div>
-           
                 </div>
               </div>
             </div>

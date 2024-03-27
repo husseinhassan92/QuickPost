@@ -31,7 +31,7 @@ const Post = () => {
     <div className='container w-50 pt-4 '>
       {post && (
         <div className='row '>
-          <div className='col'>
+          <div className='col '>
             <div className='card text-light bg-dark'>
               <div className='card-body '>
                 <div className='d-flex align-items-center mb-3'>

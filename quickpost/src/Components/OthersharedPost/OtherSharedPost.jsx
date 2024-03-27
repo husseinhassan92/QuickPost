@@ -202,9 +202,9 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
           key={sharep.post.id}
           ref={index === posts.length - 1 ? lastPostElementRef : null}
         >
-          <div className="container pt-4">
+          <div className="container ">
             <div className="row">
-              <div className="col">
+              <div className="l">
                 <div className="card text-light bg-dark">
                   <div className="card-body">
 
@@ -244,7 +244,8 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
                       <div className="row mt-5">
                         <div className="pb-3 col-4 text-start">
                           <i className="bi bi-heart text-light pe-1"></i>{" "}
-                          {sharep.post.love_count} Likes
+                          {sharep.post.love_count}
+                          <span className="d-lg-inline d-none">Likes</span>
                         </div>
 
 
@@ -273,7 +274,7 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
                           <i className="bi bi-chat-dots-fill pe-1"></i>{" "}
                          
                           {sharep.post.comments_count}{' '}
-                          Comments
+                          <span className="d-lg-inline d-none">Comments</span>
                         </div>
 
 
