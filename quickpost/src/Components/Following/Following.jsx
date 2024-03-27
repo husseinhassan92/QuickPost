@@ -19,7 +19,7 @@ function Following({isAuthenticated, user}) {
     }
 
     async function unfollow(otherId) {
-        let { data } = await axios.post(`http://127.0.0.1:8000/api/follow/unfollow/`,
+        await axios.post(`http://127.0.0.1:8000/api/follow/unfollow/`,
         {
             user:user.id,
             otherUser:otherId,
@@ -31,6 +31,8 @@ function Following({isAuthenticated, user}) {
                 Authorization: `JWT ${localStorage.getItem("access")}`,
                 Accept: "application/json",
             }
+        }).then(response =>{
+            getFollowing()
         })
         
     }
@@ -68,6 +70,9 @@ const mapStateToProps = state => ({
     user: state.AuthRecducer.user,
   });
   export default connect(mapStateToProps)(Following);
+
+
+// import React from 'react'
 // import axios from 'axios';
 // import { useEffect, useState } from 'react'
 // import { Button, Card, Col } from 'react-bootstrap';

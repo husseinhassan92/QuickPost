@@ -35,7 +35,7 @@ const Post = () => {
             <div className='card text-light bg-dark'>
               <div className='card-body '>
                 <div className='d-flex align-items-center mb-3'>
-                  <img src={post.owner.picture} alt="Owner" className='rounded-circle me-2 mb-2 ' style={{ width: '50px', height: '50px' }} />
+                  <img src={'http://127.0.0.1:8000' +post.owner.picture} alt="Owner" className='rounded-circle me-2 mb-2 ' style={{ width: '50px', height: '50px' }} />
                   <div className='align-self-center mb-2 '>{post.owner.firstName} {post.owner.lastName}</div>
                   <div className='ms-auto text-light '>{new Date(post.publishDate).toLocaleString()}</div>
                 </div>

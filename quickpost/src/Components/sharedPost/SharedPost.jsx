@@ -248,6 +248,8 @@ function SharedPost({isAuthenticated, user, userProfile}) {
       .then(response => {
         console.log('Post Unshared successfully:', response.data);
         // Handle success, if needed
+        getSharedPost()
+        setShowDropdown(!showDropdown);
       })
       .catch(error => {
         console.error('Error sharing post:', error);
@@ -260,7 +262,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
   return (
     <>
 
-      {SharedPost.map((sharep, index) => (
+      { SharedPost.map((sharep, index) => (
         <div
           key={sharep.post.id}
           ref={index === posts.length - 1 ? lastPostElementRef : null}
@@ -272,19 +274,18 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                   <div className="card-body">
 
 
-                  <HeaderShared
-
-                  profileimg={sharep.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.profile.image}
+                  {/* <HeaderShared
+                  profileimg={sharep.profile.image === null ? WhatsApp : sharep.profile.image}
                   firstNmae={sharep.profile.first_name}
                   lastName={sharep.profile.last_name}
                   sharedDate={sharep.create_at}
                   Shareid={sharep.post.id}
-                  />
+                  /> */}
                     {/* SharedPost */}
 
-                    {/* <div className="d-flex align-items-center mb-3">
+                    <div className="d-flex align-items-center mb-3">
                       <img
-                        src={sharep.profile.image === null ? WhatsApp : sharep.profile.image}
+                        src={sharep.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.profile.image}
                         alt="Owner"
                         className="rounded-circle me-2 mb-2"
                         style={{ width: "50px", height: "50px" }}
@@ -319,7 +320,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                         )}
 
                       </div>
-                    </div> */}
+                    </div>
 
 
 
@@ -341,14 +342,14 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                           {new Date(sharep.post.create_at).toLocaleString()}
                         </div>
                       </div>
-                      <Link to={`/post/${sharep.post.id}`}>
-                        {sharep.post.image && <img
+                      {sharep.post.image && <Link to={`/post/${sharep.post.id}`}>
+                        <img
                           src={'http://127.0.0.1:8000' + sharep.post.image}
                           alt="Post"
                           className="img-fluid rounded mb-3 ps-1 w-100"
 
-                        />}
-                      </Link>
+                        />
+                      </Link>}
                       {/* <h5 className="card-title text-light mt-3">
                             {post.title}
                           </h5> */}
@@ -409,7 +410,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                             <div className="card-body border-bottom border-secondary border-3 ">
                               <div className="d-flex align-items-center pb-2">
                                 <img
-                                  src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
+                                  src={sharep.post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.post.profile.image}
                                   alt="Comment Owner"
                                   className="rounded-circle me-2 text-light"
                                   style={{ width: "30px", height: "30px" }}
