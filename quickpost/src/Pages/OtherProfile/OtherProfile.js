@@ -28,6 +28,7 @@ function OtherProfile({ isAuthenticated, user }) {
     const [showDropdown, setShowDropdown] = useState(false);
     const [image, setImage] = useState(null)
     const [activePage, setActivePage] = useState('posts');
+    //const [following, setFollowing] = useState(false);
 
     const handlePageChange = (page) => {
         setActivePage(page);
@@ -54,6 +55,29 @@ function OtherProfile({ isAuthenticated, user }) {
 
         fetchProfileData();
     }, []);
+    // const handleFollow = () => {
+    //     const data = {
+    //         follower: user.id,
+    //         following: user_account.id,
+    //     };
+    //     const config = {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `JWT ${localStorage.getItem('access')}`,
+    //         },
+    //     };
+    //     axios.post(`http://127.0.0.1:8000/api/follow/follow/`, data, config)
+    //         .then(response => {
+    //             // Handle successful response, update UI to reflect the follow action
+    //             console.log('Followed successfully');
+    //             setFollowing(true); // Update state to indicate following
+    //         })
+    //         .catch(error => {
+    //             // Handle errors
+    //             console.error('Error following user:', error);
+    //         });
+    // };
+
     const handleFollow = () => {
         const data = {
             follower: user.id,
@@ -76,6 +100,25 @@ function OtherProfile({ isAuthenticated, user }) {
                 console.error('Error following user:', error);
             });
     };
+
+    async function unfollow() {
+        await axios.post(`http://127.0.0.1:8000/api/follow/unfollow/`,
+            {
+                user: user.id,
+                otherUser: user_account.id,
+            },
+
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `JWT ${localStorage.getItem("access")}`,
+                    Accept: "application/json",
+                }
+            }).then(response => {
+                setFollowing(false);
+            })
+
+    }
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
@@ -94,7 +137,7 @@ function OtherProfile({ isAuthenticated, user }) {
                         <div className="card p-0">
                             <div className="rounded-top bg-dark text-white d-flex flex-row" style={{ height: '200px' }}>
                                 <div className="ms-4 mt-5 d-flex flex-column bg-dark" style={{ width: '150px' }}>
-                                    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+                                    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', height:'150px',zIndex: 1 }} />
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
                                     <h5>{profileData.first_name + " " + profileData.last_name}</h5>
@@ -115,9 +158,28 @@ function OtherProfile({ isAuthenticated, user }) {
                                         <p className="mb-1 h5">478</p>
                                         <p className="small text-muted mb-0">Following</p>
                                     </div> */}
-                                    <button type="button" onClick={handleFollow} className="btn btn-primary mt-3  px-5" style={{ zIndex: 1 }}>
+                                    {/* <button type="button" onClick={handleFollow} className="btn btn-primary mt-3  px-5" style={{ zIndex: 1 }}>
                                         Follow
-                                    </button>
+                                    </button> */}
+                                    {following ? (
+                                        <button
+                                            type="button"
+                                            onClick={unfollow}
+                                            className="btn btn-danger  mt-3 px-5"
+                                            style={{ zIndex: 1 }}
+                                        >
+                                            Unfollow
+                                        </button>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            onClick={handleFollow}
+                                            className="btn btn-primary mt-3 px-5"
+                                            style={{ zIndex: 1 }}
+                                        >
+                                            Follow
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 

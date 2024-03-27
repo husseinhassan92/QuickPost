@@ -45,7 +45,7 @@ function Following({isAuthenticated, user}) {
 
 {following.map((following) => (
 
-<Col xs={12} sm={6} md={3} className='mb-5'>
+<Col xs={12} sm={6} md={3} className='mb-5 mt-3 bg-dark'>
     <Card className="friend-card h-100 " >
         <Card.Img variant="top" src={'http://127.0.0.1:8000'+following.image} alt={following.first_name} />
         <Card.Body>
@@ -53,7 +53,7 @@ function Following({isAuthenticated, user}) {
           
           
           
-            <Button variant="danger" onClick={()=>unfollow(following.id)}>
+            <Button variant="danger" onClick={()=>unfollow(following.user_account)}>
                  unfollow
             </Button>
         </Card.Body>

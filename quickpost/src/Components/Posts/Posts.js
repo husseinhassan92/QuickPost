@@ -365,7 +365,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               {post.profile.first_name} {post.profile.last_name}
                             </div>
                             <div className="ms-auto text-light">
-                              {new Date(post.create_at).toLocaleString()}
+                              <span className="d-md-inline d-none">{new Date(post.create_at).toLocaleString()}</span>
                               <i
                                 className="bi bi-three-dots-vertical text-light "
                                 onClick={toggleDropdown}

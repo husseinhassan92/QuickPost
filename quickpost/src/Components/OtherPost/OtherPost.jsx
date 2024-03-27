@@ -14,33 +14,33 @@ import Comment from '../Comment/Comment';
 
 
 
-function MyPost({isAuthenticated, user, userProfile , profileid}) {
-const [postComments, setPostComments] = useState([]);
-// const user_account = useParams();
+function MyPost({ isAuthenticated, user, userProfile, profileid }) {
+  const [postComments, setPostComments] = useState([]);
+  // const user_account = useParams();
 
   let [Post, setPost] = useState([])
-      console.log('props line 1 :', profileid);
-      async function getPost() {
-       
-        if (profileid) { 
-          try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/post/user/${profileid}`, {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `JWT ${localStorage.getItem("access")}`,
-                Accept: "application/json",
-              }
-            });
-            setPost(response.data.posts);
-          } catch (error) {
-            console.error('Error fetching posts:', error);
+  console.log('props line 1 :', profileid);
+  async function getPost() {
+
+    if (profileid) {
+      try {
+        const response = await axios.get(`http://127.0.0.1:8000/api/post/user/${profileid}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `JWT ${localStorage.getItem("access")}`,
+            Accept: "application/json",
           }
-        }
+        });
+        setPost(response.data.posts);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
       }
-    
-      useEffect(() => {
-        getPost();
-      }, []);
+    }
+  }
+
+  useEffect(() => {
+    getPost();
+  }, []);
   const [newComment, setNewComment] = useState("");
 
 
@@ -114,20 +114,20 @@ const [postComments, setPostComments] = useState([]);
   const deletepost = (postId) => {
     console.log(postId);
     axios.delete(`http://127.0.0.1:8000/api/post/del/${postId}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${localStorage.getItem("access")}`,
-        Accept: "application/json",
-      }
-    })
-    .then(response => {
-      console.log('Post Unshared successfully:', response.data);
-    })
-    .catch(error => {
-      console.error('Error sharing post:', error);
-    });
-}
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `JWT ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        }
+      })
+      .then(response => {
+        console.log('Post Unshared successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error sharing post:', error);
+      });
+  }
 
   return (
     <>
@@ -140,24 +140,24 @@ const [postComments, setPostComments] = useState([]);
               <div className="">
                 <div className="card text-light bg-dark">
                   <div className="card-body">
-                     <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+post.profile.image} 
-                     fullname={post.profile.first_name}
-                     lastname={post.profile.last_name}
-                     postdate={post.create_at}
-                     postid={post.id} profile={post.profile} />
+                    <HeaderPost imgprofile={post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000" + post.profile.image}
+                      fullname={post.profile.first_name}
+                      lastname={post.profile.last_name}
+                      postdate={post.create_at}
+                      postid={post.id} profile={post.profile} />
 
 
 
 
-                    <Link to={`/post/${post.id}`}>
+                    {post.image && <Link to={`/post/${post.id}`}>
                       <img
                         src={'http://127.0.0.1:8000' + post.image}
                         alt="Post"
                         className="img-fluid rounded mb-3 ps-1 w-100"
 
                       />
-                    </Link>
-                   
+                    </Link>}
+
                     <p className="card-text text-light">{post.content}</p>
                     <div className="row mt-5">
                       <div className="pb-3 col-4 text-start">
@@ -190,7 +190,7 @@ const [postComments, setPostComments] = useState([]);
                         }}
                       >
                         <i className="bi bi-chat-dots-fill pe-1"></i>{" "}
-                       
+
                         {post.comments_count}{' '}
                         <span className="d-lg-inline d-none">Comments</span>
                       </div>
@@ -208,12 +208,12 @@ const [postComments, setPostComments] = useState([]);
                         >
                           <div className="card-body border-bottom border-secondary border-3 ">
                             <div className="d-flex align-items-center pb-2">
-                            <img
-    src={post.profile.image === null ? WhatsApp : 'http://127.0.0.1:8000' + post.profile.image}
-    alt="Comment Owner"
-    className="rounded-circle me-2 text-light"
-    style={{ width: "30px", height: "30px" }}
-/>
+                              <img
+                                src={post.profile.image === null ? WhatsApp : 'http://127.0.0.1:8000' + post.profile.image}
+                                alt="Comment Owner"
+                                className="rounded-circle me-2 text-light"
+                                style={{ width: "30px", height: "30px" }}
+                              />
                               <div className="text-light pt-2">
                                 {comment.c_author.username}{" "}
                               </div>
@@ -224,7 +224,7 @@ const [postComments, setPostComments] = useState([]);
                                   {comment.content}
                                 </p>
                                 <button
-                                  className="btn btn-danger col-3 h-75"
+                                  className="btn btn-dark text-danger col-3 h-75"
                                   onClick={() =>
                                     handleDeleteComment(
                                       post.id,
@@ -232,7 +232,7 @@ const [postComments, setPostComments] = useState([]);
                                     )
                                   }
                                 >
-                                  Report
+                                  Delete
                                 </button>
                               </div>
                             </div>
@@ -243,16 +243,16 @@ const [postComments, setPostComments] = useState([]);
                   </div>
 
                   <Comment
-                  postid={post.id}
-                  profileid={post.profile.id}
-                  
+                    postid={post.id}
+                    profileid={post.profile.id}
+
                   />
-               
+
                 </div>
               </div>
             </div>
           </div>
-         
+
         </div>
       ))}
     </>

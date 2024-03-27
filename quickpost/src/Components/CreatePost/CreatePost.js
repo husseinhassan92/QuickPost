@@ -205,7 +205,7 @@ const CreatePost = ({
                     onClick={handleCreatePost}
                     disabled={disablePostButton}
                     variant="primary"
-                    className="col-2 mx-3 btn btn-primary"
+                    className=" mx-3 btn btn-primary"
                   >
                     Post
                   </Button>
