@@ -1,0 +1,72 @@
+body{
+    background-color: #dddddd;
+
+}
+.container {
+    background-color: #dddddd;
+    padding: 30px;
+    border-radius: 10px;
+  }
+  
+  .card {
+    background-color: transparent;
+    border: none;
+    background-color: #dddddd;
+
+  }
+  
+  .form-control {
+    background-color: #ffffff;
+  }
+  
+  .btn-primary {
+    background-color:#5b7743;
+    border: #5b7743;
+  }
+  .btn-primary:hover {
+    background-color: #5b7743;
+}
+  
+  .invalid-feedback {
+    color: #dc3545;
+  }
+  .image-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 100px;
+    height:100px;
+}
+
+.user-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.image-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+.image-upload label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1; /* Ensure the label is behind the image */
+    color: white; /* Set the color of the label text */
+    font-size: 16px; /* Adjust the font size as needed */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
