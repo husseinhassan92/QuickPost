@@ -4,9 +4,7 @@ import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { connect } from 'react-redux';
 import Navbar from "../Navbar/Navbar";
-import { ToastContainer, toast } from "react-toastify";
 
-import '../Posts/Posts.css'
 const CreatePost = ({
   isAuthenticated,
   user,
@@ -18,14 +16,11 @@ const CreatePost = ({
   const [disablePostButton, setDisablePostButton] = useState(true);
   //const [user, setUser] = useState();
   const [deleteShow, setdeleteShow] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [editShow, seteditShow] = useState(false);
   const [uploadShow, setUploadShow] = useState(false);
   const [editPostText, setEditPostText] = useState("");
   const [image, setImage] = useState(null);
-  const [reportText, setReportText] = useState("");
-  const [reportPostId, setReportPostId] = useState(null);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   //if (user){console.log(user.id)}
 
@@ -166,56 +161,12 @@ const CreatePost = ({
     // };
   }
 
-  const handleReportTextChange = (e) => {
-    setReportText(e.target.value);
-  };
-
-  const handleShowModal = (postId) => {
-    setShowModal(true);
-    setReportPostId(postId); // Add this line to store the postId in state
-  };
-
-
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setReportText("");
-  };
-
-  const handleAddReport = async () => {
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/api/report/report/', {
-        post: reportPostId,
-        user: user.id,
-        reason: reportText,
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `JWT ${localStorage.getItem("access")}`,
-          Accept: "application/json",
-        },
-      });
-      toast.success('Report Send Successfully');
-      setShowModal(false); // Close the modal
-      setReportText("");
-
-    } catch (error) {
-      if (error.response) {
-        toast.error(`Failed to add report: ${error.response.data.detail}`);
-      } else {
-        console.error('Error adding report:', error.message);
-        toast.error('An error occurred while adding report');
-      }
-    }
-  };
-
-  
   return (
     <>
       <div className="container">
         <div className="row ">
           <div className="col">
-            <div className="border rounded-3 border-secondary p-3 shadow mt-2 post   ms-2 me-2">
+            <div className="border rounded-3 border-secondary p-3 shadow mt-2 bg-dark ms-2 me-2">
             <div className="d-inline-flex align-items-center">
   {userProfile && userProfile.image && (
     <img
@@ -226,7 +177,7 @@ const CreatePost = ({
     />
   )}
   {userProfile && (
-  <h5 className="text-dark inline m-0" style={{ textTransform: "capitalize" }}>
+  <h5 className="text-light inline m-0" style={{ textTransform: "capitalize" }}>
     {userProfile.first_name} {userProfile.last_name}
   </h5>
 )}
@@ -240,21 +191,21 @@ const CreatePost = ({
                     onChange={handleContentChange}
                     placeholder="What is happening?"
                     style={{ resize: "none", height: "7rem" }}
-                    className="textarea post border border-dark"
                   />
                 </Form.Group>
                 <div className="d-flex justify-content-end align-items-center">
-                  <span className="text-dark">{postCount}/300</span>
+                  <span className="text-light">{postCount}/300</span>
                   <Button
-                    className="btn2 text-light ms-2"
+                    className="btn btn-dark text-danger ms-2"
                     onClick={uploadhandleShow}
                   >
                     <i className="bi bi-image"></i>
                   </Button>
                   <Button
                     onClick={handleCreatePost}
-                    // disabled={disablePostButton}
-                    className=" mx-3 btn1"
+                    disabled={disablePostButton}
+                    variant="primary"
+                    className=" mx-3 btn btn-primary"
                   >
                     Post
                   </Button>
@@ -268,7 +219,7 @@ const CreatePost = ({
         <div className="container  pt-4 ">
           <div className="row ">
             <div className="col">
-              <div className="card text-dark post">
+              <div className="card text-light bg-dark">
                 <div className="card-body">
                   <div className="d-flex align-items-center mb-3">
                     <img
@@ -280,17 +231,11 @@ const CreatePost = ({
                     <div className="align-self-center mb-2">
                       {post.profile.first_name} {post.profile.last_name}
                     </div>
-                    <div className="ms-auto text-dark">
+                    <div className="ms-auto text-light">
                       {new Date(post.create_at).toLocaleString()}
-                   
-                      
-
-
-
                     </div>
                   </div>
                   <div>
-                    <p className="card-text text-dark">{post.content}</p>
                     {post.image && (
                       <Link to={`/post/${post.id}`}>
                         <img
@@ -300,10 +245,11 @@ const CreatePost = ({
                         />
                       </Link>
                     )}
+                    <p className="card-text text-light">{post.content}</p>
                   </div>
                   <div className="row mt-5">
                     <div className="pb-3 col-4 text-start">
-                      <i className="bi bi-heart text-dark pe-1"></i>{" "}
+                      <i className="bi bi-heart text-light pe-1"></i>{" "}
                       {post.likes} Likes
                     </div>
                     <div className="pb-3 col-4 text-center">
@@ -313,14 +259,6 @@ const CreatePost = ({
                     <div className="pb-3 col-4 text-end pe-4">
                       <i className="bi bi-share pe-1"></i> {post.likes} Share
                     </div>
-                    
-                   
-     
-
-
-
-
-
                   </div>
                 </div>
               </div>
@@ -370,8 +308,6 @@ const CreatePost = ({
           </Button>
         </Modal.Footer>
       </Modal>
-
-      
       <Modal show={uploadShow} onHide={uploadhandleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Upload Image</Modal.Title>
@@ -387,11 +323,11 @@ const CreatePost = ({
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer className="border border-0">
+        <Modal.Footer>
           <Button variant="secondary" onClick={uploadhandleClose}>
             Close
           </Button>
-          <Button className="btn1" onClick={uploadhandle}>
+          <Button variant="primary" onClick={uploadhandle}>
             Upload
           </Button>
         </Modal.Footer>

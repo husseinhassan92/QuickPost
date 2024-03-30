@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios, { Axios } from "axios";
 import InifinteScroll from "./InifinteScroll";
+import Leftbar from "../LeftSide/LeftSide";
+import Rightbar from "../RightSide/RightSide";
 import CreatePost from "../CreatePost/CreatePost";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import WhatsApp from "../../images/WhatsApp.jpeg";
 import Comment from "../Comment/Comment";
 import { Alert, Button, Dropdown, Modal } from "react-bootstrap";
-import './Posts.css'
+import "./Posts.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 
 const Posts = ({ isAuthenticated, user, userProfile }) => {
@@ -275,7 +276,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
         });
         setPost(updatedPosts);
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   const handleUnlikePost = (postId) => {
@@ -306,7 +307,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
         });
         setPost(updatedPosts);
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   if (!isAuthenticated) {
@@ -329,7 +330,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                   <div className="row">
                     <div className="">
                       <div
-                        className="card posts text-dark post"
+                        className="card posts text-light bg-dark"
                         style={{
                           transform: "translateY(0)",
                           transition: "transform 0.3s",
@@ -363,10 +364,10 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             <div className="align-self-center mb-2">
                               {post.profile.first_name} {post.profile.last_name}
                             </div>
-                            <div className="ms-auto text-dark">
+                            <div className="ms-auto text-light">
                               <span className="d-md-inline d-none">{new Date(post.create_at).toLocaleString()}</span>
                               <i
-                                className="bi bi-three-dots-vertical text-dark "
+                                className="bi bi-three-dots-vertical text-light "
                                 onClick={toggleDropdown}
                               ></i>
                               {showDropdown && (
@@ -376,49 +377,48 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   show={showDropdown}
                                   onClose={() => setShowDropdown(false)}
                                 >
-                                  <Dropdown.Menu className="mt-2 txt-center ">
+                                  <Dropdown.Menu className="mt-2 txt-center bg-warning">
                                     <Button
-                                      // <Dropdown.Item onClick={() => handleShowModal(post.id)}>Report</Dropdown.Item>
+                                 // <Dropdown.Item onClick={() => handleShowModal(post.id)}>Report</Dropdown.Item>
 
                                       onClick={() => {
                                         handleShowModal(post.id);
                                         setShowDropdown(false);
                                       }}
-                                      className="dropdown-item "
+                                      className="dropdown-item bg-warning "
 
                                     >
-                                      Report
+                                      Report Post
                                     </Button>
                                   </Dropdown.Menu>
                                 </Dropdown>
                               )}
 
                               <Modal show={showModal} onHide={() => setShowModal(false)}>
-                                <Modal.Header closeButton className="post">
+                                <Modal.Header closeButton>
                                   <Modal.Title>Report Post</Modal.Title>
                                 </Modal.Header>
-                                <Modal.Body className="post">
+                                <Modal.Body>
                                   <textarea
                                     value={reportText}
                                     onChange={handleReportTextChange}
                                     placeholder="Enter your report here..."
-                                    className="form-control textarea  post border border-dark"
+                                    className="form-control"
                                   />
                                 </Modal.Body>
-                                <Modal.Footer className="post border border-0">
+                                <Modal.Footer>
                                   <Button variant="secondary" onClick={() => handleCloseModal()}>
                                     Close
                                   </Button>
-                                  <Button className="btn1" onClick={handleAddReport}>
+                                  <Button variant="primary" onClick={handleAddReport}>
                                     Send Report
                                   </Button>
                                 </Modal.Footer>
                               </Modal>
-
+                              
                             </div>
-
+                            
                           </div>
-                          <p className="card-text text-dark">{post.content}</p>
                           <Link to={`/post/${post.id}`}>
                             {post.image && (
                               <img
@@ -431,6 +431,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                           {/* <h5 className="card-title text-light mt-3">
                             {post.title}
                           </h5> */}
+                          <p className="card-text text-light">{post.content}</p>
                           <div className="row mt-5">
                             <div
                               className="pb-3 col-4 text-start"
@@ -444,7 +445,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 className={
                                   isPostLiked(post.id)
                                     ? "bi bi-heart-fill text-danger pe-1"
-                                    : "bi bi-heart text-dark pe-1"
+                                    : "bi bi-heart text-light pe-1"
                                 }
                               ></i>{" "}
                               {post.reaction_count}<span className="d-lg-inline d-none"> Like</span>
@@ -494,34 +495,34 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             {post.comments.map((comment) => (
                               <div
                                 key={Post.id}
-                                className="card  post border border-1  "
+                                className="card mb-2 bg-dark  "
                               >
-                                <div className="card-body post border-bottom border-secondary border-1 ">
+                                <div className="card-body border-bottom border-secondary border-3 ">
                                   <div className="d-flex align-items-center pb-2">
                                     <img
                                       src={
                                         comment.profile.image === null
                                           ? WhatsApp
                                           : "http://127.0.0.1:8000" +
-                                          post.profile.image
+                                            post.profile.image
                                       }
                                       alt="Comment Owner"
-                                      className="rounded-circle me-2 text-dark"
+                                      className="rounded-circle me-2 text-light"
                                       style={{ width: "30px", height: "30px" }}
                                     />
-                                    <div className="text-dark pt-2">
+                                    <div className="text-light pt-2">
                                       {post.profile.first_name}{" "}
                                       {post.profile.last_name}{" "}
                                     </div>
                                   </div>
                                   <div className="container">
                                     <div className="row">
-                                      <p className="card-text text-dark col-11">
+                                      <p className="card-text text-light col-9">
                                         {comment.content}
                                       </p>
                                       {comment.c_author.id === user.id && (
-                                        <Button
-                                          className=" btn-delete post text-danger border border-0 col-1 h-75"
+                                        <button
+                                          className="btn btn-dark text-danger col-3 h-75"
                                           onClick={() =>
                                             handleDeleteComment(
                                               post.id,
@@ -529,8 +530,8 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                             )
                                           }
                                         >
-                                          <i className="bi bi-trash3-fill"></i>
-                                        </Button>
+                                          Delete
+                                        </button>
                                       )}
                                     </div>
                                   </div>
@@ -539,33 +540,25 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             ))}
                           </div>
                         </div>
-                        <div className="card text-dark post border border-0">
+                        <div className="card text-light bg-dark">
                           <div className="card-body">
-                            <h5 className="card-title text-dark mt-3">
+                            <h5 className="card-title text-light mt-3">
                               Add Comment
                             </h5>
                             <textarea
-                              className="form-control textarea post border border-dark mb-3 mt-3"
+                              className="form-control"
                               placeholder="Enter your comment"
                               value={newComment}
                               onChange={(e) => setNewComment(e.target.value)}
                             ></textarea>
-                            {/* <button
-                              className="btn1"
+                            <button
+                              className="btn btn-primary mt-2"
                               onClick={() =>
                                 handleAddComment(post.id, post.profile.id)
                               }
                             >
                               Add Comment
-                            </button> */}
-                            <Button
-                              className="btn1"
-                              onClick={() =>
-                                handleAddComment(post.id, post.profile.id)
-                              }
-                            >
-                              Add Comment
-                            </Button>
+                            </button>
                           </div>
                         </div>
                         {/* <Comment postid={post.id} profileid={post.profile.id} />{" "} */}
@@ -595,7 +588,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                 <div className="container pt-4">
                   <div className="row">
                     <div className="">
-                      <div className="card text-dark sharedpost">
+                      <div className="card text-light bg-dark">
                         <div className="card-body">
                           <div className="d-flex align-items-center mb-3">
                             <img
@@ -603,7 +596,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 sharep.profile.image === null
                                   ? WhatsApp
                                   : "http://127.0.0.1:8000" +
-                                  sharep.profile.image
+                                    sharep.profile.image
                               }
                               alt="Owner"
                               className="rounded-circle me-2 mb-2"
@@ -613,19 +606,19 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               {sharep.profile.first_name}{" "}
                               {sharep.profile.last_name}
                             </div>
-                            <div className="ms-auto text-dark">
+                            <div className="ms-auto text-light">
                               {new Date(sharep.create_at).toLocaleString()}
                             </div>
                           </div>
 
-                          <div className="card-body form-control post">
+                          <div className="card-body">
                             <div className="d-flex align-items-center mb-3">
                               <img
                                 src={
                                   sharep.post.profile.image === null
                                     ? WhatsApp
                                     : "http://127.0.0.1:8000" +
-                                    sharep.post.profile.image
+                                      sharep.post.profile.image
                                 }
                                 alt="Owner"
                                 className="rounded-circle me-2 mb-2"
@@ -635,15 +628,12 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 {sharep.post.profile.first_name}{" "}
                                 {sharep.post.profile.last_name}
                               </div>
-                              <div className="ms-auto text-dark">
+                              <div className="ms-auto text-light">
                                 {new Date(
                                   sharep.post.create_at
                                 ).toLocaleString()}
                               </div>
                             </div>
-                            <p className="card-text text-dark">
-                              {sharep.post.content}
-                            </p>
                             <Link to={`/post/${sharep.post.id}`}>
                               {sharep.post.image && (
                                 <img
@@ -656,33 +646,14 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               )}
                             </Link>
 
+                            <p className="card-text text-light">
+                              {sharep.post.content}
+                            </p>
                             <div className="row mt-5">
                               <div className="pb-3 col-4 text-start">
-                                <i className="bi text-dark bi-heart text-light pe-1"></i>{" "}
+                                <i className="bi bi-heart text-light pe-1"></i>{" "}
                                 {sharep.post.love_count} Likes
                               </div>
-                              {/* <div
-                                className="pb-3 col-4 text-start"
-                                onClick={() =>
-                                  isPostLiked(post.id)
-                                    ? handleUnlikePost(post.id)
-                                    : handleLikePost(post.id)
-                                }
-                              >
-                                <i
-                                  className={
-                                    isPostLiked(post.id)
-                                      ? "bi bi-heart-fill text-danger pe-1"
-                                      : "bi bi-heart text-dark pe-1"
-                                  }
-                                ></i>{" "}
-                                {post.love_count}<span className="d-lg-inline d-none"> Like</span>
-                              </div> */}
-
-
-
-
-
 
                               <div
                                 className="pb-3 col-4 text-center"
@@ -723,37 +694,37 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               {sharep.post.comments.map((comment) => (
                                 <div
                                   key={Post.id}
-                                  className="card mb-2 post "
+                                  className="card mb-2 bg-dark  "
                                 >
-                                  <div className="card-body post border-bottom border-secondary border-1 ">
+                                  <div className="card-body border-bottom border-secondary border-3 ">
                                     <div className="d-flex align-items-center pb-2">
                                       <img
                                         src={
                                           sharep.post.profile.image === null
                                             ? WhatsApp
                                             : "http://127.0.0.1:8000" +
-                                            sharep.post.profile.image
+                                              sharep.post.profile.image
                                         }
                                         alt="Comment Owner"
-                                        className="rounded-circle me-2 text-dark"
+                                        className="rounded-circle me-2 text-light"
                                         style={{
                                           width: "30px",
                                           height: "30px",
                                         }}
                                       />
-                                      <div className="text-dark pt-2">
+                                      <div className="text-light pt-2">
                                         {sharep.profile.first_name}{" "}
                                         {sharep.profile.last_name}
                                       </div>
                                     </div>
                                     <div className="container">
                                       <div className="row">
-                                        <p className="card-text text-dark col-11">
+                                        <p className="card-text text-light col-9">
                                           {comment.content}
                                         </p>
                                         {user.id === comment.c_author.id && (
-                                          <Button
-                                            className="btn-delete post text-danger border border-0 col-1 h-75"
+                                          <button
+                                            className="btn btn-dark text-danger col-3 h-75"
                                             onClick={() =>
                                               handleDeleteComment(
                                                 sharep.post.id,
@@ -761,9 +732,8 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                               )
                                             }
                                           >
-                                            <i className="bi bi-trash3-fill"></i>
-
-                                          </Button>
+                                            Delete
+                                          </button>
                                         )}
                                       </div>
                                     </div>
@@ -772,19 +742,19 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               ))}
                             </div>
                           </div>
-                          <div className="card text-dark post border border-0">
+                          <div className="card text-light bg-dark">
                             <div className="card-body">
-                              <h5 className="card-title text-dark mt-3">
+                              <h5 className="card-title text-light mt-3">
                                 Add Comment
                               </h5>
                               <textarea
-                                className="form-control textarea post border border-dark mb-3 mt-3"
+                                className="form-control"
                                 placeholder="Enter your comment"
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
                               ></textarea>
-                              <Button
-                                className="btn1 "
+                              <button
+                                className="btn btn-primary mt-2"
                                 onClick={() =>
                                   handleAddComment(
                                     sharep.post.id,
@@ -793,7 +763,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 }
                               >
                                 Add Comment
-                              </Button>
+                              </button>
                             </div>
                           </div>
                           {/* <Comment
