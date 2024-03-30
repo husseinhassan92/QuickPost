@@ -5,9 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #212529 !important;
-  --twitter-color: #50b7f5;
-  --twitter-background: #e6ecf0;
+  --twitter-color: rgb(118, 136, 91);
+   background: rgb(238, 238, 238);
 }
 
 code {
@@ -27,7 +26,7 @@ a{
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color:#5f99f7;
+  background-color:rgb(118, 136, 91);
   border-radius: 8px;
 }
 /* @media (max-width: 992px) {
@@ -35,3 +34,34 @@ a{
         overflow-y: hidden !important;
     }
 } */
+
+
+/* app.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(238, 238, 238);
+}
+
+.model {
+  background: rgb(221, 221, 221);
+}
+
+/* button {
+  background: rgb(118, 136, 91);
+}
+
+button:hover {
+  background: rgb(98, 114, 84);
+} */
+
+/* Styling links */
+
+link:hover {
+  color: white;
+  background: rgb(98, 114, 84);
+}

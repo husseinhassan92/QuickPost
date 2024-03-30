@@ -7,7 +7,7 @@
 }
 
 .mainNav a {
-  color: white;
+  color: black;
 }
 
 @media screen and (min-width: 992px) {
@@ -38,12 +38,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: gray transition 0.5s;
 }
 
 .links:hover {
-  color: #5f99f7;
-}
+  background: rgb(98, 114, 84);}
 
 .icon {
   display: none;
@@ -56,8 +54,7 @@
   justify-content: center;
   align-items: center;
   font-size: 14px;
-  color: gray;
 }
 #bg_logout:hover{
-  color: red !important;;
+  background: rgb(98, 114, 84);
 }

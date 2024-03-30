@@ -48,7 +48,7 @@ const FriendListPage = () => {
             {friends.map((friend) => (
               <Col key={friend.id}  sm={6} md={4} lg={3} className='mb-4'>
                 <Card>
-                  <Link to={`/OtherProfile/${friend.id}`}> {/* Use friend.id here */ }
+                  <Link to={`/OtherProfile/${friend.user_account}`}> {/* Use friend.id here */ }
                     <Card.Img variant="top" src={friend.image} alt="Friend" style={{ height: "13rem" }} />
                   </Link>
                   <Card.Body>
