@@ -29,7 +29,7 @@ function Follower({isAuthenticated, user}) {
                 {follower.map((follower) => (
                     <div key={follower.id} className='col-xs-12 col-sm-6 col-md-3 mb-5' >
                         <div className='card friend-card h-100'>
-                            <Link to={`/OtherProfile/${follower.id}`}>
+                            <Link to={`/OtherProfile/${follower.user_account}`}>
   
                               <img className='card-img-top' src={'http://127.0.0.1:8000' + follower.image} alt={follower.first_name} />
 

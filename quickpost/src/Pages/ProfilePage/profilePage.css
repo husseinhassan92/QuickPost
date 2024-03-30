@@ -1,0 +1,16 @@
+app.css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background: rgb(238, 238, 238); */
+  }
+  
+  .model {
+    background: rgb(221, 221, 221);
+  }
+  
+  button {
+    background: rgb(118, 136, 91);
+  }
+  

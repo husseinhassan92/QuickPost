@@ -1,17 +1,39 @@
+/* app.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: rgb(238, 238, 238);
 
-@media (max-width: 992px) {
-    .navitem{
-        font-size: 16px !important;
-    }
-    .links{
-        font-size: 16px !important;
-        display:  block !important;
-    }
+  }
+  
+ 
+  
+  .model {
+    background: rgb(221, 221, 221);
+  }
+  
+Button {
+    background: rgb(118, 136, 91);
+  }
+  
+  Button:hover {
+    background: rgb(98, 114, 84);
+  }
+  
+  /* Styling links */
+*{
+  color : black
 }
-.links{
-    color: white !important;
+.active-nav-item {
+  border-bottom: 2px solid rgb(118, 136, 91);
 }
 
-.navitem:hover .links{
-    color: rgb(48, 48, 243) !important;
+.active-nav-item {
+  background-color: rgb(221, 221, 221);
+}
+
+.active-nav-link-text{
+  background-color: rgb(221, 221, 221);
+
 }

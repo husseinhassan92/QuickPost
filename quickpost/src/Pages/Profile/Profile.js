@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 //import { Button, Form, Dropdown, Modal } from "react-bootstrap";
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Switch, NavLink } from 'react-router-dom';
+
 import { useSelector } from 'react-redux';
 import { Form, FormGroup, FormLabel, FormControl, Button, Row, Col, Card, Dropdown, Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
@@ -42,6 +44,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
 
     const handlePageChange = (page) => {
         setActivePage(page);
+        // history.push(`/${page}`); // Change the URL
     };
     const [profileData, setProfileData] = useState({
         first_name: '',
@@ -347,34 +350,41 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
 
 
     return (
-        <section className="h-100 gradient-custom-2 ">
-            <div className="container bg-dark py-5 vh-100">
+        <section className="h-100 gradient-custom-2  style={{ background: 'rgb(238, 238, 238)' }}">
+            <div className="container  py-5 vh-100 " >
                 <ToastContainer />
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="">
                         <div className="card">
-                            <div className="ps-3 rounded-top text-white d-flex bg-dark flex-row" style={{ height: '200px' }}>
-                                <div className=" d-flex flex-column" style={{ width: '150px' }}>
-                                    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', zIndex: 1 }} />
+  
+                        <div className="ps-3 rounded-top text-white d-flex flex-row align-items-center" style={{ height: '200px' }}>
+    <div className="d-flex flex-column me-3">
+    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mb-2" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+    </div>
+    <div className="d-flex flex-column" style={{ marginTop: '90px' }}>
+        <h2 style={{ color: 'black' }}>
+            {profileData.first_name.charAt(0).toUpperCase() + profileData.first_name.slice(1)} {profileData.last_name.charAt(0).toUpperCase() + profileData.last_name.slice(1)}
+        </h2>
+        <p>{profileData.birth_date}</p>
+        {/* <span>{userData.phone}</span> */}
+    </div>
+    <div className="d-flex flex-column justify-content-center ms-auto me-3">
+        <Button type="button" className="btn me-0 px-5 text-light" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1, backgroundColor: 'rgb(118, 136, 91)', color: 'black', border: 'none' }}>
+           
+Edit profile
+        </Button>
+    </div>
+</div>
 
-                                </div>
-                                <div className="ms-3" style={{ marginTop: '90px' }}>
-                                    <h2 style={{ color: 'white' }}>
-                                        {profileData.first_name.charAt(0).toUpperCase() + profileData.first_name.slice(1)} {profileData.last_name.charAt(0).toUpperCase() + profileData.last_name.slice(1)}
-                                    </h2>
-                                    <p>{profileData.birth_date}</p>
-                                    {/* <span>{userData.phone}</span> */}
 
-                                </div>
-                            </div>
 
-                            <div className="container text-white bg-dark py-4" >
+
+
+
+
+                            <div className="container text-dark py-4" >
                                 <div className="d-flex justify-content-between text-center py-1">
-                                    <div>
-                                        <Button type="button" className="btn btn-primary flex-start px-5 " data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1 }}>
-                                            Settings
-                                        </Button>
-                                    </div>
+                                   
 
                                     {/* <div className='d-flex'>
                                         <div>
@@ -393,123 +403,191 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
                                 </div>
                             </div>
 
-                            <div className="card-body bg-dark">
-                                <Nav justify variant="tabs" defaultActiveKey="/home">
-                                    <Nav.Item className='navitem'>
-                                        <Nav.Link onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}><span className='links'>My Posts</span></Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className='navitem'>
-                                        <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'Navbar'}><span className='links'>shared Posts</span></Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className='navitem'>
-                                        <Nav.Link onClick={() => handlePageChange('follower')} active={activePage === 'Navbar'}><span className='links'>Followers</span></Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className='navitem'>
-                                        <Nav.Link onClick={() => handlePageChange('following')} active={activePage === 'Navbar'}><span className='links'>Following</span></Nav.Link>
-                                    </Nav.Item>
+                            {/* <div className="card-body">
+                            <Nav justify variant="tabs" defaultActiveKey="/home">
+    <Nav.Item className='navitem'>
+        <Nav.Link onClick={() => handlePageChange('posts')} active={activePage === 'posts'} style={{ backgroundColor: activePage === 'posts' ? 'rgb(221, 221, 221)' : '' }}>
+                <span className={activePage === 'posts' ? 'active-link' : ''} style={{ backgroundColor: activePage === 'posts' ? 'rgb(221, 221, 221)' : '' }}>My Posts</span>
+        </Nav.Link>
+    </Nav.Item>
+    <Nav.Item className='navitem'>
+    <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'nav'} style={{ backgroundColor: activePage === 'nav' ? 'rgb(221, 221, 221)' : '' }}>
+                <span className={activePage === 'nav' ? 'active-link' : ''} style={{ backgroundColor: activePage === 'nav' ? 'rgb(221, 221, 221)' : '' }}>Shared Posts</span>
+        </Nav.Link>
+    </Nav.Item>
+    <Nav.Item className='navitem'>
+    <Nav.Link onClick={() => handlePageChange('follower')} active={activePage === 'follower'} style={{ backgroundColor: activePage === 'follower' ? 'rgb(221, 221, 221)' : '' }}>
+        <span className={activePage === 'follower' ? 'active-link' : ''} style={{ backgroundColor: activePage === 'follower' ? 'rgb(221, 221, 221)' : '' }}>Followers</span>
+    </Nav.Link>
+</Nav.Item>
 
-                                </Nav>
+    <Nav.Item className='navitem'>
+        <Nav.Link onClick={() => handlePageChange('following')} active={activePage === 'following'}style={{ backgroundColor: activePage === 'following' ? 'rgb(221, 221, 221)' : '' }}>
+                <span className={activePage === 'following' ? 'active-link' : '' }style={{ backgroundColor: activePage === 'following' ? 'rgb(221, 221, 221)' : '' }} >Following</span>
+        </Nav.Link>
+    </Nav.Item>
+</Nav>
+
                                 {activePage === 'posts' && <MyPost />}
                                 {activePage === 'nav' && <SharedPost />}
                                 {activePage === 'follower' && <Follower />}
                                 {activePage === 'following' && <Following />}
-                            </div>
+                            </div> */}
+                            <Router>
+      <div className="card-body">
+      <Nav justify variant="tabs" defaultActiveKey="/myPost/Post">
+        <Nav.Item className={`navitem ${activePage === 'posts' ? 'active-nav-item' : ''}`}>
+          <NavLink to="/myPost/Post" className='nav-link' activeClassName='active-link' onClick={() => setActivePage('posts')}>
+            <span className="nav-link-text">My Posts</span>
+          </NavLink>
+        </Nav.Item>
+        <Nav.Item className={`navitem ${activePage === 'nav' ? 'active-nav-item' : ''}`}>
+          <NavLink to="/SharedPost" className='nav-link' activeClassName='active-link' onClick={() => setActivePage('nav')}>
+            <span className="nav-link-text">Shared Posts</span>
+          </NavLink>
+        </Nav.Item>
+        <Nav.Item className={`navitem ${activePage === 'Follower' ? 'active-nav-item' : ''}`}>
+          <NavLink to="/Follower" className='nav-link' activeClassName='active-link' onClick={() => setActivePage('Follower')}>
+            <span className="nav-link-text">Followers</span>
+          </NavLink>
+        </Nav.Item>
+        <Nav.Item className={`navitem ${activePage === 'Following' ? 'active-nav-item' : ''}`}>
+          <NavLink to="/Following" className='nav-link' activeClassName='active-link' onClick={() => setActivePage('Following')}>
+            <span className="nav-link-text">Following</span>
+          </NavLink>
+        </Nav.Item>
+      </Nav>
+        <Switch>
+          <Route path="/myPost/Post" component={MyPost} />
+          <Route path="/SharedPost" component={SharedPost} />
+          <Route path="/Follower" component={Follower} />
+          <Route path="/Following" component={Following} />
+        </Switch>
+      </div>
+    </Router>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog " style={{ maxWidth: '50rem' }}>
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Settings</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body text-dark">
-                            <form onSubmit={handleSubmit} className='mt-5'>
-                                <div className="mb-3 d-flex align-items-center">
-                                    <label className="me-3 mb-0" style={{ width: '100px' }}>First Name:</label>
-                                    <input
-                                        type="text"
-                                        name="first_name"
-                                        value={profileData.first_name}
-                                        onChange={handleInputChange}
-                                        className="form-control"
-                                    />
-                                    {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
-                                </div>
-                                <div className="mb-3 d-flex align-items-center">
-                                    <label className="me-3 mb-0" style={{ width: '100px' }}>Last Name:</label>
-                                    <input
-                                        type="text"
-                                        name="last_name"
-                                        value={profileData.last_name}
-                                        onChange={handleInputChange}
-                                        className="form-control"
-                                    />
-                                    {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
-                                </div>
-                                <div className="mb-3 d-flex align-items-center">
-                                    <label className="me-3 mb-0" style={{ width: '100px' }}>Birth Date:</label>
-                                    <input
-                                        type="date"
-                                        name="birth_date"
-                                        value={profileData.birth_date}
-                                        onChange={handleInputChange}
-                                        className="form-control"
-                                    />
-                                    {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
-                                </div>
-                                <div className="mb-3 d-flex align-items-center">
-                                    <label className="me-3 mb-0" style={{ width: '100px' }}>Profile Image:</label>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={handleImageChange}
-                                        className="form-control"
-                                        style={{ marginTop: '0.5rem' }}
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Update Profile</button>
-                            </form>
-                            <hr/>
-                            <button onClick={handledelete} className="btn btn-danger my-3">Delete Profile</button>
-                            {confirm && <div>
-                                <label className=" mb-0">confirm password:</label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={current_password}
-                                    onChange={(e) => cahangePassword(e)}
-                                    className="form-control mb-3"
-                                />
-                                <button onClick={handleconfirm} className="btn btn-success" data-bs-dismiss="modal">Confirm</button>
-                                {message !== '' ? (<p>{message}</p>) : ('')}
-
-                            </div>}
-
-
-
-                        </div>
-                        <div className="modal-footer d-flex justify-content-between">
-                            {/* <button type="submit" className="btn btn-primary">Update Profile</button> */}
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
+    <div className="modal-dialog" style={{ maxWidth: '50rem' }}>
+        <div className="modal-content" style={{ backgroundColor: 'rgb(221, 221, 221)' }}>
+            <div className="modal-header d-flex justify-content-center">
+                <h1 className="modal-title fs-5 text-center " id="exampleModalLabel">Edit profile</h1>
+         
+                {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" style={{border: 'none',color:"black" ,backgroundColor:'none  ' }}></button>
 
             </div>
+            <div className="modal-body text-dark">
+                <form onSubmit={handleSubmit} className=''>
+                <div className="mb-3 d-flex align-items-center">
+    <Button className="btn ms-2" style={{ background: 'none', border: 'none', padding: "1rem" }}>
+        <label htmlFor="fileInput" style={{ margin: '0', padding: '0' }}>
+            <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="form-control visually-hidden"
+                style={{ marginTop: '0.5rem' }}
+            />
+            <i className="bi bi-image"></i>
+        </label>
+    </Button>
+    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mb-2" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+</div>
+
+                    <div className="mb-3 d-flex align-items-center">
+                        <label className="me-3 mb-0" style={{ width: '100px' }}>First Name:</label>
+                        <input
+                            type="text"
+                            name="first_name"
+                            value={profileData.first_name}
+                            onChange={handleInputChange}
+                            className="form-control"
+                        />
+                        {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
+                    </div>
+                    <div className="mb-3 d-flex align-items-center">
+                        <label className="me-3 mb-0" style={{ width: '100px' }}>Last Name:</label>
+                        <input
+                            type="text"
+                            name="last_name"
+                            value={profileData.last_name}
+                            onChange={handleInputChange}
+                            className="form-control"
+                        />
+                        {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
+                    </div>
+                    <div className="mb-3 d-flex align-items-center">
+                        <label className="me-3 mb-0" style={{ width: '100px' }}>Birth Date:</label>
+                        <input
+                            type="date"
+                            name="birth_date"
+                            value={profileData.birth_date}
+                            onChange={handleInputChange}
+                            className="form-control"
+                        />
+                        {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
+                    </div>
+
+                    <div className="d-flex me-3 ">
+<Button type="submit" className="btn p-3" style={{ background: 'rgb(118, 136, 91)', border: 'none' }} onClick={() => { /* Add your submit logic here */ }} data-bs-dismiss="modal">
+    Save
+</Button>
+
+</div>
+
+
+
+                </form>
+                <hr />
+                <div className="modal-footer d-flex justify-content-between">
+    <Button onClick={handledelete} className="btn my-3" style={{ background: 'rgb(118, 136, 91)', border: 'none' }}>Delete Profile</Button>
+    <button type="button" className="btn" data-bs-dismiss="modal" style={{ background: 'rgb(118, 136, 91)', border: 'none',color:"white" }}>Close</button>
+</div>
+
+                {confirm && <div>
+                    <label className=" mb-0">confirm password:</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={current_password}
+                        onChange={(e) => cahangePassword(e)}
+                        className="form-control mb-3"
+                    />
+                    <button onClick={handleconfirm} className="btn btn-success" data-bs-dismiss="modal">Confirm</button>
+                    {message !== '' ? (<p>{message}</p>) : ('')}
+                </div>}
+            </div>
+        </div>
+    </div>
+</div>
+
             <Modal show={deleteShow} onHide={deletehandleClose}>
                 <Modal.Body>Are You Want to Delete  this Post?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={deletehandleClose}>
                         Close
-                    </Button>
+                    </Button><div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div className="modal-dialog" style={{ maxWidth: '50rem' }}>
+        <div className="modal-content" style={{ backgroundColor: 'rgb(221, 221, 221)' }}>
+            <div className="modal-header d-flex justify-content-center">
+                <h1 className="modal-title fs-5 text-center" id="exampleModalLabel">Edit profile</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body text-dark">
+                {/* Form content */}
+            </div>
+            <div className="modal-footer d-flex justify-content-between">
+                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
                     <Button variant="danger" onClick={(e) => deletePost(e, post)}>
                         Delete
                     </Button>

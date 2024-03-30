@@ -270,7 +270,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
           <div className="container pt-4">
             <div className="row">
               <div className="col">
-                <div className="card text-light bg-dark">
+                <div className="card text-dark">
                   <div className="card-body">
 
 
@@ -294,10 +294,10 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                       <div className="align-self-center mb-2">
                         {sharep.profile.first_name} {sharep.profile.last_name}
                       </div>
-                      <div className="ms-auto text-light">
+                      <div className="ms-auto text-dark">
                         {new Date(sharep.create_at).toLocaleString()}
                         <i
-                          className="bi bi-three-dots-vertical text-light "
+                          className="bi bi-three-dots-vertical text-dark "
                           onClick={toggleDropdown}
                         ></i>
                         {showDropdown && (
@@ -338,7 +338,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                         <div className="align-self-center mb-2">
                           {sharep.post.profile.first_name} {sharep.post.profile.last_name}
                         </div>
-                        <div className="ms-auto text-light">
+                        <div className="ms-auto text-dark">
                           {new Date(sharep.post.create_at).toLocaleString()}
                         </div>
                       </div>
@@ -353,10 +353,10 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                       {/* <h5 className="card-title text-light mt-3">
                             {post.title}
                           </h5> */}
-                      <p className="card-text text-light">{sharep.post.content}</p>
+                      <p className="card-text text-dark">{sharep.post.content}</p>
                       <div className="row mt-5">
                         <div className="pb-3 col-4 text-start">
-                          <i className="bi bi-heart text-light pe-1"></i>{" "}
+                          <i className="bi bi-heart text-dark pe-1"></i>{" "}
                           {sharep.post.love_count} Likes
                         </div>
 
@@ -405,24 +405,24 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                         {sharep.post.comments.map((comment) => (
                           <div
                             key={Post.id}
-                            className="card mb-2 bg-dark  "
+                            className="card mb-2  "
                           >
                             <div className="card-body border-bottom border-secondary border-3 ">
                               <div className="d-flex align-items-center pb-2">
                                 <img
                                   src={sharep.post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.post.profile.image}
                                   alt="Comment Owner"
-                                  className="rounded-circle me-2 text-light"
+                                  className="rounded-circle me-2 text-dark"
                                   style={{ width: "30px", height: "30px" }}
                                 />
-                                <div className="text-light pt-2">
+                                <div className="text-dark pt-2">
                                   {comment.c_author.username}{" "}
                                   {/* {comment.data.profile.last_name} */}
                                 </div>
                               </div>
                               <div className="container">
                                 <div className="row">
-                                  <p className="card-text text-light col-9">
+                                  <p className="card-text text-dark col-9">
                                     {comment.content}
                                   </p>
                                   <button
@@ -443,9 +443,9 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                         ))}
                       </div>
                     </div>
-                    {/* <div className="card text-light bg-dark">
+                    {/* <div className="card text-dark">
                             <div className="card-body">
-                              <h5 className="card-title text-light mt-3">
+                              <h5 className="card-title text-dark mt-3">
                                 Add Comment
                               </h5>
                               <textarea

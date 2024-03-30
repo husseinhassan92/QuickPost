@@ -208,7 +208,7 @@ const deletehandleClose = () => {
           <div className="container-fluid mb-2">
             <div className="row">
               <div className="p-0">
-                <div className="card text-light bg-dark">
+                <div className="card text-dark">
                   <div className="card-body">
 
                     <div className="d-flex align-items-center mb-3">
@@ -222,11 +222,11 @@ const deletehandleClose = () => {
                       <div className="align-self-center mb-2">
                         {post.profile.first_name} {post.profile.last_name}
                       </div>
-                      <div className="ms-auto text-light">
+                      <div className="ms-auto text-dark">
                         {new Date(post.create_at).toLocaleString()}
 
                         <i
-                          className="bi bi-three-dots-vertical text-light "
+                          className="bi bi-three-dots-vertical text-dark "
                           onClick={toggleDropdown}
                         ></i>
                         {showDropdown && (
@@ -279,10 +279,10 @@ const deletehandleClose = () => {
                     {/* <h5 className="card-title text-light mt-3">
                             {post.title}
                           </h5> */}
-                    <p className="card-text text-light">{post.content}</p>
+                    <p className="card-text text-dark">{post.content}</p>
                     <div className="row mt-5">
                       <div className="pb-3 col-4 text-start">
-                        <i className="bi bi-heart text-light pe-1"></i>{" "}
+                        <i className="bi bi-heart text-dark pe-1"></i>{" "}
                         {post.love_count}
                         <span className='d-md-line d-none'>Likes</span>
                       </div>
@@ -329,17 +329,17 @@ const deletehandleClose = () => {
                       {post.comments.map((comment) => (
                         <div
                           key={Post.id}
-                          className="card mb-2 bg-dark  "
+                          className="card mb-2"
                         >
                           <div className="card-body border-bottom border-secondary border-3 ">
                             <div className="d-flex align-items-center pb-2">
                               <img
                                 src={post.profile.image === null ? WhatsApp : 'http://127.0.0.1:8000' +post.profile.image}
                                 alt="Comment Owner"
-                                className="rounded-circle me-2 text-light"
+                                className="rounded-circle me-2 text-dark"
                                 style={{ width: "30px", height: "30px" }}
                               />
-                              <div className="text-light pt-2">
+                              <div className="text-dark pt-2">
                               {post.profile.first_name}{" "}
                               {post.profile.last_name}{" "}
                                 {/* {comment.data.profile.last_name} */}
@@ -347,11 +347,11 @@ const deletehandleClose = () => {
                             </div>
                             <div className="container">
                               <div className="row">
-                                <p className="card-text text-light col-9">
+                                <p className="card-text text-dark col-9">
                                   {comment.content}
                                 </p>
                                 <button
-                                  className="btn btn-dark text-danger col-3 h-75"
+                                  className="btn  col-3 h-75"
                                   onClick={() =>
                                     handleDeleteComment(
                                       post.id,
@@ -374,9 +374,9 @@ const deletehandleClose = () => {
                   profileid={post.profile.id}
                   
                   /> */}
-                  <div className="card text-light bg-dark">
+                  <div className="card text-dark">
                     <div className="card-body">
-                      <h5 className="card-title text-light mt-3">
+                      <h5 className="card-title text-dark mt-3">
                         Add Comment
                       </h5>
                       <textarea

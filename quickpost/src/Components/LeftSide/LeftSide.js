@@ -47,7 +47,8 @@ const Leftbar = ({ isHomePage, logout, isAuthenticated }) => {
 
         Button -> Logout */}
         {/* ============================================================ */}
-      <div className="leftSide vh-100 d-flex flex-column gap-4 bg-dark" style={{ width: '80px' }}>
+      <div className="leftSide vh-100 d-flex flex-column gap-4" style={{ width: '80px' ,background: 'rgb(238, 238, 238)' }}
+>
 
         {/* <!--==== Logo ====--> */}
         <Link to="/home" className="links-active my-2">
