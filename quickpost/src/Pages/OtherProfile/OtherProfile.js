@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Form, FormGroup, FormLabel, FormControl, Button, Row, Col, Card, Dropdown, Modal } from 'react-bootstrap';
@@ -13,13 +13,17 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import SharedPost from '../../Components/OthersharedPost/OtherSharedPost';
 // import SharedPost from '../../Components/sharedPost/SharedPost';
 import MyPost from '../../Components/OtherPost/OtherPost';
+import { changeFavList } from '../../Store/Actions/FavListAction';
+//import { changeFavList } from '../Store/Actions/FavListAction';
 
 
-function OtherProfile({ isAuthenticated, user }) {
+function OtherProfile({ isAuthenticated, user, FavList }) {
     const user_account = useParams();
     console.log(user_account);
 
-    const [following, setFollowing] = useState(false);
+    const [following, setFollowing] = useState();
+    //let FavList = useSelector((state) => state.FavListReduce.FavList)
+    const dispatch = useDispatch();
 
     const [profileData, setProfileData] = useState({});
     const [userData, setUserData] = useState([])
@@ -52,8 +56,25 @@ function OtherProfile({ isAuthenticated, user }) {
                 console.error('Error fetching profile data:', error);
             }
         };
+        const checkFollowingStatus = () => {
+            if (FavList.includes(+user_account.id)) {
+                setFollowing(true);
+            } else {
+                setFollowing(false);
+            }
+        };
 
+        checkFollowingStatus();
         fetchProfileData();
+        console.log(FavList)
+        console.log(user_account.id, typeof(+user_account.id));
+        //console.log(profileData.user_account)
+        // if (FavList.indexOf(user_account.id) !== -1) {
+        //     console.log("ins")
+        //     setFollowing(true);
+        // }else{
+        //     console.log("out")
+        // }
     }, []);
     // const handleFollow = () => {
     //     const data = {
@@ -93,7 +114,8 @@ function OtherProfile({ isAuthenticated, user }) {
             .then(response => {
                 // Handle successful response, update UI to reflect the follow action
                 console.log('Followed successfully');
-                setFollowing(true); // Update state to indicate following
+                setFollowing(true);
+                dispatch(changeFavList(FavList.push(+user_account.id))) // Update state to indicate following
             })
             .catch(error => {
                 // Handle errors
@@ -115,6 +137,11 @@ function OtherProfile({ isAuthenticated, user }) {
                     Accept: "application/json",
                 }
             }).then(response => {
+                const indexOfObject = FavList.findIndex(profileId => {
+                    return profileId === user_account.id;
+                  });
+                  FavList.splice(indexOfObject, 1);
+                  dispatch(changeFavList(FavList))
                 setFollowing(false);
             })
 
@@ -165,8 +192,8 @@ function OtherProfile({ isAuthenticated, user }) {
                                         <button
                                             type="button"
                                             onClick={unfollow}
-                                            className="btn btn-danger  mt-3 px-5"
-                                            style={{ zIndex: 1 }}
+                                            className="btn  text-light mt-3 px-5"
+                                            style={{ zIndex: 1 , backgroundColor:"rgb(98, 114, 84)"}}
                                         >
                                             Unfollow
                                         </button>
@@ -174,8 +201,8 @@ function OtherProfile({ isAuthenticated, user }) {
                                         <button
                                             type="button"
                                             onClick={handleFollow}
-                                            className="btn btn-primary mt-3 px-5"
-                                            style={{ zIndex: 1 }}
+                                            className="btn text-light mt-3 px-5"
+                                            style={{ zIndex: 1 , backgroundColor:"rgb(118, 136, 91)"}}
                                         >
                                             Follow
                                         </button>
@@ -207,5 +234,6 @@ function OtherProfile({ isAuthenticated, user }) {
 const mapStateToProps = state => ({
     isAuthenticated: state.AuthRecducer.isAuthenticated,
     user: state.AuthRecducer.user,
+    FavList:state.FavListReduce.FavList,
 });
 export default connect(mapStateToProps)(OtherProfile);

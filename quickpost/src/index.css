@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --twitter-color: rgb(118, 136, 91);
-   background: rgb(238, 238, 238);
+   /* --twitter-color: rgb(118, 136, 91); */
+   background-color: rgb(238, 238, 238);
 }
 
 code {
@@ -43,13 +43,13 @@ a{
   box-sizing: border-box;
 }
 
-body {
+/* body {
   background: rgb(238, 238, 238);
-}
+} */
 
-.model {
+/* .model {
   background: rgb(221, 221, 221);
-}
+} */
 
 /* button {
   background: rgb(118, 136, 91);

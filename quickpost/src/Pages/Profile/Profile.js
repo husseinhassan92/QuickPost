@@ -19,7 +19,7 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { logout } from "../../Store/Actions/AuthAction";
-import './Profile.css'
+import './profile.css'
 
 
 
@@ -75,6 +75,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
             const response = await axios.get(`http://127.0.0.1:8000/api/profile/user/${user.id}`, config);
             //console.log(response)
             setProfileData(response.data.data);
+            console.log(response.data.data)
 
         } catch (error) {
             console.error('Error fetching profile data:', error);
@@ -205,7 +206,8 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
 
     const handleImageChange = event => {
         const imageFile = event.target.files[0];
-        setProfileData({ ...profileData, image: imageFile });
+        setImage(imageFile)
+        // setProfileData({ ...profileData, image: imageFile });
     };
 
     const handleSubmit = async event => {
@@ -234,7 +236,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
             formData.append('first_name', profileData.first_name);
             formData.append('last_name', profileData.last_name);
             formData.append('birth_date', profileData.birth_date);
-            formData.append('image', profileData.image);
+            formData.append('image', image);
 
             // if (profileData.image) {
             //     formData.append('image', profileData.image);
@@ -433,7 +435,7 @@ Edit profile
                                 {activePage === 'follower' && <Follower />}
                                 {activePage === 'following' && <Following />}
                             </div> */}
-                            <Router>
+                            {/* <Router>
       <div className="card-body">
       <Nav justify variant="tabs" defaultActiveKey="/myPost/Post">
         <Nav.Item className={`navitem ${activePage === 'posts' ? 'active-nav-item' : ''}`}>
@@ -464,7 +466,29 @@ Edit profile
           <Route path="/Following" component={Following} />
         </Switch>
       </div>
-    </Router>
+    </Router> */}
+    <div className="card-body">
+                                <Nav justify variant="tabs" defaultActiveKey="/home">
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}><Link to='/profile/posts'><span className='links'>My Posts</span></Link></Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('nav')} active={activePage === 'Navbar'}><Link to='/profile/sharedpost'><span className='links'>shared Posts</span></Link></Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('follower')} active={activePage === 'Navbar'}><Link to='/profile/followers'><span className='links'>Followers</span></Link></Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item className='navitem'>
+                                        <Nav.Link onClick={() => handlePageChange('following')} active={activePage === 'Navbar'}><Link to='/profile/following'><span className='links'>Following</span></Link></Nav.Link>
+                                    </Nav.Item>
+
+                                </Nav>
+                                {activePage === 'posts' && <MyPost />}
+                                {activePage === 'nav' && <SharedPost />}
+                                {activePage === 'follower' && <Follower />}
+                                {activePage === 'following' && <Following />}
+
+                            </div>
                         </div>
                     </div>
                 </div>

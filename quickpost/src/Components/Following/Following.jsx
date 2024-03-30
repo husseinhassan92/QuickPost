@@ -2,11 +2,13 @@ import React from 'react'
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import { Button, Card, Col } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'; // Import Link
-
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { changeFavList } from '../../Store/Actions/FavListAction';
 function Following({isAuthenticated, user}) {
     let [following, setFollowing] = useState([])
+    let FavList = useSelector((state) => state.FavListReduce.FavList)
+    const dispatch = useDispatch();
     
     async function getFollowing() {
         let { data } = await axios.get(`http://127.0.0.1:8000/api/follow/following/${user.id}/`, {
@@ -35,6 +37,12 @@ function Following({isAuthenticated, user}) {
             }
         }).then(response =>{
             getFollowing()
+            const indexOfObject = FavList.findIndex(profileId => {
+                return profileId === otherId;
+              });
+              FavList.splice(indexOfObject, 1);
+              dispatch(changeFavList(FavList))
+              console.log(FavList)
         })
         
     }
@@ -50,16 +58,14 @@ function Following({isAuthenticated, user}) {
 <Col xs={12} sm={6} md={3} className='mb-5 mt-3 bg-dark'>
     <Card className="friend-card h-100 " >
     <Link to={`/OtherProfile/${following.user_account}`}> 
-
-        <Card.Img variant="top" src={'http://127.0.0.1:8000'+following.image} alt={following.first_name} />
-        </Link>
-
+                    <Card.Img variant="top" src={'http://127.0.0.1:8000'+following.image} alt="Friend" style={{ height: "13rem" }} />
+                  </Link> 
         <Card.Body>
             <Card.Title>{following.first_name} {following.last_name}</Card.Title>
           
           
           
-            <Button variant="danger" onClick={()=>unfollow(following.user_account)}>
+            <Button className="btn  text-light mt-3 px-5" style={{ backgroundColor:"rgb(98, 114, 84)"}} onClick={()=>unfollow(following.user_account)}>
                  unfollow
             </Button>
         </Card.Body>
