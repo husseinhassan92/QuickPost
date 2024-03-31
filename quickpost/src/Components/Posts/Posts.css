@@ -44,9 +44,9 @@
 }
 
 .post-img{
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     display: block;
-    height: 300px !important;
+    /* height: 300px !important; */
 }
 .imgpost{
     height: 100%;

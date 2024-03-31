@@ -13,7 +13,7 @@ import { Button, Dropdown } from 'react-bootstrap';
 import Comment from '../Comment/Comment';
 import HeaderShared from '../OtherHeaderShared/HeaderShared';
 
-function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
+function SharedPost({ isAuthenticated, user, userProfile, profileid }) {
   const [pageNumber, setPageNumber] = useState(1);
   const { loading, data: posts, hasMore } = InifinteScroll(pageNumber);
   const observer = useRef();
@@ -21,7 +21,7 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
 
   let [Post, setPost] = useState([])
   async function getPost() {
-    
+
     let { data } = await axios.get(`http://127.0.0.1:8000/api/post/user/${user.id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -202,50 +202,50 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
           key={sharep.post.id}
           ref={index === posts.length - 1 ? lastPostElementRef : null}
         >
-          <div className="container ">
+          <div className="container pt-4">
             <div className="row">
-              <div className="l">
-                <div className="card text-light bg-dark">
+              <div className="">
+                <div className="card text-dark bg-card">
                   <div className="card-body">
 
 
-                  <HeaderShared
-                  profileimg={sharep.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.profile.image}
-                  firstNmae={sharep.profile.first_name}
-                  lastName={sharep.profile.last_name}
-                  sharedDate={sharep.create_at}
-                  Shareid={sharep.post.id}
-                  />
-                    <div className="card-body">
+                    <HeaderShared
+                      profileimg={sharep.profile.image === null ? WhatsApp : "http://127.0.0.1:8000" + sharep.profile.image}
+                      firstNmae={sharep.profile.first_name}
+                      lastName={sharep.profile.last_name}
+                      sharedDate={sharep.create_at}
+                      Shareid={sharep.post.id}
+                    />
+                    <div className="card-body form-control">
                       <div className="d-flex align-items-center mb-3">
                         <img
-                          src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
+                          src={sharep.post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000" +sharep.post.profile.image}
                           alt="Owner"
                           className="rounded-circle me-2 mb-2"
                           style={{ width: "50px", height: "50px" }}
 
                         />
-                        <div className="align-self-center mb-2">
+                        <div className="align-self-center mb-2 text-dark">
                           {sharep.post.profile.first_name} {sharep.post.profile.last_name}
                         </div>
-                        <div className="ms-auto text-light">
+                        <div className="ms-auto text-dark">
                           {new Date(sharep.post.create_at).toLocaleString()}
                         </div>
                       </div>
+                      <p className="card-text text-dark">{sharep.post.content}</p>
                       <Link to={`/post/${sharep.post.id}`}>
                         <img
                           src={'http://127.0.0.1:8000' + sharep.post.image}
                           alt="Post"
-                          className="img-fluid rounded mb-3 ps-1 w-100"
+                          className="imgpost rounded mb-3  w-100 mx-auto"
 
                         />
                       </Link>
-                      <p className="card-text text-light">{sharep.post.content}</p>
                       <div className="row mt-5">
                         <div className="pb-3 col-4 text-start">
-                          <i className="bi bi-heart text-light pe-1"></i>{" "}
+                          <i className="bi text-dark bi-heart text-light pe-1"></i>{" "}
                           {sharep.post.love_count}
-                          <span className="d-lg-inline d-none">Likes</span>
+                          Likes
                         </div>
 
 
@@ -272,7 +272,7 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
                           }}
                         >
                           <i className="bi bi-chat-dots-fill pe-1"></i>{" "}
-                         
+
                           {sharep.post.comments_count}{' '}
                           <span className="d-lg-inline d-none">Comments</span>
                         </div>
@@ -286,54 +286,84 @@ function SharedPost({isAuthenticated, user, userProfile ,profileid}) {
 
 
 
-                        {sharep.post.comments.map((comment) => (
-                          <div
-                            key={Post.id}
-                            className="card mb-2 bg-dark  "
-                          >
-                            <div className="card-body border-bottom border-secondary border-3 ">
-                              <div className="d-flex align-items-center pb-2">
-                                <img
-                                  src={sharep.post.profile.image === null ? WhatsApp : sharep.post.profile.image}
-                                  alt="Comment Owner"
-                                  className="rounded-circle me-2 text-light"
-                                  style={{ width: "30px", height: "30px" }}
-                                />
-                                <div className="text-light pt-2">
-                                  {comment.c_author.username}{" "}
-                                  {/* {comment.data.profile.last_name} */}
-                                </div>
-                              </div>
-                              <div className="container">
-                                <div className="row">
-                                  <p className="card-text text-light col-9">
-                                    {comment.content}
-                                  </p>
-                                  <button
-                                    className="btn btn-danger col-3 h-75"
-                                    onClick={() =>
-                                      handleDeleteComment(
-                                        sharep.post.id,
-                                        comment.id
-                                      )
-                                    }
-                                  >
-                                   Report
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+
+
+
                       </div>
                     </div>
-                    <Comment
+                    {sharep.post.comments.map((comment) => (
+                      <div
+                        key={Post.id}
+                        className="card mb-2   "
+                      >
+                        <div className="card-body  border-1 ">
+                          <div className="d-flex align-items-center pb-2">
+                            <img
+                              src={sharep.post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.post.profile.image}
+                              alt="Comment Owner"
+                              className="rounded-circle me-2 text-dark"
+                              style={{ width: "30px", height: "30px" }}
+                            />
+                            <div className="text-dark  pt-2">
+                              {comment.c_author.username}{" "}
+                              {/* {comment.data.profile.last_name} */}
+                            </div>
+                          </div>
+                          <div className="container">
+                            <div className="row">
+                              <p className="card-text text-dark col-11">
+                                {comment.content}
+
+                              </p>
+                              <Button
+                                className="bg-card  border border-0 col-1 h-75"
+                                onClick={() =>
+                                  handleDeleteComment(
+                                    sharep.post.id,
+                                    comment.id
+                                  )
+                                }
+                              >
+                                <i className="text-danger bi bi-trash3-fill"></i>
+
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {/* <Comment
                       postid={sharep.post.id}
                       profileid={sharep.post.profile.id}
 
-                    />
+                    /> */}
+                    <div className="card text-dark post border border-0">
+                      <div className="card-body">
+                        <h5 className="card-title text-dark mt-3">
+                          Add Comment
+                        </h5>
+                        <textarea
+                          className="form-control form_input rounded-2 textarea  mb-3 mt-3"
+                          placeholder="Enter your comment"
+                          value={newComment}
+                          onChange={(e) => setNewComment(e.target.value)}
+                        ></textarea>
+                        <Button
+                          className="btn-2"
+                          onClick={() =>
+                            handleAddComment(
+                              sharep.post.id,
+                              sharep.post.profile.id
+                            )
+                          }
+                        >
+                          Add Comment
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
             {index === posts.length - 1 && loading && (

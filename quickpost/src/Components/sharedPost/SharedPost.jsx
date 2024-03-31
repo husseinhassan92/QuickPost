@@ -270,7 +270,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
           <div className="container pt-4">
             <div className="row">
               <div className="col">
-                <div className="card text-dark">
+                <div className="card">
                   <div className="card-body">
 
 
@@ -294,10 +294,10 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                       <div className="align-self-center mb-2">
                         {sharep.profile.first_name} {sharep.profile.last_name}
                       </div>
-                      <div className="ms-auto text-dark">
+                      <div className="ms-auto">
                         {new Date(sharep.create_at).toLocaleString()}
                         <i
-                          className="bi bi-three-dots-vertical text-dark "
+                          className="bi bi-three-dots-vertical "
                           onClick={toggleDropdown}
                         ></i>
                         {showDropdown && (
@@ -338,7 +338,7 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                         <div className="align-self-center mb-2">
                           {sharep.post.profile.first_name} {sharep.post.profile.last_name}
                         </div>
-                        <div className="ms-auto text-dark">
+                        <div className="ms-auto">
                           {new Date(sharep.post.create_at).toLocaleString()}
                         </div>
                       </div>
@@ -353,10 +353,10 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                       {/* <h5 className="card-title text-light mt-3">
                             {post.title}
                           </h5> */}
-                      <p className="card-text text-dark">{sharep.post.content}</p>
+                      <p className="card-text">{sharep.post.content}</p>
                       <div className="row mt-5">
                         <div className="pb-3 col-4 text-start">
-                          <i className="bi bi-heart text-dark pe-1"></i>{" "}
+                          <i className="bi bi-heart pe-1"></i>{" "}
                           {sharep.post.love_count} Likes
                         </div>
 
@@ -407,35 +407,37 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                             key={Post.id}
                             className="card mb-2  "
                           >
-                            <div className="card-body border-bottom border-secondary border-3 ">
+                            <div className="card-body border-1 ">
                               <div className="d-flex align-items-center pb-2">
                                 <img
                                   src={sharep.post.profile.image === null ? WhatsApp : "http://127.0.0.1:8000"+sharep.post.profile.image}
                                   alt="Comment Owner"
-                                  className="rounded-circle me-2 text-dark"
+                                  className="rounded-circle me-2"
                                   style={{ width: "30px", height: "30px" }}
                                 />
-                                <div className="text-dark pt-2">
-                                  {comment.c_author.username}{" "}
+                                <div className="pt-2">
+                                {comment.profile.first_name}{" "}
+                                      {comment.profile.last_name}{" "}
                                   {/* {comment.data.profile.last_name} */}
                                 </div>
                               </div>
                               <div className="container">
                                 <div className="row">
-                                  <p className="card-text text-dark col-9">
+                                  <p className="card-text col-9 ">
                                     {comment.content}
                                   </p>
-                                  <button
-                                    className="btn btn-danger col-3 h-75"
-                                    onClick={() =>
-                                      handleDeleteComment(
-                                        sharep.post.id,
-                                        comment.id
-                                      )
-                                    }
-                                  >
-                                    Delete
-                                  </button>
+                                  <Button
+                                className="bg-card  border border-0 col-1 h-75"
+                                onClick={() =>
+                                  handleDeleteComment(
+                                    sharep.post.id,
+                                    comment.id
+                                  )
+                                }
+                              >
+                                <i className="text-danger bi bi-trash3-fill"></i>
+
+                              </Button>
                                 </div>
                               </div>
                             </div>
@@ -443,33 +445,35 @@ function SharedPost({isAuthenticated, user, userProfile}) {
                         ))}
                       </div>
                     </div>
-                    {/* <div className="card text-dark">
-                            <div className="card-body">
-                              <h5 className="card-title text-dark mt-3">
-                                Add Comment
-                              </h5>
-                              <textarea
-                                className="form-control"
-                                placeholder="Enter your comment"
-                                value={newComment}
-                                onChange={(e) => setNewComment(e.target.value)}
-                              ></textarea>
-                              <button
-                                className="btn btn-primary mt-2"
-                                onClick={() =>
-                                  handleAddComment(sharep.post.id, sharep.post.profile.id)
-                                }
-                              >
-                                Add Comment
-                              </button>
-                            </div>
-                          </div> */}
-
-                    <Comment
+                    <div className="card text-dark post border border-0">
+                      <div className="card-body">
+                        <h5 className="card-title text-dark mt-3">
+                          Add Comment
+                        </h5>
+                        <textarea
+                          className="form-control form_input rounded-2 textarea  mb-3 mt-3"
+                          placeholder="Enter your comment"
+                          value={newComment}
+                          onChange={(e) => setNewComment(e.target.value)}
+                        ></textarea>
+                        <Button
+                          className="btn-2"
+                          onClick={() =>
+                            handleAddComment(
+                              sharep.post.id,
+                              sharep.post.profile.id
+                            )
+                          }
+                        >
+                          Add Comment
+                        </Button>
+                      </div>
+                    </div>
+                    {/* <Comment
                       postid={sharep.post.id}
                       profileid={sharep.post.profile.id}
 
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>

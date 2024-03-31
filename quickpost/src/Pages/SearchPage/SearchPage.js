@@ -56,17 +56,17 @@ const SearchPage = () => {
         ) : (
           // Map through searchResults and render user profiles
           searchResultsRedux.map((profile) => (
-            <div className='parent_sideleft'>
-            <div className='suggested_users '>
-           <div className='d-flex parent_sideleft bg-#401F71'>
+            <div className=''>
+            <div className='users'>
+            <div className='d-flex mt-3 ps-2' style={{ border: '0.5px solid  #401f71', backgroundColor: '#f4f0f0', borderRadius: '0.25rem' }}>
                   <div key={profile.id} className="d-flex row">
-                    <div className="col d-flex align-items-center">
+                    <div className="col d-flex align-items-center big">
                       <Link to={`/OtherProfile/${profile.user_account}`}>
                         {profile.image ? (
                           <img
                             src={profile.image}
                             alt="Owner"
-                            className="rounded-circle me-2 mb-2"
+                            className="rounded-circle me-2 mb-2 mt-3"
                             style={{ width: "50px", height: "50px" }}
                           />
                         ) : (
@@ -74,7 +74,7 @@ const SearchPage = () => {
                         )}
                       </Link>
                       <div className='ms-4'>
-                        <span className='fw-bold text-white' style={{ textTransform: 'capitalize' }}>{profile.first_name} {profile.last_name}</span>
+                        <span className='fw-bold text-dark' style={{ textTransform: 'capitalize' }}>{profile.first_name} {profile.last_name}</span>
                       </div>
                     </div>
                   </div> 

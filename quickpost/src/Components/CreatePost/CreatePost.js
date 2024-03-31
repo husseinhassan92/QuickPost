@@ -268,7 +268,7 @@ const CreatePost = ({
         <div className="container  pt-4 ">
           <div className="row ">
             <div className="col">
-              <div className="card text-dark post">
+              <div className="card text-dark post form-shadow">
                 <div className="card-body">
                   <div className="d-flex align-items-center mb-3">
                     <img

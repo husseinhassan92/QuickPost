@@ -455,7 +455,7 @@ Edit profile
         </Nav.Item>
         <Nav.Item className={`navitem ${activePage === 'Following' ? 'active-nav-item' : ''}`}>
           <NavLink to="/Following" className='nav-link' activeClassName='active-link' onClick={() => setActivePage('Following')}>
-            <span className="nav-link-text">Following</span>
+            <span className="nav-link-text" className={activePage === 'following' ? 'active-link' : '' }>Following</span>
           </NavLink>
         </Nav.Item>
       </Nav>
@@ -532,7 +532,7 @@ Edit profile
                             name="first_name"
                             value={profileData.first_name}
                             onChange={handleInputChange}
-                            className="form-control"
+                            className="form-control form_input rounded-2 textarea  mb-3 mt-3"
                         />
                         {errors.first_name && <span className="text-danger">{errors.first_name}</span>}
                     </div>
@@ -543,18 +543,18 @@ Edit profile
                             name="last_name"
                             value={profileData.last_name}
                             onChange={handleInputChange}
-                            className="form-control"
+                            className="form-control form_input rounded-2 textarea  mb-3 mt-3"
                         />
                         {errors.last_name && <span className="text-danger">{errors.last_name}</span>}
                     </div>
                     <div className="mb-3 d-flex align-items-center">
-                        <label className="me-3 mb-0" style={{ width: '100px' }}>Birth Date:</label>
+                        <label className="me-3 mb-0 " style={{ width: '100px' }}>Birth Date:</label>
                         <input
                             type="date"
                             name="birth_date"
                             value={profileData.birth_date}
                             onChange={handleInputChange}
-                            className="form-control"
+                            className="form-control form_input rounded-2 textarea  mb-3 mt-3"
                         />
                         {errors.birth_date && <span className="text-danger">{errors.birth_date}</span>}
                     </div>
@@ -571,20 +571,20 @@ Edit profile
                 </form>
                 <hr />
                 <div className="modal-footer d-flex justify-content-between">
-    <Button onClick={handledelete} className="btn px-4" variant="danger">Delete Profile</Button>
+    <Button onClick={handledelete} className="btn px-4 rounded-4" variant="danger">Delete Profile</Button>
     <button type="button" className="btn-2"  data-bs-dismiss="modal">Close</button>
 </div>
 
                 {confirm && <div>
-                    <label className="btn bg-danger mb-2  ms-3 text-light px-4 " variant="danger">Confirm Password:</label>
+                    <label className="btn bg-danger mb-2  ms-3 text-light px-4 rounded-4 " variant="danger">Confirm Password:</label>
                     <input
                         type="password"
                         name="password"
                         value={current_password}
                         onChange={(e) => cahangePassword(e)}
-                        className="form-control mb-3"
+                        className="form-control mb-3 form_input rounded-2 textarea mt-3"
                     />
-                    <button onClick={handleconfirm} className="btn bg-danger mb-2  ms-3 text-light px-5" data-bs-dismiss="modal">Confirm</button>
+                    <button onClick={handleconfirm} className="btn bg-danger mb-2  ms-3 text-light px-5 rounded-4" data-bs-dismiss="modal">Confirm</button>
                     {message !== '' ? (<p>{message}</p>) : ('')}
                 </div>}
             </div>

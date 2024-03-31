@@ -334,14 +334,14 @@ const deletehandleClose = () => {
                           <div className="card-body border-bottom border-secondary border-3 ">
                             <div className="d-flex align-items-center pb-2">
                               <img
-                                src={post.profile.image === null ? WhatsApp : 'http://127.0.0.1:8000' +post.profile.image}
+                                src={comment.profile.image === null ? WhatsApp : 'http://127.0.0.1:8000' +post.profile.image}
                                 alt="Comment Owner"
                                 className="rounded-circle me-2 text-dark"
                                 style={{ width: "30px", height: "30px" }}
                               />
                               <div className="text-dark pt-2">
-                              {post.profile.first_name}{" "}
-                              {post.profile.last_name}{" "}
+                              {comment.profile.first_name}{" "}
+                              {comment.profile.last_name}{" "}
                                 {/* {comment.data.profile.last_name} */}
                               </div>
                             </div>
@@ -380,13 +380,13 @@ const deletehandleClose = () => {
                         Add Comment
                       </h5>
                       <textarea
-                        className="form-control"
+                        className="form-control form_input rounded-2 textarea  mb-3 mt-3"
                         placeholder="Enter your comment"
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                       ></textarea>
                       <button
-                        className="btn btn-primary mt-2"
+                        className="btn-2"
                         onClick={() =>
                           handleAddComment(post.id, post.profile.id)
                         }

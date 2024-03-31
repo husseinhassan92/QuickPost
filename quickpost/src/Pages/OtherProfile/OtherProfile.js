@@ -68,36 +68,9 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
         fetchProfileData();
         console.log(FavList)
         console.log(user_account.id, typeof(+user_account.id));
-        //console.log(profileData.user_account)
-        // if (FavList.indexOf(user_account.id) !== -1) {
-        //     console.log("ins")
-        //     setFollowing(true);
-        // }else{
-        //     console.log("out")
-        // }
+
     }, []);
-    // const handleFollow = () => {
-    //     const data = {
-    //         follower: user.id,
-    //         following: user_account.id,
-    //     };
-    //     const config = {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `JWT ${localStorage.getItem('access')}`,
-    //         },
-    //     };
-    //     axios.post(`http://127.0.0.1:8000/api/follow/follow/`, data, config)
-    //         .then(response => {
-    //             // Handle successful response, update UI to reflect the follow action
-    //             console.log('Followed successfully');
-    //             setFollowing(true); // Update state to indicate following
-    //         })
-    //         .catch(error => {
-    //             // Handle errors
-    //             console.error('Error following user:', error);
-    //         });
-    // };
+
 
     const handleFollow = () => {
         const data = {
@@ -158,41 +131,27 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
     }
     return (
         <section className="h-100 gradient-custom-2">
-            <div className="vh-100">
+            <div className="container  py-5 vh-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="">
-                        <div className="card p-0">
-                            <div className="rounded-top  text-white d-flex flex-row" style={{ height: '200px' }}>
-                                <div className="ms-4 mt-5 d-flex flex-column " style={{ width: '150px' }}>
-                                    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', height:'150px',zIndex: 1 }} />
+                        <div className="card">
+                            <div className="ps-3 rounded-top  text-white d-flex flex-row align-items-center" style={{ height: '200px' }}>
+                                <div className="d-flex flex-column me-3" >
+                                    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail  mb-2" style={{ width: '150px', height:'150px',borderRadius: '50%' }} />
                                 </div>
-                                <div className="ms-3" style={{ marginTop: '90px' }}>
+                                <div className="d-flex flex-column" style={{ marginTop: '90px' }}>
                                     <h5>{profileData.first_name + " " + profileData.last_name}</h5>
                                     <p>{profileData.birth_date}</p>
                                 </div>
                             </div>
                             <div className=" text-white">
                                 <div className="d-flex justify-content-start ms-4 py-3">
-                                    {/* <div>
-                                        <p className="mb-1 h5">18</p>
-                                        <p className="small text-muted mb-0">Posts</p>
-                                    </div>
-                                    <div className="px-3">
-                                        <p className="mb-1 h5">1026</p>
-                                        <p className="small text-muted mb-0">Followers</p>
-                                    </div>
-                                    <div>
-                                        <p className="mb-1 h5">478</p>
-                                        <p className="small text-muted mb-0">Following</p>
-                                    </div> */}
-                                    {/* <button type="button" onClick={handleFollow} className="btn btn-primary mt-3  px-5" style={{ zIndex: 1 }}>
-                                        Follow
-                                    </button> */}
+
                                     {following ? (
                                         <button
                                             type="button"
                                             onClick={unfollow}
-                                            className="btn-2 mt-5 px-5"
+                                            className="btn-2 mt-2 px-5"
                                             style={{ zIndex: 1} }
                                         >
                                             Unfollow
@@ -201,7 +160,7 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
                                         <button
                                             type="button"
                                             onClick={handleFollow}
-                                            className="btn-2 mt-5 px-5"
+                                            className="btn-2 mt-2 px-5"
                                             style={{ zIndex: 1 }}
                                         >
                                             Follow

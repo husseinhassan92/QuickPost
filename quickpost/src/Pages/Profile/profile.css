@@ -1,4 +1,4 @@
-/* app.css */
+app.css
 * {
     margin: 0;
     padding: 0;
@@ -11,27 +11,18 @@
     background: rgb(221, 221, 221);
   }
   
-Button {
-    background: rgb(118, 136, 91);
-  }
-  
-  Button:hover {
-    background: rgb(98, 114, 84);
-  }
   
   /* Styling links */
 *{
   color : black
 }
-.active-nav-item {
-  border-bottom: 2px solid rgb(118, 136, 91);
+
+.links.active {
+  color: #401f71;
+  text-decoration: underline;
 }
 
-.active-nav-item {
-  background-color: rgb(221, 221, 221);
-}
-
-.active-nav-link-text{
-  background-color: rgb(221, 221, 221);
-
-}
+.nav-link.active .links {
+  color: #401f71;
+  text-decoration: underline;
+} 

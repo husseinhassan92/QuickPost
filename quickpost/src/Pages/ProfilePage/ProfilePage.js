@@ -12,8 +12,8 @@ const HomePage = ({ isAuthenticated, user, userProfile}) => {
     <div className="container-fluid">
 
       <div className="row">
-        <div className='d-flex'>
-          <div className="left-side  col-2 ">
+        <div className='d-flex vh-100'>
+          <div className="left-side  col-2 vh-100">
             <Leftbar />
           </div>
           {/* <div className='mx-2 fixed-top  style={{ background: 'rgb(238, 238, 238)' }}'>

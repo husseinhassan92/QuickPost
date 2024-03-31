@@ -419,7 +419,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
                           </div>
                           <p className="card-text text-dark">{post.content}</p>
-                          <Link to={`/post/${post.id}`} className="post-img">
+                          <Link to={`/home`} className="post-img">
                             {post.image && (
                               <img
                                 src={"http://127.0.0.1:8000" + post.image}
@@ -503,15 +503,15 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                         comment.profile.image === null
                                           ? WhatsApp
                                           : "http://127.0.0.1:8000" +
-                                          post.profile.image
+                                          comment.profile.image
                                       }
                                       alt="Comment Owner"
                                       className="rounded-circle me-2 text-dark"
                                       style={{ width: "30px", height: "30px" }}
                                     />
                                     <div className="text-dark pt-2">
-                                      {post.profile.first_name}{" "}
-                                      {post.profile.last_name}{" "}
+                                      {comment.profile.first_name}{" "}
+                                      {comment.profile.last_name}{" "}
                                     </div>
                                   </div>
                                   <div className="container">
@@ -521,7 +521,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                       </p>
                                       {comment.c_author.id === user.id && (
                                         <Button
-                                          className=" btn-delete post text-danger border border-0 col-1 h-75"
+                                          className=" bg-card  border border-0 col-1 h-75"
                                           onClick={() =>
                                             handleDeleteComment(
                                               post.id,
@@ -529,7 +529,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                             )
                                           }
                                         >
-                                          <i className="bi bi-trash3-fill"></i>
+                                          <i className=" text-danger bi bi-trash3-fill"></i>
                                         </Button>
                                       )}
                                     </div>
@@ -595,7 +595,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                 <div className="container pt-4">
                   <div className="row">
                     <div className="">
-                      <div className="card text-dark sharedpost">
+                      <div className="card text-dark bg-card">
                         <div className="card-body">
                           <div className="d-flex align-items-center mb-3">
                             <img
@@ -644,14 +644,14 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                             <p className="card-text text-dark">
                               {sharep.post.content}
                             </p>
-                            <Link to={`/post/${sharep.post.id}`}>
+                            <Link to={`/home`}>
                               {sharep.post.image && (
                                 <img
                                   src={
                                     "http://127.0.0.1:8000" + sharep.post.image
                                   }
                                   alt="Post"
-                                  className="img-fluid rounded mb-3 ps-1 w-100"
+                                  className="imgpost rounded mb-3  w-100 mx-auto"
                                 />
                               )}
                             </Link>
@@ -723,7 +723,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               {sharep.post.comments.map((comment) => (
                                 <div
                                   key={Post.id}
-                                  className="card mb-2 post "
+                                  className="card mb-2  "
                                 >
                                   <div className="card-body post border-bottom border-secondary border-1 ">
                                     <div className="d-flex align-items-center pb-2">
@@ -753,7 +753,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                         </p>
                                         {user.id === comment.c_author.id && (
                                           <Button
-                                            className="btn-delete post text-danger border border-0 col-1 h-75"
+                                            className=" bg-card  border border-0 col-1 h-75"
                                             onClick={() =>
                                               handleDeleteComment(
                                                 sharep.post.id,
@@ -761,7 +761,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                               )
                                             }
                                           >
-                                            <i className="bi bi-trash3-fill"></i>
+                                            <i className="text-danger bi bi-trash3-fill"></i>
 
                                           </Button>
                                         )}
@@ -778,13 +778,13 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 Add Comment
                               </h5>
                               <textarea
-                                className="form-control textarea post border border-dark mb-3 mt-3"
+                                className="form-control form_input rounded-2 textarea  mb-3 mt-3"
                                 placeholder="Enter your comment"
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
                               ></textarea>
                               <Button
-                                className="btn1 "
+                                className="btn-2"
                                 onClick={() =>
                                   handleAddComment(
                                     sharep.post.id,
