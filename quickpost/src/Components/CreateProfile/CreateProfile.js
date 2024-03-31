@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { loadUserProfileById } from "../../Store/Actions/AuthAction";
 import './CreateProfile.css'
 import WhatsApp from '../../images/WhatsApp.jpeg'
+import Navbar from '../Navbar/Navbar';
 
 const CreateProfile = ({ isAuthenticated, user, loadUserProfileById, userProfile }) => {
     //console.log(user.id)
@@ -140,42 +141,49 @@ const CreateProfile = ({ isAuthenticated, user, loadUserProfileById, userProfile
     
 
     return (
-        <div className="container mt-5 bg-dark text-white shadow p-3">
+        <>
+                            <Navbar />
+
+       
+        <div className="container mt-5   p-3">
+        
             <div className="row justify-content-center">
-                <div className="col-12">
-                    <div className="card p-4">
-                        <h2 className="mb-4 text-black">Create Profile</h2>
+                <div className="col-6 mx-auto">
+                    <div className="card p-4 form-shadow">
+                        <h2 className="mb-4 main-title text-center">Create Profile</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3 d-flex align-items-center">
                                 <label htmlFor="imageInput" className="form-label me-2">Profile Picture</label>
                                 <label htmlFor="imageInput" className="image-upload position-relative">
                                     <img src={formData.image ? URL.createObjectURL(formData.image) : WhatsApp} alt="User Icon" className="user-icon" />
-                                    <input id="imageInput" type="file" accept="image/*" onChange={handleImageChange} className="position-absolute top-0 start-0 translate-middle" style={{ opacity: 0, cursor: 'pointer' }} />
+                                    <input id="imageInput" type="file" accept="image/*" onChange={handleImageChange} className="position-absolute top-0 start-0 translate-middle form_input" style={{ opacity: 0, cursor: 'pointer' }} />
                                 </label>
                             </div>
 
                             <div className="mb-3">
                                 <label htmlFor="firstNameInput" className="form-label">First Name</label>
-                                <input id="firstNameInput" type="text" className={`form-control ${errors.first_name ? 'is-invalid' : ''}`} name="first_name" value={formData.first_name} onChange={handleChange} placeholder="First Name" />
+                                <input id="firstNameInput" type="text" className={`form-control form_input ${errors.first_name ? 'is-invalid' : ''}`} name="first_name" value={formData.first_name} onChange={handleChange} placeholder="First Name" />
                                 {errors.first_name && <div className="invalid-feedback">{errors.first_name}</div>}
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="lastNameInput" className="form-label">Last Name</label>
-                                <input id="lastNameInput" type="text" className={`form-control ${errors.last_name ? 'is-invalid' : ''}`} name="last_name" value={formData.last_name} onChange={handleChange} placeholder="Last Name" />
+                                <input id="lastNameInput" type="text" className={`form-control form_input ${errors.last_name ? 'is-invalid' : ''}`} name="last_name" value={formData.last_name} onChange={handleChange} placeholder="Last Name" />
                                 {errors.last_name && <div className="invalid-feedback">{errors.last_name}</div>}
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="birthDateInput" className="form-label">Birth Date</label>
-                                <input id="birthDateInput" type="date" className={`form-control ${errors.birth_date ? 'is-invalid' : ''}`} name="birth_date" value={formData.birth_date} onChange={handleChange} />
+                                <input id="birthDateInput" type="date" className={`form-control form_input ${errors.birth_date ? 'is-invalid' : ''}`} name="birth_date" value={formData.birth_date} onChange={handleChange} />
                                 {errors.birth_date && <div className="invalid-feedback">{errors.birth_date}</div>}
                             </div>
-                            <button type="submit" className="btn btn-primary">Create Profile</button>
+                            <div className='w-50 mx-auto'>
+                                <button type="submit" className="btn-2 mt-4 w-100">Create Profile</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    );
+        </> );
 }
 const mapStateToProps = state => ({
     isAuthenticated: state.AuthRecducer.isAuthenticated,

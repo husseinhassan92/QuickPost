@@ -215,7 +215,7 @@ const CreatePost = ({
       <div className="container">
         <div className="row ">
           <div className="col">
-            <div className="border rounded-3 border-secondary p-3 shadow mt-2 post   ms-2 me-2">
+            <div className="rounded-3 p-3 mt-2 form-shadow ">
             <div className="d-inline-flex align-items-center">
   {userProfile && userProfile.image && (
     <img
@@ -240,21 +240,21 @@ const CreatePost = ({
                     onChange={handleContentChange}
                     placeholder="What is happening?"
                     style={{ resize: "none", height: "7rem" }}
-                    className="textarea post border border-dark"
+                    className="textarea form_input rounded-2 bg-card border border-gray"
                   />
                 </Form.Group>
                 <div className="d-flex justify-content-end align-items-center">
                   <span className="text-dark">{postCount}/300</span>
-                  <Button
-                    className="btn2 text-light ms-2"
+                  <span
+                    className="  ms-2 "
                     onClick={uploadhandleShow}
                   >
-                    <i className="bi bi-image"></i>
-                  </Button>
+                    <i className="bi bi-image main-color "></i>
+                  </span>
                   <Button
                     onClick={handleCreatePost}
                     // disabled={disablePostButton}
-                    className=" mx-3 btn1"
+                    className=" mx-3 btn-2"
                   >
                     Post
                   </Button>
@@ -277,7 +277,7 @@ const CreatePost = ({
                       className="rounded-circle me-2 mb-2"
                       style={{ width: "50px", height: "50px" }}
                     />
-                    <div className="align-self-center mb-2">
+                    <div className="align-self-center mb-2 user_title">
                       {post.profile.first_name} {post.profile.last_name}
                     </div>
                     <div className="ms-auto text-dark">

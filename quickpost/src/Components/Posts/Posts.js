@@ -325,20 +325,20 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                 key={post.id}
                 ref={index === posts.length - 1 ? lastPostElementRef : null}
               >
-                <div className="container pt-4">
+                <div className="container pt-4 ">
                   <div className="row">
-                    <div className="">
+                    
                       <div
-                        className="card posts text-dark post"
+                        className="card  text-dark form-shadow"
                         style={{
                           transform: "translateY(0)",
                           transition: "transform 0.3s",
                         }}
                       >
-                        <div className="card-body- p-4">
+                        <div className="card-body- p-res p-4">
                           <div className="d-flex align-items-center mb-3">
                             {post.profile.user_account === user.id ? (
-                              <img
+                              <img 
                                 src={
                                   "http://127.0.0.1:8000" + post.profile.image
                                 }
@@ -360,7 +360,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                 />
                               </Link>
                             )}
-                            <div className="align-self-center mb-2">
+                            <div className="align-self-center mb-2 user_title">
                               {post.profile.first_name} {post.profile.last_name}
                             </div>
                             <div className="ms-auto text-dark">
@@ -376,7 +376,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   show={showDropdown}
                                   onClose={() => setShowDropdown(false)}
                                 >
-                                  <Dropdown.Menu className="mt-2 txt-center ">
+                                  <Dropdown.Menu className="mt-2 p-0 text-center ">
                                     <Button
                                       // <Dropdown.Item onClick={() => handleShowModal(post.id)}>Report</Dropdown.Item>
 
@@ -384,7 +384,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                         handleShowModal(post.id);
                                         setShowDropdown(false);
                                       }}
-                                      className="dropdown-item "
+                                      className="dropdown-item btn_color"
 
                                     >
                                       Report
@@ -409,7 +409,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                                   <Button variant="secondary" onClick={() => handleCloseModal()}>
                                     Close
                                   </Button>
-                                  <Button className="btn1" onClick={handleAddReport}>
+                                  <Button className="btn-2" onClick={handleAddReport}>
                                     Send Report
                                   </Button>
                                 </Modal.Footer>
@@ -419,12 +419,12 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
 
                           </div>
                           <p className="card-text text-dark">{post.content}</p>
-                          <Link to={`/post/${post.id}`}>
+                          <Link to={`/post/${post.id}`} className="post-img">
                             {post.image && (
                               <img
                                 src={"http://127.0.0.1:8000" + post.image}
                                 alt="Post"
-                                className="img-fluid rounded mb-3 ps-1 w-100"
+                                className=" imgpost rounded mb-3 w-100 mx-auto"
                               />
                             )}
                           </Link>
@@ -545,7 +545,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               Add Comment
                             </h5>
                             <textarea
-                              className="form-control textarea post border border-dark mb-3 mt-3"
+                              className="form-control form_input rounded-2 textarea  mb-3 mt-3"
                               placeholder="Enter your comment"
                               value={newComment}
                               onChange={(e) => setNewComment(e.target.value)}
@@ -559,7 +559,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                               Add Comment
                             </button> */}
                             <Button
-                              className="btn1"
+                              className="btn-2"
                               onClick={() =>
                                 handleAddComment(post.id, post.profile.id)
                               }
@@ -570,7 +570,7 @@ const Posts = ({ isAuthenticated, user, userProfile }) => {
                         </div>
                         {/* <Comment postid={post.id} profileid={post.profile.id} />{" "} */}
                       </div>
-                    </div>
+                    
                   </div>
                 </div>
                 {index === posts.length - 1 && loading && (

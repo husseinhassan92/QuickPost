@@ -20,10 +20,10 @@ const Activate = ({ verify, match }) => {
     }
 
     return (
-        <div className='container text-white'>
-            <div className='row rounded shadow  mt-5 w-75 mx-auto p-2'>
-                <div className='text-center p-2' >
-                    <h1 >Verify your Account</h1>
+        <div className='container'>
+            <div className='row  mt-5 w-75 mx-auto p-2'>
+                <div className='text-center p-2 ' >
+                    <h1 className='main-title' >Verify your Account</h1>
                     <div>
                         <img src={verify_img} alt='Verify your Account' style={{width:"300px"}}className='rounded-circle m-2'/>
                         <p className='w-75 mx-auto my-3 fs-5'>We're excited to have you get started. First, you need to confirm your account. Just press the button below.</p>
@@ -31,7 +31,7 @@ const Activate = ({ verify, match }) => {
                     <button
                         onClick={verify_account}
                         type='button'
-                        className='btn btn-primary mb-3 p-2 px-5'
+                        className='btn-2 mb-3 p-2 px-5'
                     >
                         Verify
                     </button>

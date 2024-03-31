@@ -15,18 +15,18 @@ const Welcom = () => {
             src="https://lottie.host/embed/1e1231cc-ba34-4106-99f5-62586c0c0329/j8RyB1tDly.json"
           ></iframe>
 
-          <div className=" col-lg-6 text-center text-md-start text-white">
-            <h1 className="col-md-12 col-sm-12 ">HELLO, FRIENDS.</h1>
-            <h5 className=" mb-4 mt-2  ">We are happy to have you with us and wish you happy time in Quick Post.</h5>
+          <div className=" col-lg-6 text-center text-md-start ">
+            <h1 className="col-md-12 col-sm-12 welcome-title">HELLO, FRIENDS.</h1>
+            <h5 className=" mb-4 mt-2 color-gray ">We are happy to have you with us and wish you happy time in Quick Post.</h5>
             <h6>Don't have an account ?</h6>
 
             <Link to="/Sginup"> 
-            <Button variant="outline-primary" className=" ps-5 pe-5 mb-5 mt-2">Sgin Up</Button>
+            <Button  className=" ps-5 pe-5 mb-5 mt-2 btn_color">Sgin Up</Button>
             </Link>
             <h6>Already have an Account? </h6>
 
             <Link className='nav-link' to="/Login" >
-            <Button  variant="outline-primary" className="ps-5 pe-5 mb-5 mt-3 d-lg-block ">Login</Button>
+            <Button   className="ps-5 pe-5 mb-5 mt-3 d-lg-block btn_color">Login</Button>
             </Link>
           </div>
         </div>

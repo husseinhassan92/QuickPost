@@ -98,13 +98,13 @@ const FriendListPage = ({ user , FavList}) => {
       });
   }
   return (
-    <Container>
+    <div className="container-fluid">
       <Row>
-        <Col className="px-0">
+        <div className="px-0 col-2 vh-100">
           <Leftbar isHomePage={false} />
-        </Col>
-        <Col sm={9}>
-          <h1 className="text-center my-4">Friends List</h1>
+        </div>
+        <div className="col-9" >
+          <h1 className="text-center main-title my-4">Friends List</h1>
 
           {friendsStatus === "LOADING" && <Spinner animation="border" />}
           {friendsStatus === "FAILED" && (
@@ -153,12 +153,12 @@ const FriendListPage = ({ user , FavList}) => {
                         (FavList.includes(friend.user_account) ? (
                           <button
                             type="button"
-                            className="btn text-light mt-3 px-5"
+                            className="btn-2 text-light mt-3 px-5"
                             onClick={() => unfollow(friend.user_account)}
                             
                             style={{
                               zIndex: 1,
-                              backgroundColor: "rgb(98, 114, 84)",
+                            
                               
                             }}
                           >
@@ -167,11 +167,11 @@ const FriendListPage = ({ user , FavList}) => {
                         ) : (
                           <button
                             type="button"
-                            className="btn text-light mt-3 px-5"
+                            className="btn-2 text-light mt-3 px-5"
                             onClick={() => follow(friend.user_account)}
                             style={{
                               zIndex: 1,
-                              backgroundColor: "rgb(118, 136, 91)",
+                            
                             }}
                           >
                             follow
@@ -183,9 +183,9 @@ const FriendListPage = ({ user , FavList}) => {
               ))}
             </Row>
           )}
-        </Col>
+        </div>
       </Row>
-    </Container>
+      </div>
   );
 };
 const mapStateToProps = (state) => ({

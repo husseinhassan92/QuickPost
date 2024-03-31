@@ -131,14 +131,15 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
 
         </Col>
         <Col lg={6}  >
-          <Form onSubmit={e => sumbitdata(e)} className="  ms-md-3  p-5 border border-1  text-center shadow">
-            <h4 className=" pb-4">SGIN UP</h4>
+          <Form onSubmit={e => sumbitdata(e)} className=" form-shadow ms-md-3  p-5 border border-1  text-center">
+            <h2 className=" pb-4 main-title">SGIN UP</h2>
 
             <Form.Group className="col col-10 mx-auto" controlId="userName">
 
               <Form.Control
                 type="text"
                 name="userName"
+                className="form_input"
                 placeholder="Username"
                 value={data.userName}
                 onChange={(e) => {
@@ -152,6 +153,7 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
               <Form.Control
 
                 type="email"
+                className="form_input"
                 placeholder="Email address"
                 name="email"
                 value={data.email}
@@ -167,6 +169,7 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
               <Form.Control
                 type="password"
                 name="password"
+                className="form_input"
                 placeholder="Password"
                 value={data.password}
                 onChange={(e) => changeData(e)}
@@ -179,6 +182,7 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
               <Form.Control
                 type="password"
                 placeholder="Re-password"
+                className="form_input"
                 name="rePassword"
                 value={data.rePassword}
                 onChange={(e) => changeData(e)}
@@ -189,14 +193,13 @@ const Sginup = ({ signup_user, isAuthenticated }) => {
 
 
             <Button
-              variant="outline-primary "
               type="submit"
-              className=" w-75 "
+              className=" w-75 btn-2"
               onClick={(e) => sumbitdata(e)}
             >
               Register
             </Button>
-            <p className="mt-3 mb-4">You have an account?<Link to="/Login"> Login</Link></p>
+            <p className="mt-3 mb-4">You have an account?<Link className="main-color" to="/Login"> Login</Link></p>
             {/* <a className="me-4" href="#"><img className="icon" src={facebook} alt="" /></a>
             <a className="me-4" href="#"><img className="icon" src={google} alt="" /></a>
             <a href="#"><img className="icon" src={twitte} alt="" /></a> */}

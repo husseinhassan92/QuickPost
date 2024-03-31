@@ -93,7 +93,7 @@ function Login({login_user, isAuthenticated, user, msg}) {
   return (
     <>
     <ToastContainer />
-      <div className="container text-white">
+      <div className="container">
         <div className="row ">
           <div className=" d-flex justify-content-center align-items-center gap-4">
             <div className="col-md-6 d-md-block d-none">
@@ -107,9 +107,9 @@ function Login({login_user, isAuthenticated, user, msg}) {
             <div className=" col-md-6 col-12 text-center">
               <Form
                 onSubmit={(e) => sumbitdata(e)}
-                className="form border border-1 mx-auto py-5"
+                className=" form form-shadow border border-1 mx-auto py-5"
               >
-                <h3 className="mb-4 mt-5">LOGIN</h3>
+                <h2 className="mb-4 mt-5 main-title">LOGIN</h2>
                 {loginError && <Alert variant="danger">{loginError}</Alert>}
                 <Form.Group
                   className="mb-3 col-8 mx-auto  "
@@ -119,6 +119,7 @@ function Login({login_user, isAuthenticated, user, msg}) {
                     value={data.email}
                     name="email"
                     type="email"
+                    className="form_input"
                     placeholder="Enter Your Email"
                     onChange={(e) => cahangeData(e)}
                   />
@@ -131,6 +132,7 @@ function Login({login_user, isAuthenticated, user, msg}) {
                   <Form.Control
                     value={data.password}
                     name="password"
+                    className="form_input"
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     onChange={(e) => cahangeData(e)}
@@ -140,17 +142,17 @@ function Login({login_user, isAuthenticated, user, msg}) {
                 </Form.Group>
                 <Button
                   disabled={error.emailError || (error.passError && "disabled")}
-                  className="w-50   but "
-                  variant="outline-primary "
+                  className="w-50 btn-2 "
+              
                   onClick={(e) => sumbitdata(e)}
                 >
                   Login
                 </Button>{" "}
                 <p className="mt-3 mb-4">
-                  You haven't an account?<Link to="/Sginup"> Sign Up</Link>
+                  You haven't an account?<Link className="main-color" to="/Sginup"> Sign Up</Link>
                 </p>
                 <p className="mt-3 mb-4">
-                  You haven't an account?<Link to="/reset-password"> Forget Password</Link>
+                  You haven't an account?<Link className="main-color" to="/reset-password"> Forget Password</Link>
                 </p>
                 {/* <a className="me-4" href="#">
                   <img className="icon" src={facebook} alt="" />

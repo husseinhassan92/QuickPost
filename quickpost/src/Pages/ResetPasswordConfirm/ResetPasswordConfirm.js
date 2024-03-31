@@ -39,15 +39,15 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
     }
 
     return (
-        <div className='container mt-5 text-white'>
+        <div className='container mt-5'>
             <div className='row '>
-                <div className='form-reset w-50 py-3 mx-auto'>
-                    <form className="card text-center mx-auto " style={{ width: "350px" }} onSubmit={onSubmit}>
-                        <div className="card-header h5 text-white bg-primary">Change Password</div>
-                        <div className="card-body px-5">
+                <div className='form-reset w-50 py-5 mx-auto'>
+                    <form className="card text-center mx-auto form-shadow w-75"  onSubmit={onSubmit}>
+                        <div className="card-header fs-2 text-white bgcolor">Change Password</div>
+                        <div className="card-body px-5 py-5">
                             <div className='form-group form-outline my-4'>
                                 <input
-                                    className='form-control'
+                                    className='form-control form_input'
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder='New Password'
                                     name='new_password'
@@ -60,7 +60,7 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
 
                             <div className='form-group form-outline my-4'>
                                 <input
-                                    className='form-control'
+                                    className='form-control form_input'
                                     type={showPassword ? 'text' : 'password'}
                                     placeholder='Confirm New Password'
                                     name='re_new_password'
@@ -72,13 +72,13 @@ const ResetPasswordConfirm = ({ match, reset_password_confirm }) => {
                                 {passwordMatchError && <div className="text-danger">{passwordMatchError}</div>}
                             </div>
                             <button
-                                className='btn btn-secondary w-100 my-2 '
+                                className='btn-2 w-100 my-2 '
                                 type='button'
                                 onClick={() => setShowPassword(!showPassword)}
                             >
                                 {showPassword ? 'Hide' : 'Show'} Password
                             </button>
-                            <button className='btn btn-primary w-100 ' type='submit'>Change Password</button>
+                            <button className='btn-2 w-100 ' type='submit'>Change Password</button>
                         </div>
                     </form>
                 </div>

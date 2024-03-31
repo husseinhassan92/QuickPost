@@ -49,21 +49,21 @@ const MyNavbar = ({ logout, isAuthenticated }) => {
 
   return (
     // <nav className='container-fluid p-1'>
-    //   <div className='container-fluid p-1 b' bg="dark">
+    //   <div className='container-fluid p-1 b' >
     //     <div className='row flex align-items-center justify-content-between m-0 '>
     //       <div className="col p-0">
-    //         <BootstrapNavbar bg="dark" expand="lg" className="p-0">
+    //         <BootstrapNavbar  expand="lg" className="p-0">
     //           <BootstrapNavbar.Brand href="#" className="logo p-1">Quick Post</BootstrapNavbar.Brand>
     //         </BootstrapNavbar>
     //       </div>
 
     //       <div className="col p-0">
-    //         <BootstrapNavbar bg="dark" expand="lg" className="p-0"></BootstrapNavbar>
+    //         <BootstrapNavbar  expand="lg" className="p-0"></BootstrapNavbar>
     //       </div>
 
 
     //       <div className="col p-0">
-    //         <BootstrapNavbar bg="dark" expand="lg" className="p-0">
+    //         <BootstrapNavbar  expand="lg" className="p-0">
     //           <BootstrapNavbar.Collapse>
     //             <Form className="d-flex align-items-center m-0">
     //               <FormControl type="text" placeholder="Search" className="mr-sm-2 ms-3" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
@@ -89,9 +89,9 @@ const MyNavbar = ({ logout, isAuthenticated }) => {
     //   </div>
     // </nav>
 
-    <Navbar className="bg-dark ">
+    <Navbar className=" ">
       <Container>
-        <Navbar.Brand href="#" className='text-primary fs-2'>QuickPost</Navbar.Brand>
+        <Navbar.Brand href="#" className='main-title fs-2'>QuickPost</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           {/* <Navbar.Text className='text-white'>

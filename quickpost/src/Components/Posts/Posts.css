@@ -43,3 +43,12 @@
     background-color: #DDDDDD;
 }
 
+.post-img{
+    border: 1px solid #ddd;
+    display: block;
+    height: 300px !important;
+}
+.imgpost{
+    height: 100%;
+    object-fit: contain;
+}

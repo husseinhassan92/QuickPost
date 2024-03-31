@@ -46,19 +46,18 @@ const Leftbar = ({ isHomePage, logout, isAuthenticated }) => {
         <Link to="/friends" className="dropdown-item">Friends</Link>
 
         Button -> Logout */}
-        {/* ============================================================ */}
-      <div className="leftSide vh-100 d-flex flex-column gap-4" style={{ width: '80px' ,background: 'rgb(238, 238, 238)' }}
->
-
+      {/* ============================================================ */}
+      <div className="leftSide h-100 d-flex flex-column gap-4"
+      >
         {/* <!--==== Logo ====--> */}
-        <Link to="/home" className="links-active my-2">
-        <i class="bi bi-quora fs-2"></i>
-        <span className="icon m-0 fs-3">uickPost</span>
-        </Link>
-        {/* <!--==== Navbar ====--> */}
-        <Nav className="mainNav d-flex flex-column gap-3 align-items-center">
 
-          <Link to="/home" className="links-active mb-6">
+        {/* <!--==== Navbar ====--> */}
+        <Nav className="mainNav d-flex flex-column gap-3  mt-5">
+          <Link to="/home" className="links my-2 ">
+            <i class="bi bi-quora fs-2"></i>
+            <span className="icon m-0 fs-3">uickPost</span>
+          </Link>
+          <Link to="/home" className="links mb-6">
             <i className="bi bi-house-door-fill fs-5"></i>
             <span className="icon">Home</span>
           </Link>
@@ -67,7 +66,7 @@ const Leftbar = ({ isHomePage, logout, isAuthenticated }) => {
             <span className="icon">Explore</span>
           </Link>
           <Link to="/friends" className="links mb-6">
-          <i class="bi bi-people-fill fs-5"></i>
+            <i class="bi bi-people-fill fs-5"></i>
             <span className="icon">Users</span>
           </Link>
           <Link to="/profile" className="links mb-6">
@@ -75,11 +74,11 @@ const Leftbar = ({ isHomePage, logout, isAuthenticated }) => {
             <span className="icon">Profile</span>
           </Link>
           <Link to="/" className="links" onClick={logout_user} id="bg_logout">
-          <i class="bi bi-box-arrow-right fs-5"></i>
-          <span className="d-lg-block d-none icon">Logout</span>
+            <i class="bi bi-box-arrow-right fs-5"></i>
+            <span className="d-lg-block d-none icon">Logout</span>
           </Link>
         </Nav>
-        
+
       </div>
 
     </>

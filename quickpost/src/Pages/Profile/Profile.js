@@ -352,7 +352,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
 
 
     return (
-        <section className="h-100 gradient-custom-2  style={{ background: 'rgb(238, 238, 238)' }}">
+        <section className="h-100 gradient-custom-2">
             <div className="container  py-5 vh-100 " >
                 <ToastContainer />
                 <div className="row d-flex justify-content-center align-items-center h-100">
@@ -371,7 +371,7 @@ function Profile({ isAuthenticated, user, userProfile, logout }) {
         {/* <span>{userData.phone}</span> */}
     </div>
     <div className="d-flex flex-column justify-content-center ms-auto me-3">
-        <Button type="button" className="btn me-0 px-5 text-light" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1, backgroundColor: 'rgb(118, 136, 91)', color: 'black', border: 'none' }}>
+        <Button type="button" className="btn-2 me-0 px-5 text-light" data-mdb-ripple-color="dark" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ zIndex: 1, color: 'black', border: 'none' }}>
            
 Edit profile
         </Button>
@@ -496,12 +496,12 @@ Edit profile
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div className="modal-dialog" style={{ maxWidth: '50rem' }}>
-        <div className="modal-content" style={{ backgroundColor: 'rgb(221, 221, 221)' }}>
+        <div className="modal-content" style={{ backgroundColor: 'rgb(236, 236, 236)' }}>
             <div className="modal-header d-flex justify-content-center">
                 <h1 className="modal-title fs-5 text-center " id="exampleModalLabel">Edit profile</h1>
          
                 {/* <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> */}
-                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" style={{border: 'none',color:"black" ,backgroundColor:'none  ' }}></button>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
             </div>
             <div className="modal-body text-dark">
@@ -517,10 +517,12 @@ Edit profile
                 className="form-control visually-hidden"
                 style={{ marginTop: '0.5rem' }}
             />
-            <i className="bi bi-image"></i>
+            {/* <i className="bi bi-image"></i> */}
+            <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mb-2" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+
         </label>
     </Button>
-    <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mb-2" style={{ width: '150px', height: '150px', borderRadius: '50%' }} />
+    {/* <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mb-2" style={{ width: '150px', height: '150px', borderRadius: '50%' }} /> */}
 </div>
 
                     <div className="mb-3 d-flex align-items-center">
@@ -558,7 +560,7 @@ Edit profile
                     </div>
 
                     <div className="d-flex me-3 ">
-<Button type="submit" className="btn p-3" style={{ background: 'rgb(118, 136, 91)', border: 'none' }} onClick={() => { /* Add your submit logic here */ }} data-bs-dismiss="modal">
+<Button type="submit" className="btn-2 px-4" onClick={() => { /* Add your submit logic here */ }} data-bs-dismiss="modal">
     Save
 </Button>
 
@@ -569,12 +571,12 @@ Edit profile
                 </form>
                 <hr />
                 <div className="modal-footer d-flex justify-content-between">
-    <Button onClick={handledelete} className="btn my-3" style={{ background: 'rgb(118, 136, 91)', border: 'none' }}>Delete Profile</Button>
-    <button type="button" className="btn" data-bs-dismiss="modal" style={{ background: 'rgb(118, 136, 91)', border: 'none',color:"white" }}>Close</button>
+    <Button onClick={handledelete} className="btn px-4" variant="danger">Delete Profile</Button>
+    <button type="button" className="btn-2"  data-bs-dismiss="modal">Close</button>
 </div>
 
                 {confirm && <div>
-                    <label className=" mb-0">confirm password:</label>
+                    <label className="btn bg-danger mb-2  ms-3 text-light px-4 " variant="danger">Confirm Password:</label>
                     <input
                         type="password"
                         name="password"
@@ -582,7 +584,7 @@ Edit profile
                         onChange={(e) => cahangePassword(e)}
                         className="form-control mb-3"
                     />
-                    <button onClick={handleconfirm} className="btn btn-success" data-bs-dismiss="modal">Confirm</button>
+                    <button onClick={handleconfirm} className="btn bg-danger mb-2  ms-3 text-light px-5" data-bs-dismiss="modal">Confirm</button>
                     {message !== '' ? (<p>{message}</p>) : ('')}
                 </div>}
             </div>
@@ -593,11 +595,11 @@ Edit profile
             <Modal show={deleteShow} onHide={deletehandleClose}>
                 <Modal.Body>Are You Want to Delete  this Post?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={deletehandleClose}>
+                    <Button variant="secondary" onClick={deletehandleClose} className='btn-2'>
                         Close
                     </Button><div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div className="modal-dialog" style={{ maxWidth: '50rem' }}>
-        <div className="modal-content" style={{ backgroundColor: 'rgb(221, 221, 221)' }}>
+        <div className="modal-content" style={{ backgroundColor: 'EEEEEE' }}>
             <div className="modal-header d-flex justify-content-center">
                 <h1 className="modal-title fs-5 text-center" id="exampleModalLabel">Edit profile</h1>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

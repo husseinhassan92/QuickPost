@@ -38,13 +38,13 @@ const SearchPage = () => {
             <input 
               type="text" 
               placeholder="Search" 
-              className="form-control mr-sm-2 ms-3 search-input" 
+              className="form-control form_input rounded  ms-3 search-input" 
               value={searchTerm} 
               onChange={(e) => setSearchTerm(e.target.value)} 
             />
             <button 
               type="button" 
-              className="btn btn-outline-primary ms-3 search-button" 
+              className="btn-2 ms-3 search-button" 
               onClick={handleSearch}
             >
               Search
@@ -57,8 +57,8 @@ const SearchPage = () => {
           // Map through searchResults and render user profiles
           searchResultsRedux.map((profile) => (
             <div className='parent_sideleft'>
-              <div className='suggested_users'>
-                <div className='d-flex parent_sideleft'>
+            <div className='suggested_users '>
+           <div className='d-flex parent_sideleft bg-#401F71'>
                   <div key={profile.id} className="d-flex row">
                     <div className="col d-flex align-items-center">
                       <Link to={`/OtherProfile/${profile.user_account}`}>

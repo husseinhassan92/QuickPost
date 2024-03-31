@@ -29,15 +29,15 @@ const ResetPassword = ({ reset_password }) => {
             <div className='row '>
                 <div className='form-reset w-50 py-5 mx-auto'>
 
-                    <form className="card text-center mx-auto " style={{ width: "500px", height:"550px"}} onSubmit={e => onSubmit(e)}>
-                        <div className="card-header h5 text-white bg-primary">Password Reset</div>
-                        <div className="card-body px-5">
-                            <p className="card-text py-4">
+                    <form className="card text-center mx-auto w-75 form-shadow  "  onSubmit={e => onSubmit(e)}>
+                        <div className="card-header fs-2 text-white bgcolor">Password Reset</div>
+                        <div className="card-body px-5  py-5">
+                            <p className="card-text fs-5">
                                 Enter your email address and we'll send you an email with instructions to reset your password.
                             </p>
                             <div className='form-group form-outline'>
                                 <input
-                                    className='form-control my-3'
+                                    className='form-control form_input my-3'
                                     type='email'
                                     placeholder='Enter Your Email'
                                     name='email'
@@ -46,15 +46,15 @@ const ResetPassword = ({ reset_password }) => {
                                     required
                                 />
                             </div>
-                            <button className='btn btn-primary my-3' type='submit'>Reset Password</button>
-                            {/* <div className="d-flex justify-content-between mt-5">
-                                <Link to="/Login">
+                            <button className='btn-2 my-3' type='submit'>Reset Password</button>
+                            <div className="d-flex justify-content-between mt-5">
+                                <Link to="/Login" className="main-color">
                                     Login
                                 </Link>
-                                <Link to="/Sginup">
+                                <Link to="/Sginup" className="main-color">
                                     SginUp
                                 </Link>
-                            </div> */}
+                            </div>
                         </div>
                     </form>
                 </div>

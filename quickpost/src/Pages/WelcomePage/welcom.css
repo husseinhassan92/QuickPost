@@ -5,3 +5,23 @@ iframe{
 .icon{
     width: 35px;
 }
+
+
+
+.welcome-title{
+    color:var(--main-color) !important;
+}
+
+.color-gray{
+    color: var(--color-gray) !important;
+}
+
+.btn_color {
+    color: #401F71;
+    background-color: transparent;
+}
+
+.btn_color:hover {
+    background-color: #401F71;
+    color: #fff;
+}

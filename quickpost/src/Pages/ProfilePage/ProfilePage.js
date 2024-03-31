@@ -9,17 +9,17 @@ import Profile from '../Profile/Profile'
 import './profilePage.css';
 const HomePage = ({ isAuthenticated, user, userProfile}) => {
   return (
-   
-    <div className="container-fluid  style={{ background: 'rgb(238, 238, 238)' }}" >
+    <div className="container-fluid">
+
       <div className="row">
         <div className='d-flex'>
-          <div className="left-side col-lg-3 col-1 me-2 mt-5">
+          <div className="left-side  col-2 ">
             <Leftbar />
           </div>
           {/* <div className='mx-2 fixed-top  style={{ background: 'rgb(238, 238, 238)' }}'>
               <Navbar/>
           </div> */}
-          <div className="middle col-lg-9  col-11  rounded-3   style={{ background: 'rgb(238, 238, 238)' }}">
+          <div className="middle   col-10  rounded-3 ">
             <Profile/>
           </div>
           {/* <div className='right-side col-lg-3   style={{ background: 'rgb(238, 238, 238)' }}'>
@@ -27,8 +27,7 @@ const HomePage = ({ isAuthenticated, user, userProfile}) => {
           </div> */}
         </div>
       </div>
-    </div>
-  
+      </div>
   )
 }
 

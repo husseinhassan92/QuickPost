@@ -1,32 +1,7 @@
-body{
-    /* background-color: #dddddd; */
-
+.card{
+  border: 1px solid #f7f7f7 !important;
+  border-radius: 15px !important;
 }
-.container {
-    background-color: #dddddd;
-    padding: 30px;
-    border-radius: 10px;
-  }
-  
-  .card {
-    background-color: transparent;
-    border: none;
-    /* background-color: #dddddd; */
-
-  }
-  
-  .form-control {
-    /* background-color: #ffffff; */
-  }
-  
-  .btn-primary {
-    background-color:#5b7743;
-    border: #5b7743;
-  }
-  .btn-primary:hover {
-    background-color: #5b7743;
-}
-  
   .invalid-feedback {
     color: #dc3545;
   }
@@ -66,7 +41,11 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1; /* Ensure the label is behind the image */
-    color: white; /* Set the color of the label text */
+    color: var(--main-color); /* Set the color of the label text */
     font-size: 16px; /* Adjust the font size as needed */
     cursor: pointer; /* Change cursor to pointer on hover */
+}
+.form-label{
+  font-size: 16px !important;
+  font-weight: bold !important;
 }

@@ -157,13 +157,13 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
         };
     }
     return (
-        <section className="h-100 gradient-custom-2 bg-dark">
-            <div className="bg-dark  vh-100">
-                <div className="row d-flex bg-dark justify-content-center align-items-center h-100">
+        <section className="h-100 gradient-custom-2">
+            <div className="vh-100">
+                <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="">
                         <div className="card p-0">
-                            <div className="rounded-top bg-dark text-white d-flex flex-row" style={{ height: '200px' }}>
-                                <div className="ms-4 mt-5 d-flex flex-column bg-dark" style={{ width: '150px' }}>
+                            <div className="rounded-top  text-white d-flex flex-row" style={{ height: '200px' }}>
+                                <div className="ms-4 mt-5 d-flex flex-column " style={{ width: '150px' }}>
                                     <img src={'http://127.0.0.1:8000' + profileData.image} alt="Generic placeholder" className="img-fluid img-thumbnail mt-4 mb-2" style={{ width: '150px', height:'150px',zIndex: 1 }} />
                                 </div>
                                 <div className="ms-3" style={{ marginTop: '90px' }}>
@@ -171,7 +171,7 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
                                     <p>{profileData.birth_date}</p>
                                 </div>
                             </div>
-                            <div className="bg-dark text-white">
+                            <div className=" text-white">
                                 <div className="d-flex justify-content-start ms-4 py-3">
                                     {/* <div>
                                         <p className="mb-1 h5">18</p>
@@ -192,8 +192,8 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
                                         <button
                                             type="button"
                                             onClick={unfollow}
-                                            className="btn  text-light mt-3 px-5"
-                                            style={{ zIndex: 1 , backgroundColor:"rgb(98, 114, 84)"}}
+                                            className="btn-2 mt-5 px-5"
+                                            style={{ zIndex: 1} }
                                         >
                                             Unfollow
                                         </button>
@@ -201,8 +201,8 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
                                         <button
                                             type="button"
                                             onClick={handleFollow}
-                                            className="btn text-light mt-3 px-5"
-                                            style={{ zIndex: 1 , backgroundColor:"rgb(118, 136, 91)"}}
+                                            className="btn-2 mt-5 px-5"
+                                            style={{ zIndex: 1 }}
                                         >
                                             Follow
                                         </button>
@@ -210,7 +210,7 @@ function OtherProfile({ isAuthenticated, user, FavList }) {
                                 </div>
                             </div>
 
-                            <div className="card-body bg-dark">
+                            <div className="card-body ">
                                 <Nav justify variant="tabs" defaultActiveKey="/home">
                                     <Nav.Item className='navitem'>
                                         <Nav.Link onClick={() => handlePageChange('posts')} active={activePage === 'Posts'}><span className='links'>Posts</span></Nav.Link>

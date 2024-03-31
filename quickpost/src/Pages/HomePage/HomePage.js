@@ -13,10 +13,10 @@ const HomePage = ({ isAuthenticated, user, userProfile, loadUserProfileById}) =>
   if (user){loadUserProfileById(user.id);}
   return (
     <>
-    <div className="container mt-3">
+    <div className="container-fluid">
       <div className="row">
         <div className='d-flex'>
-          <div className="left-side col-2 me-3 mt-5">
+          <div className="left-side col-2">
             <Leftbar />
           </div>
           {/* <div className='mx-2 mb-3 fixed-top'>

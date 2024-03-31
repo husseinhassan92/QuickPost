@@ -1,11 +1,16 @@
-
+.leftSide {
+  width: 100% !important;
+  background-color: var(--card-color) !important;
+}
 .links-active {
   display: flex;
   justify-content: center;
   align-items: center;
   color: #5f99f7 !important;
 }
-
+.mainNav{
+  margin-left: -35px;
+}
 .mainNav a {
   color: black;
 }
@@ -32,7 +37,11 @@
     height: 50px !important;
     border-radius: 50% !important;
   }
+  .mainNav{
+    margin-left: 0;
+  }
 }
+
 
 .links {
   display: flex;
@@ -41,13 +50,17 @@
 }
 
 .links:hover {
-  background: rgb(98, 114, 84);}
+color: var(--main-color);
+}
 
 .icon {
   display: none;
   font-weight: 700;
 }
-
+.icon:hover {
+  color:var(--main-color);
+}
+.icon:hover 
 .icon-interact {
 
   display: flex;
@@ -55,6 +68,6 @@
   align-items: center;
   font-size: 14px;
 }
-#bg_logout:hover{
-  background: rgb(98, 114, 84);
-}
+/* #bg_logout:hover{
+  background:rgb(240, 58, 58);
+} */
